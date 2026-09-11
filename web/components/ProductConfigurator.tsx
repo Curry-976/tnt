@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
-import { BASE_PRICE, FLOQUAGE_PRICE, SIZES, type Product, type Size } from "@/lib/products";
+import { BASE_PRICE, FLOQUAGE_PRICE, SIZES, type Size } from "@/lib/products";
+import type { Product } from "@/sanity/lib/queries";
 
 export function ProductConfigurator({ product }: { product: Product }) {
   const { addItem } = useCart();

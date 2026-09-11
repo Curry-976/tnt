@@ -20,26 +20,39 @@ git clone <url-du-repo> /var/www/torrow-web
 cd /var/www/torrow-web/web
 ```
 
-## 3. Variables d'environnement
+## 3. Catalogue produits (Sanity)
+
+```bash
+npm ci
+npx sanity@latest init
+```
+
+Cette commande est interactive : elle ouvre une page de connexion (crée un
+compte Sanity gratuit si besoin), puis propose de créer un projet. Choisis
+« Create new project », dataset `production`. À la fin elle affiche le
+`project ID` — note-le pour l'étape suivante.
+
+Le catalogue se gère ensuite depuis `https://<ton-domaine>/studio` (formulaire
+d'ajout/édition/suppression de maillots, upload de photos).
+
+## 4. Variables d'environnement
 
 ```bash
 cp .env.example .env.local
-nano .env.local   # remplir DATABASE_URL, AUTH_SECRET, STRIPE_*, NEXT_PUBLIC_SITE_URL
+nano .env.local   # remplir NEXT_PUBLIC_SANITY_PROJECT_ID, DATABASE_URL, AUTH_SECRET, STRIPE_*, NEXT_PUBLIC_SITE_URL
 ```
 
 `NEXT_PUBLIC_SITE_URL` doit être l'URL publique finale (ex.
 `https://torrownamtorrow.com`) — Stripe s'en sert pour les redirections
 après paiement.
 
-## 4. Base de données (une fois DATABASE_URL renseigné)
+## 5. Base de données (une fois DATABASE_URL renseigné)
 
 ```bash
-npm ci
 npm run db:push    # crée les tables dans Neon
-npm run db:seed    # insère le catalogue des 6 maillots
 ```
 
-## 5. Build
+## 6. Build
 
 ```bash
 npm run build
@@ -58,7 +71,7 @@ cp .env.local .next/standalone/
 Le dossier `.next/standalone/` est alors tout ce qu'il faut pour lancer le
 site : `node server.js` dedans écoute sur le port `3000` par défaut.
 
-## 6. Lancer le service (systemd)
+## 7. Lancer le service (systemd)
 
 Un unit file prêt à l'emploi est fourni dans `deploy/torrow-web.service` —
 il suppose que le build final vit dans `/var/www/torrow-web` (adapte-le
@@ -73,7 +86,7 @@ sudo systemctl enable --now torrow-web
 sudo systemctl status torrow-web
 ```
 
-## 7. Reverse proxy + HTTPS
+## 8. Reverse proxy + HTTPS
 
 ```bash
 sudo cp deploy/nginx.conf /etc/nginx/sites-available/torrow-web
@@ -83,7 +96,7 @@ sudo nginx -t && sudo systemctl reload nginx
 sudo certbot --nginx -d torrownamtorrow.com -d www.torrownamtorrow.com
 ```
 
-## 8. Webhook Stripe
+## 9. Webhook Stripe
 
 Dans le dashboard Stripe (mode Live une fois prêt), crée un endpoint
 webhook pointant vers `https://<ton-domaine>/api/webhooks/stripe`, événement

@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BASE_PRICE, FLOQUAGE_PRICE, PRODUCTS } from "@/lib/products";
+import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
+import { getAllProducts } from "@/sanity/lib/queries";
 
-const homeProducts = PRODUCTS.slice(0, 5);
+export default async function HomePage() {
+  const homeProducts = (await getAllProducts()).slice(0, 5);
 
-export default function HomePage() {
   return (
     <>
       <div className="hero">
@@ -126,6 +127,11 @@ export default function HomePage() {
             Voir tout
           </Link>
         </div>
+        {homeProducts.length === 0 && (
+          <p className="faint">
+            Aucun maillot pour l’instant. Ajoute-en depuis <Link href="/studio" style={{ textDecoration: "underline" }}>l&apos;espace produits</Link>.
+          </p>
+        )}
         <div className="product-grid">
           {homeProducts.map((product) => (
             <Link key={product.slug} href={`/produit/${product.slug}`} className="card">

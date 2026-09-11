@@ -7,15 +7,6 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const products = pgTable("products", {
-  id: serial("id").primaryKey(),
-  slug: varchar("slug", { length: 80 }).notNull().unique(),
-  name: varchar("name", { length: 120 }).notNull(),
-  category: varchar("category", { length: 20 }).notNull(),
-  basePriceCents: integer("base_price_cents").notNull(),
-  image: text("image").notNull(),
-});
-
 export const orders = pgTable("orders", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id),
@@ -32,9 +23,11 @@ export const orderItems = pgTable("order_items", {
   orderId: integer("order_id")
     .notNull()
     .references(() => orders.id),
-  productId: integer("product_id")
-    .notNull()
-    .references(() => products.id),
+  // Product catalog now lives in Sanity, not Neon, so order lines snapshot the
+  // product identity/price at purchase time instead of holding a foreign key
+  // to a local products table (which no longer exists).
+  productSlug: varchar("product_slug", { length: 80 }).notNull(),
+  productName: varchar("product_name", { length: 120 }).notNull(),
   size: varchar("size", { length: 4 }).notNull(),
   floque: boolean("floque").notNull().default(false),
   nom: varchar("nom", { length: 20 }),

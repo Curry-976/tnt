@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BASE_PRICE, PRODUCTS, type ProductCategory } from "@/lib/products";
+import { BASE_PRICE, type ProductCategory } from "@/lib/products";
+import type { Product } from "@/sanity/lib/queries";
 
 type Filter = "all" | ProductCategory;
 
@@ -14,9 +15,9 @@ const FILTERS: { value: Filter; label: string }[] = [
   { value: "keeper", label: "Gardien" },
 ];
 
-export function CollectionGrid({ initialFilter }: { initialFilter: Filter }) {
+export function CollectionGrid({ initialFilter, products }: { initialFilter: Filter; products: Product[] }) {
   const [filter, setFilter] = useState<Filter>(initialFilter);
-  const visible = filter === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === filter);
+  const visible = filter === "all" ? products : products.filter((p) => p.category === filter);
 
   return (
     <>
@@ -33,6 +34,12 @@ export function CollectionGrid({ initialFilter }: { initialFilter: Filter }) {
           </button>
         ))}
       </div>
+
+      {visible.length === 0 && (
+        <p className="faint">
+          Aucun maillot pour l’instant. Ajoute-en depuis <Link href="/studio" style={{ textDecoration: "underline" }}>l&apos;espace produits</Link>.
+        </p>
+      )}
 
       <div className="product-grid">
         {visible.map((product) => (

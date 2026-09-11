@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { BASE_PRICE, PRODUCTS, getProduct } from "@/lib/products";
+import { BASE_PRICE } from "@/lib/products";
+import { getProduct } from "@/sanity/lib/queries";
 import { ProductConfigurator } from "@/components/ProductConfigurator";
-
-export function generateStaticParams() {
-  return PRODUCTS.map((p) => ({ slug: p.slug }));
-}
 
 export async function generateMetadata({
   params,
@@ -14,7 +11,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getProduct(slug);
   if (!product) return {};
   return {
     title: `TORROW NAM – ${product.name}`,
@@ -28,7 +25,7 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getProduct(slug);
   if (!product) notFound();
 
   return (
