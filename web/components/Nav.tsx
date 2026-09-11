@@ -1,0 +1,39 @@
+import Link from "next/link";
+import Image from "next/image";
+import { ThemeToggle } from "./ThemeToggle";
+import { CartLink } from "./CartLink";
+
+export function Nav() {
+  return (
+    <header className="nav">
+      <div className="nav-left">
+        <Link href="/" aria-label="Accueil Torrow Nam Torrow">
+          <Image className="logo" src="/assets/torrow-wordmark.png" alt="TORROW" height={26} width={122} priority />
+        </Link>
+      </div>
+      <nav className="navlinks">
+        <Link href="/">Accueil</Link>
+        <Link href="/collection">Maillots</Link>
+        <Link href="/collection">Collection</Link>
+        <Link href="/a-propos">À propos</Link>
+      </nav>
+      <div className="nav-right">
+        <Link href="/contact" className="nav-action">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+            <circle cx="10.5" cy="10.5" r="6.5"></circle>
+            <path d="M15.5 15.5 21 21"></path>
+          </svg>
+          <span>Contact</span>
+        </Link>
+        <CartLink />
+        <Link href="/compte" className="iconbtn" aria-label="Mon compte" title="Mon compte">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4.5 21c0-4.1 3.4-6.5 7.5-6.5s7.5 2.4 7.5 6.5"></path>
+          </svg>
+        </Link>
+        <ThemeToggle />
+      </div>
+    </header>
+  );
+}
