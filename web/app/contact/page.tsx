@@ -10,7 +10,7 @@ export default function ContactPage() {
         <div className="page-eyebrow">Contact</div>
         <h1 className="page-title">Une question ?</h1>
         <p className="page-lede">
-          Commande, taille, livraison, partenariat — écris-nous, on te répond sous 48h.
+          Commande, taille, livraison, partenariat : écris-nous, on te répond sous 48h.
         </p>
       </div>
 

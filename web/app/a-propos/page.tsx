@@ -14,7 +14,7 @@ export default function AProposPage() {
         <h1 className="page-title">On est la team.</h1>
         <p className="page-lede">
           Torrow Nam Torrow est né d’une envie simple : porter l’identité de Mayotte sur un maillot, et la
-          partager avec celles et ceux qui s’y reconnaissent. Pas une marque de sport de plus — un mouvement.
+          partager avec celles et ceux qui s’y reconnaissent. Pas une marque de sport de plus, un mouvement.
         </p>
       </div>
 
@@ -41,7 +41,7 @@ export default function AProposPage() {
         <h2>Livraison &amp; retours</h2>
         <p className="prose">
           Livraison en France métropolitaine sous 15 à 20 jours (chaque pièce est floquée à la commande).
-          La livraison en DOM-TOM n’est pas disponible pour l’instant — on y travaille.
+          La livraison en DOM-TOM n’est pas disponible pour l’instant, on y travaille.
         </p>
         <p className="prose">
           Un problème avec ta commande ? Écris-nous depuis la page{" "}
@@ -77,7 +77,7 @@ export default function AProposPage() {
       <div id="mentions-legales" className="panel about-section">
         <h2>Mentions légales</h2>
         <p className="prose">
-          Torrow Nam Torrow — site en cours de mise en ligne. Les informations légales complètes (raison
+          Torrow Nam Torrow : site en cours de mise en ligne. Les informations légales complètes (raison
           sociale, SIRET, siège social, hébergeur) seront publiées ici avant l’ouverture des ventes.
         </p>
       </div>

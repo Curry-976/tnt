@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s · Torrow Nam Torrow",
   },
   description:
-    "Maillots inspirés de Mayotte. Torrow Nam Torrow — une team, une identité.",
+    "Maillots inspirés de Mayotte. Torrow Nam Torrow : une team, une identité.",
 };
 
 const THEME_INIT = `

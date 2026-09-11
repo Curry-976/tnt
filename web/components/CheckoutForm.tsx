@@ -78,7 +78,7 @@ export function CheckoutForm({ defaultEmail }: { defaultEmail: string }) {
             <div key={item.id} className="cart-summary-row" style={{ alignItems: "flex-start" }}>
               <span>
                 {item.qty}× {item.name} ({item.size})
-                {item.floque && item.nom ? ` — ${item.nom} ${item.numero}` : ""}
+                {item.floque && item.nom ? ` · ${item.nom} ${item.numero}` : ""}
               </span>
               <span>{itemUnitPrice(item) * item.qty} €</span>
             </div>
