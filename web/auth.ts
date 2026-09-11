@@ -6,6 +6,12 @@ import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  // The site runs behind an nginx reverse proxy (see DEPLOY.md); without
+  // this, Auth.js rejects every request with "UntrustedHost" because the
+  // Host header it sees doesn't match what it expects from a direct
+  // connection. nginx is trusted here since it's ours and only forwards the
+  // real client's X-Forwarded-* headers, not attacker-controlled ones.
+  trustHost: true,
   session: { strategy: "jwt" },
   pages: { signIn: "/compte" },
   providers: [
