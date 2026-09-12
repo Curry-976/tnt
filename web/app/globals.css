@@ -237,6 +237,8 @@ html[data-theme="dark"] {
   border-top: 1px solid var(--nav-border);
   box-shadow: var(--nav-shadow);
   z-index: 30;
+  max-height: 85vh;
+  overflow-y: auto;
   animation: tntFade 0.2s ease both;
 }
 
@@ -244,14 +246,14 @@ html[data-theme="dark"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 2px;
-  font-size: 17px;
-  font-weight: 700;
+  padding: 22px 2px;
+  font-size: 27px;
+  font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--navlinks-color);
   border-bottom: 1px solid var(--rule-border);
 }
-.mobile-menu-panel a svg { color: var(--faint-color); flex-shrink: 0; }
+.mobile-menu-panel a svg { color: var(--faint-color); flex-shrink: 0; width: 22px; height: 22px; }
 
 .mobile-menu-panel a[aria-current="page"] { color: var(--text-color); }
 
