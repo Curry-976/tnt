@@ -614,9 +614,9 @@ html[data-theme="dark"] .hero-title {
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 .season-tab[aria-pressed="true"] {
-  background: var(--text-color);
-  border-color: var(--text-color);
-  color: var(--panel-bg);
+  background: var(--cta-bg);
+  border-color: var(--cta-border);
+  color: var(--cta-color);
 }
 .season-tab-soon {
   margin-left: 8px;
