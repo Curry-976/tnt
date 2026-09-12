@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BASE_PRICE } from "@/lib/products";
+import { SITE_URL } from "@/lib/site";
 import { getProduct } from "@/sanity/lib/queries";
 import { ProductConfigurator } from "@/components/ProductConfigurator";
 import { FavoriteButton } from "@/components/FavoriteButton";
@@ -14,9 +15,27 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = await getProduct(slug);
   if (!product) return {};
+
+  const title = `TORROW NAM – ${product.name}`;
+  const url = `${SITE_URL}/produit/${product.slug}`;
+
   return {
-    title: `TORROW NAM – ${product.name}`,
+    title,
     description: product.description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      title,
+      description: product.description,
+      url,
+      images: [{ url: product.image }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: product.description,
+      images: [product.image],
+    },
   };
 }
 
@@ -29,8 +48,28 @@ export default async function ProductPage({
   const product = await getProduct(slug);
   if (!product) notFound();
 
+  const productUrl = `${SITE_URL}/produit/${product.slug}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `TORROW NAM – ${product.name}`,
+    description: product.description,
+    image: [product.image],
+    sku: product.slug,
+    brand: { "@type": "Brand", name: "Torrow Nam Torrow" },
+    offers: {
+      "@type": "Offer",
+      url: productUrl,
+      priceCurrency: "EUR",
+      price: BASE_PRICE,
+      availability: "https://schema.org/InStock",
+    },
+  };
+
   return (
     <div className="product-layout">
+      {/* Product rich-result data for search engines — see schema.org/Product. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="product-gallery">
         <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 100vw, 55vw" priority />
       </div>
