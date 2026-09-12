@@ -239,7 +239,20 @@ html[data-theme="dark"] {
   display: flex;
   flex-direction: column;
   background: var(--menu-panel-bg);
-  animation: tntFade 0.15s ease both;
+  transform-origin: top;
+  animation: tntRollDown 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.mobile-search-overlay--closing {
+  animation: tntRollUp 0.22s ease-in both;
+}
+
+@keyframes tntRollDown {
+  from { transform: scaleY(0); opacity: 0.4; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+@keyframes tntRollUp {
+  from { transform: scaleY(1); opacity: 1; }
+  to { transform: scaleY(0); opacity: 0.4; }
 }
 
 .mobile-search-header {

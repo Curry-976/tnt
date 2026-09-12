@@ -11,6 +11,7 @@ type SearchResult = { slug: string; name: string; image: string; categoryLabel: 
 export function MobileSearch() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [value, setValue] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,13 @@ export function MobileSearch() {
   }
 
   function close() {
+    setClosing(true);
+  }
+
+  function handleCloseAnimationEnd() {
+    if (!closing) return;
     setOpen(false);
+    setClosing(false);
     setValue("");
     setResults([]);
   }
@@ -63,7 +70,10 @@ export function MobileSearch() {
         type="button"
         className="nav-action nav-search-icon"
         aria-label="Rechercher"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setClosing(false);
+          setOpen(true);
+        }}
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
           <path
@@ -75,7 +85,10 @@ export function MobileSearch() {
       </button>
 
       {open && (
-        <div className="mobile-search-overlay">
+        <div
+          className={`mobile-search-overlay${closing ? " mobile-search-overlay--closing" : ""}`}
+          onAnimationEnd={handleCloseAnimationEnd}
+        >
           <form className="mobile-search-header" onSubmit={handleSubmit} role="search">
             <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path
