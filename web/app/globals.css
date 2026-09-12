@@ -927,6 +927,7 @@ html[data-theme="dark"] .hero-title {
   .nav-search { display: inline-flex; }
   .nav-right .nav-action span { display: none; }
   .nav-right .theme-toggle { display: none; }
+  .nav-right { gap: 14px; }
   .hero-grid { grid-template-columns: 1fr; }
   .hero-visual { display: none; }
   .hero-copy { padding: 0 24px; }
