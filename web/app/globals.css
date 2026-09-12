@@ -37,7 +37,7 @@ input, textarea, select { font: inherit; color: inherit; }
    toggle script runs. */
 
 :root {
-  --shell-bg: radial-gradient(900px 600px at 12% 8%, rgba(245,185,33,0.16), transparent 62%), radial-gradient(820px 560px at 88% 66%, rgba(255,150,130,0.14), transparent 64%), #fffdf7;
+  --shell-bg: linear-gradient(135deg, #bee8e8 0%, #c97b8a 100%);
   --text-color: #16203c;
   --nav-bg: rgba(255,255,255,0.92);
   --nav-border: rgba(22,32,60,0.07);
