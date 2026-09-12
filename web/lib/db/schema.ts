@@ -35,3 +35,11 @@ export const orderItems = pgTable("order_items", {
   qty: integer("qty").notNull(),
   unitPriceCents: integer("unit_price_cents").notNull(),
 });
+
+export const contactMessages = pgTable("contact_messages", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 120 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
