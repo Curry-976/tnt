@@ -34,6 +34,20 @@ export const product = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "season",
+      title: "Saison",
+      type: "string",
+      description: "Collection à laquelle appartient ce maillot.",
+      options: {
+        list: [
+          { title: "Été", value: "ete" },
+          { title: "Hiver (à venir)", value: "hiver" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "ete",
+    }),
+    defineField({
       name: "image",
       title: "Photo",
       type: "image",
