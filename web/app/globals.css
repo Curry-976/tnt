@@ -42,7 +42,7 @@ input, textarea, select { font: inherit; color: inherit; }
   --nav-bg: rgba(255,255,255,0.92);
   --nav-border: rgba(22,32,60,0.07);
   --nav-shadow: 0 14px 34px rgba(22,32,60,0.08);
-  --menu-panel-bg: rgba(255,253,247,0.98);
+  --menu-panel-bg: #fffdf7;
   --navlinks-color: #42506b;
   --panel-bg: #ffffff;
   --panel-border: rgba(22,32,60,0.06);
@@ -84,7 +84,7 @@ html[data-theme="dark"] {
   --nav-bg: rgba(255,255,255,0.06);
   --nav-border: rgba(255,255,255,0.1);
   --nav-shadow: 0 18px 40px rgba(0,0,0,0.45);
-  --menu-panel-bg: rgba(8,10,14,0.96);
+  --menu-panel-bg: #08090c;
   --navlinks-color: #cfd4da;
   --panel-bg: rgba(255,255,255,0.04);
   --panel-border: rgba(255,255,255,0.08);
@@ -192,32 +192,31 @@ html[data-theme="dark"] {
   padding: 0;
 }
 
-.mobile-menu { position: relative; }
+.mobile-menu { display: contents; }
 
 .mobile-menu-panel {
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;
   left: 0;
-  min-width: 200px;
+  right: 0;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 12px;
-  border-radius: 16px;
+  padding: 6px 26px 10px;
   background: var(--menu-panel-bg);
-  border: 1px solid var(--nav-border);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border-top: 1px solid var(--nav-border);
   box-shadow: var(--nav-shadow);
   z-index: 30;
+  animation: tntFade 0.2s ease both;
 }
 
 .mobile-menu-panel a {
-  padding: 9px 10px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 500;
+  padding: 15px 2px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   color: var(--navlinks-color);
+  border-bottom: 1px solid var(--rule-border);
 }
 
 .mobile-menu-panel a[aria-current="page"] { color: var(--text-color); }
@@ -226,8 +225,8 @@ html[data-theme="dark"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 10px;
-  margin-top: 4px;
+  padding: 15px 2px;
+  margin-top: 0;
   border-top: 1px solid var(--rule-border);
   font-size: 14px;
   color: var(--navlinks-color);
