@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { CartProvider } from "@/lib/cart-context";
+import { FavoritesProvider } from "@/lib/favorites-context";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
@@ -38,11 +39,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {THEME_INIT}
         </Script>
         <CartProvider>
-          <div id="top" className="shell">
-            <Nav />
-            {children}
-            <Footer />
-          </div>
+          <FavoritesProvider>
+            <div id="top" className="shell">
+              <Nav />
+              {children}
+              <Footer />
+            </div>
+          </FavoritesProvider>
         </CartProvider>
       </body>
     </html>

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { BASE_PRICE } from "@/lib/products";
 import { getProduct } from "@/sanity/lib/queries";
 import { ProductConfigurator } from "@/components/ProductConfigurator";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export async function generateMetadata({
   params,
@@ -46,6 +47,7 @@ export default async function ProductPage({
             <span className="faint">flocage nom + numéro en option</span>
           </div>
           <p className="product-desc">{product.description}</p>
+          <FavoriteButton slug={product.slug} variant="inline" />
         </div>
         <ProductConfigurator product={product} />
       </div>

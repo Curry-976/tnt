@@ -6,7 +6,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 type NavLink = { href: string; label: string };
 
-export function MobileMenu({ links }: { links: NavLink[] }) {
+export function MobileMenu({ links, extraLinks = [] }: { links: NavLink[]; extraLinks?: NavLink[] }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,9 +36,11 @@ export function MobileMenu({ links }: { links: NavLink[] }) {
               {link.label}
             </Link>
           ))}
-          <Link href="/contact" onClick={() => setOpen(false)}>
-            Contact
-          </Link>
+          {extraLinks.map((link) => (
+            <Link key={link.href + link.label} href={link.href} onClick={() => setOpen(false)}>
+              {link.label}
+            </Link>
+          ))}
           <div className="mobile-menu-row">
             <span>Thème</span>
             <ThemeToggle />

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BASE_PRICE, type ProductCategory } from "@/lib/products";
 import type { Product, ProductSeason } from "@/sanity/lib/queries";
+import { FavoriteButton } from "./FavoriteButton";
 
 type Filter = "all" | ProductCategory;
 
@@ -23,17 +24,32 @@ const SEASONS: { value: ProductSeason; label: string }[] = [
 export function CollectionGrid({
   initialFilter,
   initialSeason,
+  initialQuery,
   products,
 }: {
   initialFilter: Filter;
   initialSeason: ProductSeason;
+  initialQuery: string;
   products: Product[];
 }) {
   const [season, setSeason] = useState<ProductSeason>(initialSeason);
   const [filter, setFilter] = useState<Filter>(initialFilter);
+  const [query, setQuery] = useState(initialQuery);
 
   const bySeason = products.filter((p) => p.season === season);
-  const visible = filter === "all" ? bySeason : bySeason.filter((p) => p.category === filter);
+  const byCategory = filter === "all" ? bySeason : bySeason.filter((p) => p.category === filter);
+  const normalizedQuery = query.trim().toLowerCase();
+  const visible = useMemo(
+    () =>
+      normalizedQuery
+        ? byCategory.filter(
+            (p) =>
+              p.name.toLowerCase().includes(normalizedQuery) ||
+              p.description.toLowerCase().includes(normalizedQuery)
+          )
+        : byCategory,
+    [byCategory, normalizedQuery]
+  );
 
   return (
     <>
@@ -78,9 +94,27 @@ export function CollectionGrid({
             ))}
           </div>
 
+          <div className="form-row" style={{ maxWidth: 320, marginBottom: 22 }}>
+            <input
+              type="search"
+              className="form-input"
+              placeholder="Rechercher un maillot…"
+              aria-label="Rechercher un maillot"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+
           {visible.length === 0 && (
             <p className="faint">
-              Aucun maillot pour l’instant. Ajoute-en depuis <Link href="/studio" style={{ textDecoration: "underline" }}>l&apos;espace produits</Link>.
+              {normalizedQuery
+                ? "Aucun maillot ne correspond à ta recherche."
+                : (
+                  <>
+                    Aucun maillot pour l’instant. Ajoute-en depuis{" "}
+                    <Link href="/studio" style={{ textDecoration: "underline" }}>l&apos;espace produits</Link>.
+                  </>
+                )}
             </p>
           )}
 
@@ -90,6 +124,7 @@ export function CollectionGrid({
                 <div className="card-media">
                   <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 50vw, 20vw" />
                   {product.badge && <span className="badge">{product.badge}</span>}
+                  <FavoriteButton slug={product.slug} />
                 </div>
                 <div className="card-name">TORROW NAM – {product.name}</div>
                 <div className="card-row">
