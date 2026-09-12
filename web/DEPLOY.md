@@ -58,25 +58,15 @@ npm run db:push    # crée les tables dans Neon
 npm run build
 ```
 
-Avec `output: "standalone"` (déjà configuré dans `next.config.ts`), le
-build produit un serveur autonome dans `.next/standalone/`. Les assets
-statiques ne sont pas copiés automatiquement dedans, il faut les ajouter :
-
-```bash
-cp -r public .next/standalone/
-cp -r .next/static .next/standalone/.next/
-cp .env.local .next/standalone/
-```
-
-Le dossier `.next/standalone/` est alors tout ce qu'il faut pour lancer le
-site : `node server.js` dedans écoute sur le port `3000` par défaut.
+`next start` (lancé à l'étape suivante) sert directement depuis ce dossier
+`web/` — pas de copie manuelle de `public/`, des assets ou de `.env.local`,
+contrairement à un build `standalone`.
 
 ## 7. Lancer le service (systemd)
 
 Un unit file prêt à l'emploi est fourni dans `deploy/torrow-web.service` —
-il suppose que le build final vit dans `/var/www/torrow-web` (adapte-le
-si tu gardes le build dans `.next/standalone/` à un autre endroit ; le
-plus simple est de faire de `.next/standalone/` le `WorkingDirectory`).
+adapte le chemin (`WorkingDirectory` doit pointer vers `web/`) et le port
+si besoin.
 
 ```bash
 sudo cp deploy/torrow-web.service /etc/systemd/system/torrow-web.service
@@ -112,6 +102,15 @@ sudo systemctl restart torrow-web
 ```bash
 cd /var/www/torrow-web && git pull
 cd web && npm ci && npm run build
-cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/
 sudo systemctl restart torrow-web
+```
+
+`npm ci` ne re-télécharge rien si `package-lock.json` n'a pas changé
+depuis la dernière fois : tu peux l'omettre la plupart du temps et
+lancer juste `npm run build && sudo systemctl restart torrow-web`.
+
+Ou, plus simple, en une seule commande depuis `web/` :
+
+```bash
+bash deploy/update.sh
 ```

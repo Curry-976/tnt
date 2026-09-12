@@ -5,12 +5,11 @@ After=network.target
 [Service]
 Type=simple
 # Adjust to the path where you clone/deploy the repo on the VPS.
-WorkingDirectory=/var/www/torrow-web
-# Standalone output's server.js listens on PORT (default 3000).
+WorkingDirectory=/var/www/torrow-web/web
 Environment=NODE_ENV=production
 Environment=PORT=3000
-EnvironmentFile=/var/www/torrow-web/.env.local
-ExecStart=/usr/bin/node server.js
+# next start reads .env.local itself from WorkingDirectory, no EnvironmentFile needed.
+ExecStart=/var/www/torrow-web/web/node_modules/.bin/next start -p 3000
 Restart=on-failure
 RestartSec=5
 User=www-data
