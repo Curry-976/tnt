@@ -29,6 +29,13 @@
       "when": 1789230115656,
       "tag": "0003_equal_justice",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789232669199,
+      "tag": "0004_furry_hulk",
+      "breakpoints": true
     }
   ]
 }

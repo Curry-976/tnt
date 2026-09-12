@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import Link from "next/link";
 import { loginAction, registerAction, signInGoogleAction, signInAppleAction, type AuthActionState } from "@/lib/actions/auth";
 
 const initialState: AuthActionState = { error: null };
@@ -58,6 +59,9 @@ export function AuthTabs({ defaultTab = "login" }: { defaultTab?: "login" | "reg
           <button type="submit" className="cta" disabled={loginPending}>
             <span>{loginPending ? "Connexion…" : "Se connecter"}</span>
           </button>
+          <Link href="/compte/mot-de-passe-oublie" className="form-note auth-forgot-link">
+            Mot de passe oublié ?
+          </Link>
         </form>
       ) : (
         <form className="auth-form" action={registerFormAction}>

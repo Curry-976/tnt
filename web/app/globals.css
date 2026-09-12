@@ -923,6 +923,8 @@ html[data-theme="dark"] .hero-title {
 .form-error { font-size: 13px; color: var(--danger-color); margin: 0; }
 .form-note { font-size: 13px; color: var(--faint-color); margin: 0; }
 
+.auth-forgot-link { display: block; text-align: center; margin-top: 4px; text-decoration: underline; }
+
 .form-row-split { display: flex; gap: 12px; flex-wrap: wrap; }
 .form-row-split .form-row { flex: 1; min-width: 130px; }
 

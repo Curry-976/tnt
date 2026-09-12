@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { eq, desc } from "drizzle-orm";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
@@ -29,9 +30,12 @@ export default async function TableauDeBordPage() {
       <div className="panel">
         <div className="panel-head">
           <h2>Mes commandes</h2>
-          <form action={signOutAction}>
-            <button type="submit" className="ghost">Se déconnecter</button>
-          </form>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Link href="/compte/parametres" className="ghost">Modifier mes infos</Link>
+            <form action={signOutAction}>
+              <button type="submit" className="ghost">Se déconnecter</button>
+            </form>
+          </div>
         </div>
 
         {myOrders.length === 0 ? (

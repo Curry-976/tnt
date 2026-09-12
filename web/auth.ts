@@ -76,8 +76,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      if (session.user && token.uid) session.user.id = token.uid as string;
-      if (session.user) session.user.name = (token.name as string | null) ?? null;
+      if (!session.user || !token.uid) return session;
+      session.user.id = token.uid as string;
+      // Re-read from the DB instead of trusting the JWT's cached name/email,
+      // so edits made on /compte/parametres show up immediately everywhere
+      // without needing to sign out and back in.
+      const [current] = await db.select().from(users).where(eq(users.id, Number(token.uid))).limit(1);
+      session.user.name = current?.name ?? null;
+      if (current?.email) session.user.email = current.email;
       return session;
     },
   },
