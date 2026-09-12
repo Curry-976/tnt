@@ -15,10 +15,7 @@ const NAV_LINKS = [
   { href: "/a-propos", label: "À propos" },
 ];
 
-const MOBILE_MENU_EXTRA_LINKS = [
-  { href: "/favoris", label: "Favoris" },
-  { href: "/contact", label: "Contact" },
-];
+const MOBILE_MENU_EXTRA_LINKS = [{ href: "/favoris", label: "Favoris" }];
 
 export function Nav() {
   return (
