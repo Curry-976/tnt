@@ -42,7 +42,8 @@ export async function requestPasswordResetAction(
   const resetUrl = `${SITE_URL}/compte/reinitialiser?token=${token}`;
   try {
     await sendPasswordResetEmail(email, resetUrl);
-  } catch {
+  } catch (err) {
+    console.error("[password-reset] Échec de l'envoi de l'email :", err);
     return { error: "Impossible d'envoyer l'email pour le moment. Réessaie plus tard." };
   }
 
