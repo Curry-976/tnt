@@ -3,6 +3,8 @@ import { pgTable, serial, text, integer, boolean, timestamp, varchar } from "dri
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
+  // Nullable: older accounts created before this field existed have no name.
+  name: varchar("name", { length: 120 }),
   // Nullable: accounts created via Google sign-in have no password.
   passwordHash: text("password_hash"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

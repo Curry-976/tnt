@@ -23,7 +23,7 @@ export default async function TableauDeBordPage() {
     <>
       <div className="page-head">
         <div className="page-eyebrow">Compte</div>
-        <h1 className="page-title">Bonjour {session.user.email}</h1>
+        <h1 className="page-title">Bonjour {session.user.name || session.user.email?.split("@")[0]}</h1>
       </div>
 
       <div className="panel">

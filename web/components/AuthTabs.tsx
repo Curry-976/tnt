@@ -53,6 +53,10 @@ export function AuthTabs({ defaultTab = "login" }: { defaultTab?: "login" | "reg
       ) : (
         <form className="auth-form" action={registerFormAction}>
           <div className="form-row">
+            <label className="form-label" htmlFor="register-name">Nom</label>
+            <input id="register-name" name="name" type="text" className="form-input" required />
+          </div>
+          <div className="form-row">
             <label className="form-label" htmlFor="register-email">Email</label>
             <input id="register-email" name="email" type="email" className="form-input" required />
           </div>

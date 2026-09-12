@@ -12,9 +12,13 @@ export async function registerAction(
   _prevState: AuthActionState,
   formData: FormData
 ): Promise<AuthActionState> {
+  const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
 
+  if (!name) {
+    return { error: "Le nom est obligatoire." };
+  }
   if (!email || !email.includes("@")) {
     return { error: "Adresse email invalide." };
   }
@@ -24,7 +28,7 @@ export async function registerAction(
 
   const passwordHash = await bcrypt.hash(password, 10);
   try {
-    await db.insert(users).values({ email, passwordHash });
+    await db.insert(users).values({ email, name, passwordHash });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     if (message.toLowerCase().includes("unique")) {

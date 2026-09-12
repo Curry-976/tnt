@@ -35,7 +35,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const valid = await bcrypt.compare(password, user.passwordHash);
         if (!valid) return null;
 
-        return { id: String(user.id), email: user.email };
+        return { id: String(user.id), email: user.email, name: user.name };
       },
     }),
   ],
@@ -52,18 +52,28 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       const [existing] = await db.select().from(users).where(eq(users.email, email)).limit(1);
       if (existing) {
         user.id = String(existing.id);
+        // Backfill the name for accounts created before this field existed.
+        if (!existing.name && user.name) {
+          await db.update(users).set({ name: user.name }).where(eq(users.id, existing.id));
+        } else {
+          user.name = existing.name;
+        }
       } else {
-        const [created] = await db.insert(users).values({ email }).returning();
+        const [created] = await db.insert(users).values({ email, name: user.name }).returning();
         user.id = String(created.id);
       }
       return true;
     },
     async jwt({ token, user }) {
-      if (user) token.uid = user.id;
+      if (user) {
+        token.uid = user.id;
+        token.name = user.name;
+      }
       return token;
     },
     async session({ session, token }) {
       if (session.user && token.uid) session.user.id = token.uid as string;
+      if (session.user) session.user.name = (token.name as string | null) ?? null;
       return session;
     },
   },
