@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/db/schema";
 import { signOutAction } from "@/lib/actions/auth";
+import { isAdminEmail } from "@/lib/admin";
 
 export const metadata: Metadata = { title: "Mon compte" };
 export const dynamic = "force-dynamic";
@@ -31,6 +32,9 @@ export default async function TableauDeBordPage() {
         <div className="panel-head">
           <h2>Mes commandes</h2>
           <div style={{ display: "flex", gap: "10px" }}>
+            {isAdminEmail(session.user.email) && (
+              <Link href="/admin/commandes" className="ghost">Commandes (admin)</Link>
+            )}
             <Link href="/compte/parametres" className="ghost">Modifier mes infos</Link>
             <form action={signOutAction}>
               <button type="submit" className="ghost">Se déconnecter</button>
@@ -52,6 +56,11 @@ export default async function TableauDeBordPage() {
                   </div>
                 </div>
                 <div className="price">{(order.totalCents / 100).toFixed(2)} €</div>
+                {order.trackingNumber ? (
+                  <Link href={`/compte/commandes/${order.id}`} className="ghost">Suivre mon colis</Link>
+                ) : (
+                  <span />
+                )}
               </div>
             ))}
           </div>

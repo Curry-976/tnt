@@ -36,6 +36,13 @@
       "when": 1789232669199,
       "tag": "0004_furry_hulk",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789255816279,
+      "tag": "0005_happy_thunderbolts",
+      "breakpoints": true
     }
   ]
 }

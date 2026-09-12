@@ -18,6 +18,10 @@ export const orders = pgTable("orders", {
   stripeSessionId: varchar("stripe_session_id", { length: 255 }),
   totalCents: integer("total_cents").notNull(),
   shippingAddress: text("shipping_address"),
+  // Set once the order ships — registers the shipment with AfterShip so its
+  // status can be shown to the customer.
+  trackingNumber: varchar("tracking_number", { length: 100 }),
+  trackingCarrierSlug: varchar("tracking_carrier_slug", { length: 50 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
