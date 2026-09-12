@@ -30,8 +30,8 @@ export function Nav() {
       <div className="nav-right">
         <Link href="/contact" className="nav-action nav-contact">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
-            <circle cx="10.5" cy="10.5" r="6.5"></circle>
-            <path d="M15.5 15.5 21 21"></path>
+            <rect x="3" y="5" width="18" height="14" rx="2.2"></rect>
+            <path d="M4 6.5 12 13l8-6.5"></path>
           </svg>
           <span>Contact</span>
         </Link>
