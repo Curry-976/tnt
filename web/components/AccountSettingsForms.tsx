@@ -19,9 +19,11 @@ export function AccountSettingsForms({
 
   return (
     <div className="cart-list">
-      <div className="panel auth-shell">
-        <h2>Profil</h2>
-        <form className="auth-form" action={profileFormAction}>
+      <div className="panel">
+        <div className="panel-head">
+          <h2>Profil</h2>
+        </div>
+        <form className="auth-form settings-form" action={profileFormAction}>
           <div className="form-row">
             <label className="form-label" htmlFor="name">Nom</label>
             <input id="name" name="name" type="text" className="form-input" defaultValue={name} required />
@@ -38,9 +40,11 @@ export function AccountSettingsForms({
         </form>
       </div>
 
-      <div className="panel auth-shell">
-        <h2>{hasPassword ? "Changer le mot de passe" : "Définir un mot de passe"}</h2>
-        <form className="auth-form" action={passwordFormAction}>
+      <div className="panel">
+        <div className="panel-head">
+          <h2>{hasPassword ? "Changer le mot de passe" : "Définir un mot de passe"}</h2>
+        </div>
+        <form className="auth-form settings-form" action={passwordFormAction}>
           {hasPassword && (
             <div className="form-row">
               <label className="form-label" htmlFor="currentPassword">Mot de passe actuel</label>
