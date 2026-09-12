@@ -716,6 +716,9 @@ html[data-theme="dark"] .hero-title {
 .form-error { font-size: 13px; color: var(--danger-color); margin: 0; }
 .form-note { font-size: 13px; color: var(--faint-color); margin: 0; }
 
+.form-row-split { display: flex; gap: 12px; flex-wrap: wrap; }
+.form-row-split .form-row { flex: 1; min-width: 130px; }
+
 .checkbox-row { display: flex; align-items: center; gap: 10px; font-size: 14px; }
 .checkbox-row input { width: 18px; height: 18px; accent-color: var(--cta-bg); }
 
