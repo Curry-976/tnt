@@ -15,7 +15,7 @@ const NAV_LINKS = [
 ];
 
 const MOBILE_MENU_EXTRA_LINKS = [
-  { href: "/compte", label: "Mon compte" },
+  { href: "/favoris", label: "Favoris" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -23,7 +23,6 @@ export function Nav() {
   return (
     <header className="nav">
       <div className="nav-left">
-        <MobileMenu links={NAV_LINKS} extraLinks={MOBILE_MENU_EXTRA_LINKS} />
         <Link href="/" aria-label="Accueil Torrow Nam Torrow" className="logo-link">
           <Image className="logo" src="/assets/torrow-wordmark.png" alt="TORROW" height={26} width={122} priority />
         </Link>
@@ -46,7 +45,7 @@ export function Nav() {
           </svg>
         </Link>
         <FavoritesLink />
-        <Link href="/compte" className="nav-action nav-account" aria-label="Mon compte" title="Mon compte">
+        <Link href="/compte" className="nav-action" aria-label="Mon compte" title="Mon compte">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
             <circle cx="12" cy="8" r="4"></circle>
             <path d="M4.5 21c0-4.1 3.4-6.5 7.5-6.5s7.5 2.4 7.5 6.5"></path>
@@ -54,6 +53,7 @@ export function Nav() {
         </Link>
         <CartLink />
         <ThemeToggle />
+        <MobileMenu links={NAV_LINKS} extraLinks={MOBILE_MENU_EXTRA_LINKS} />
       </div>
     </header>
   );

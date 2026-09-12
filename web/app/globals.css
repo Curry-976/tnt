@@ -985,19 +985,11 @@ html[data-theme="dark"] .hero-title {
 
 @media (max-width: 1080px) {
   .navlinks { display: none; }
-  .nav-left { position: static; }
-  .logo-link {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
   .nav-hamburger { display: inline-flex; }
   .nav-search-form { display: none; }
   .nav-right .nav-search-icon { display: inline-flex; }
-  .nav-right .nav-account { display: none; }
+  .nav-right .nav-favorites { display: none; }
   .nav-right .theme-toggle { display: none; }
-  .nav-right { gap: 14px; }
   .hero-grid { grid-template-columns: 1fr; }
   .hero-visual { display: none; }
   .hero-copy { padding: 0 24px; }
