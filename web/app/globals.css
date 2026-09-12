@@ -775,27 +775,6 @@ html[data-theme="dark"] .hero-title {
 
 /* ---------- filters (collection) ---------- */
 
-.filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 26px; }
-.filter-btn {
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 11px 20px;
-  border-radius: 999px;
-  cursor: pointer;
-  background: var(--panel-bg);
-  border: 1px solid var(--panel-border);
-  color: var(--text-color);
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-}
-.filter-btn[aria-pressed="true"] {
-  background: var(--cta-bg);
-  border-color: var(--cta-border);
-  color: var(--cta-color);
-}
-
 .season-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 4px; }
 .season-tab {
   font-family: inherit;

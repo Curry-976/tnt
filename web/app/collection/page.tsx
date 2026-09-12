@@ -7,16 +7,14 @@ export const metadata: Metadata = {
   description: "Une seule team. 35 € pièce, nom et numéro pour 5 € de plus.",
 };
 
-const VALID_FILTERS = new Set(["all", "home", "away", "keeper"]);
 const VALID_SEASONS = new Set(["ete", "hiver"]);
 
 export default async function CollectionPage({
   searchParams,
 }: {
-  searchParams: Promise<{ filtre?: string; saison?: string; q?: string }>;
+  searchParams: Promise<{ saison?: string; q?: string }>;
 }) {
-  const { filtre, saison, q } = await searchParams;
-  const initialFilter = VALID_FILTERS.has(filtre ?? "") ? (filtre as "all" | "home" | "away" | "keeper") : "all";
+  const { saison, q } = await searchParams;
   const initialSeason: ProductSeason = VALID_SEASONS.has(saison ?? "") ? (saison as ProductSeason) : "ete";
   const initialQuery = q ?? "";
   const products = await getAllProducts();
@@ -29,12 +27,7 @@ export default async function CollectionPage({
         <p className="page-lede">Une seule team. 35 € pièce, nom et numéro pour 5 € de plus.</p>
       </div>
 
-      <CollectionGrid
-        initialFilter={initialFilter}
-        initialSeason={initialSeason}
-        initialQuery={initialQuery}
-        products={products}
-      />
+      <CollectionGrid initialSeason={initialSeason} initialQuery={initialQuery} products={products} />
 
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">

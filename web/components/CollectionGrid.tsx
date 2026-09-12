@@ -3,18 +3,9 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BASE_PRICE, type ProductCategory } from "@/lib/products";
+import { BASE_PRICE } from "@/lib/products";
 import type { Product, ProductSeason } from "@/sanity/lib/queries";
 import { FavoriteButton } from "./FavoriteButton";
-
-type Filter = "all" | ProductCategory;
-
-const FILTERS: { value: Filter; label: string }[] = [
-  { value: "all", label: "Tous" },
-  { value: "home", label: "Domicile" },
-  { value: "away", label: "Extérieur" },
-  { value: "keeper", label: "Gardien" },
-];
 
 const SEASONS: { value: ProductSeason; label: string }[] = [
   { value: "ete", label: "Été" },
@@ -22,33 +13,29 @@ const SEASONS: { value: ProductSeason; label: string }[] = [
 ];
 
 export function CollectionGrid({
-  initialFilter,
   initialSeason,
   initialQuery,
   products,
 }: {
-  initialFilter: Filter;
   initialSeason: ProductSeason;
   initialQuery: string;
   products: Product[];
 }) {
   const [season, setSeason] = useState<ProductSeason>(initialSeason);
-  const [filter, setFilter] = useState<Filter>(initialFilter);
   const [query, setQuery] = useState(initialQuery);
 
   const bySeason = products.filter((p) => p.season === season);
-  const byCategory = filter === "all" ? bySeason : bySeason.filter((p) => p.category === filter);
   const normalizedQuery = query.trim().toLowerCase();
   const visible = useMemo(
     () =>
       normalizedQuery
-        ? byCategory.filter(
+        ? bySeason.filter(
             (p) =>
               p.name.toLowerCase().includes(normalizedQuery) ||
               p.description.toLowerCase().includes(normalizedQuery)
           )
-        : byCategory,
-    [byCategory, normalizedQuery]
+        : bySeason,
+    [bySeason, normalizedQuery]
   );
 
   return (
@@ -80,20 +67,6 @@ export function CollectionGrid({
         </div>
       ) : (
         <>
-          <div className="filters" role="group" aria-label="Filtrer par catégorie">
-            {FILTERS.map((f) => (
-              <button
-                key={f.value}
-                type="button"
-                className="filter-btn"
-                aria-pressed={filter === f.value}
-                onClick={() => setFilter(f.value)}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
-
           <div className="form-row" style={{ maxWidth: 320, marginBottom: 22 }}>
             <input
               type="search"
@@ -107,14 +80,14 @@ export function CollectionGrid({
 
           {visible.length === 0 && (
             <p className="faint">
-              {normalizedQuery
-                ? "Aucun maillot ne correspond à ta recherche."
-                : (
-                  <>
-                    Aucun maillot pour l’instant. Ajoute-en depuis{" "}
-                    <Link href="/studio" style={{ textDecoration: "underline" }}>l&apos;espace produits</Link>.
-                  </>
-                )}
+              {normalizedQuery ? (
+                "Aucun maillot ne correspond à ta recherche."
+              ) : (
+                <>
+                  Aucun maillot pour l’instant. Ajoute-en depuis{" "}
+                  <Link href="/studio" style={{ textDecoration: "underline" }}>l&apos;espace produits</Link>.
+                </>
+              )}
             </p>
           )}
 

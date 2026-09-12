@@ -20,20 +20,6 @@ export const product = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "category",
-      title: "Catégorie",
-      type: "string",
-      options: {
-        list: [
-          { title: "Domicile", value: "home" },
-          { title: "Extérieur", value: "away" },
-          { title: "Gardien", value: "keeper" },
-        ],
-        layout: "radio",
-      },
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
       name: "season",
       title: "Saison",
       type: "string",
@@ -76,6 +62,6 @@ export const product = defineType({
     }),
   ],
   preview: {
-    select: { title: "name", subtitle: "category", media: "image" },
+    select: { title: "name", subtitle: "season", media: "image" },
   },
 });

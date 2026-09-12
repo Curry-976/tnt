@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BASE_PRICE } from "@/lib/products";
 
-type SearchResult = { slug: string; name: string; image: string; categoryLabel: string };
+type SearchResult = { slug: string; name: string; image: string };
 
 export function MobileSearch() {
   const router = useRouter();
@@ -128,7 +128,7 @@ export function MobileSearch() {
                       </div>
                       <div>
                         <div className="mobile-search-result-name">TORROW NAM – {product.name}</div>
-                        <div className="faint">{product.categoryLabel} · {BASE_PRICE} €</div>
+                        <div className="faint">{BASE_PRICE} €</div>
                       </div>
                     </Link>
                   ))}

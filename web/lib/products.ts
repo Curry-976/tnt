@@ -1,5 +1,3 @@
-export type ProductCategory = "home" | "away" | "keeper";
-
 // Base price and personalisation fee are fixed store-wide (see chats/chat1.md
 // and TNT Collection.dc.html: "35 € pièce, nom et numéro pour 5 € de plus").
 // The product catalog itself (names, images, descriptions) lives in Sanity —

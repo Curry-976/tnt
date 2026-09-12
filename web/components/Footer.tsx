@@ -46,8 +46,8 @@ export function Footer() {
           <div className="footer-heading">Boutique</div>
           <div className="footer-links faint">
             <Link href="/collection">Tous les maillots</Link>
-            <Link href="/collection?filtre=home">Domicile</Link>
-            <Link href="/collection?filtre=away">Extérieur</Link>
+            <Link href="/collection?saison=ete">Été</Link>
+            <Link href="/collection?saison=hiver">Hiver</Link>
           </div>
         </div>
         <div>

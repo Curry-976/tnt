@@ -173,15 +173,15 @@ export default async function HomePage() {
           </Link>
         </div>
         <div className="tiles">
-          <Link href="/collection?filtre=home" className="tile">
+          <Link href="/collection" className="tile">
             <Image src="/assets/jersey-details-green.webp" alt="Héritage" fill sizes="25vw" />
             <span className="tile-label">Héritage</span>
           </Link>
-          <Link href="/collection?filtre=away" className="tile">
+          <Link href="/collection" className="tile">
             <Image src="/assets/hero-06.jpg" alt="Nature" fill sizes="25vw" />
             <span className="tile-label">Nature</span>
           </Link>
-          <Link href="/collection?filtre=keeper" className="tile">
+          <Link href="/collection" className="tile">
             <Image src="/assets/hero-03.jpg" alt="Lagon" fill sizes="25vw" />
             <span className="tile-label">Lagon</span>
           </Link>

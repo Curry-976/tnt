@@ -37,7 +37,7 @@ export default async function ProductPage({
       <div className="product-info-panel">
         <div className="panel">
           <span className="badge" style={{ position: "static", display: "inline-flex" }}>
-            {product.categoryLabel}
+            {product.season === "hiver" ? "Hiver" : "Été"}
           </span>
           <h1 className="product-name" style={{ marginTop: 14 }}>
             TORROW NAM – {product.name}

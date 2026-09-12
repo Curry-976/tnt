@@ -13,7 +13,7 @@ export async function GET(request: Request) {
       (p) => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
     )
     .slice(0, 5)
-    .map((p) => ({ slug: p.slug, name: p.name, image: p.image, categoryLabel: p.categoryLabel }));
+    .map((p) => ({ slug: p.slug, name: p.name, image: p.image }));
 
   return NextResponse.json({ results });
 }
