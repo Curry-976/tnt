@@ -233,7 +233,7 @@ html[data-theme="dark"] {
   color: var(--navlinks-color);
 }
 
-.nav-search { display: none; }
+.nav-right .nav-search { display: none; }
 
 .navlinks {
   display: flex;
@@ -924,7 +924,7 @@ html[data-theme="dark"] .hero-title {
   }
   .nav-hamburger { display: inline-flex; }
   .nav-contact { display: none; }
-  .nav-search { display: inline-flex; }
+  .nav-right .nav-search { display: inline-flex; }
   .nav-right .nav-action span { display: none; }
   .nav-right .theme-toggle { display: none; }
   .nav-right { gap: 14px; }
