@@ -6,6 +6,14 @@ import { ThemeToggle } from "./ThemeToggle";
 
 type NavLink = { href: string; label: string };
 
+function MenuChevron() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+      <path d="M9 5l7 7-7 7"></path>
+    </svg>
+  );
+}
+
 export function MobileMenu({ links, extraLinks = [] }: { links: NavLink[]; extraLinks?: NavLink[] }) {
   const [open, setOpen] = useState(false);
 
@@ -34,16 +42,24 @@ export function MobileMenu({ links, extraLinks = [] }: { links: NavLink[]; extra
           {links.map((link) => (
             <Link key={link.href + link.label} href={link.href} onClick={() => setOpen(false)}>
               {link.label}
+              <MenuChevron />
             </Link>
           ))}
           {extraLinks.map((link) => (
             <Link key={link.href + link.label} href={link.href} onClick={() => setOpen(false)}>
               {link.label}
+              <MenuChevron />
             </Link>
           ))}
           <div className="mobile-menu-row">
             <span>Thème</span>
             <ThemeToggle />
+          </div>
+          <div className="mobile-menu-cta">
+            <p>Crée ton compte pour suivre tes commandes et retrouver tes favoris partout.</p>
+            <Link href="/compte/inscription" className="cta small" onClick={() => setOpen(false)}>
+              <span>Créer un compte</span>
+            </Link>
           </div>
         </nav>
       )}
