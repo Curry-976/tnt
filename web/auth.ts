@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
+import Apple from "next-auth/providers/apple";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -17,6 +18,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: { signIn: "/compte" },
   providers: [
     Google,
+    Apple,
     Credentials({
       credentials: {
         email: { label: "Email", type: "email" },
@@ -41,14 +43,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider !== "google") return true;
+      if (account?.provider !== "google" && account?.provider !== "apple") return true;
       const email = user.email?.trim().toLowerCase();
       if (!email) return false;
 
-      // No DB adapter is configured (JWT-only sessions), so Google sign-ins
-      // are linked to our own users table by email here, creating the row
-      // on first login. This keeps a single stable internal user id that
-      // orders.userId already relies on, regardless of how someone signs in.
+      // No DB adapter is configured (JWT-only sessions), so Google/Apple
+      // sign-ins are linked to our own users table by email here, creating
+      // the row on first login. This keeps a single stable internal user id
+      // that orders.userId already relies on, regardless of how someone
+      // signs in. Apple only sends the name on the user's very first
+      // consent, so this is also the only chance to capture it.
       const [existing] = await db.select().from(users).where(eq(users.email, email)).limit(1);
       if (existing) {
         user.id = String(existing.id);

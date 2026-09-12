@@ -54,6 +54,10 @@ export async function signInGoogleAction() {
   await signIn("google", { redirectTo: "/compte/tableau-de-bord" });
 }
 
+export async function signInAppleAction() {
+  await signIn("apple", { redirectTo: "/compte/tableau-de-bord" });
+}
+
 export async function loginAction(
   _prevState: AuthActionState,
   formData: FormData

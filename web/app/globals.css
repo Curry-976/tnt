@@ -1091,6 +1091,18 @@ html[data-theme="dark"] .hero-title {
   gap: 10px;
 }
 
+.auth-apple-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+
 .auth-divider {
   display: flex;
   align-items: center;
