@@ -1,14 +1,25 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+function getTransport() {
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) return null;
+
+  return nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: Number(SMTP_PORT),
+    secure: Number(SMTP_PORT) === 465,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+  });
+}
 
 export async function sendPasswordResetEmail(to: string, resetUrl: string) {
-  if (!resend) {
-    throw new Error("RESEND_API_KEY manquant — impossible d'envoyer l'email de réinitialisation.");
+  const transport = getTransport();
+  if (!transport) {
+    throw new Error("Variables SMTP manquantes — impossible d'envoyer l'email de réinitialisation.");
   }
 
-  await resend.emails.send({
-    from: process.env.RESEND_FROM_EMAIL ?? "Torrow Nam Torrow <onboarding@resend.dev>",
+  await transport.sendMail({
+    from: process.env.SMTP_FROM ?? process.env.SMTP_USER,
     to,
     subject: "Réinitialise ton mot de passe — Torrow Nam Torrow",
     html: `
