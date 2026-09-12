@@ -251,6 +251,17 @@ html[data-theme="dark"] {
   color: var(--text-color);
 }
 .mobile-search-input::placeholder { color: var(--faint-color); }
+.mobile-search-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
 
 .mobile-menu { display: contents; }
 

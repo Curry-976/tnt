@@ -38,10 +38,6 @@ export function MobileSearch() {
 
       {open && (
         <form className="mobile-search-panel" onSubmit={handleSubmit} role="search">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" aria-hidden="true">
-            <circle cx="10.5" cy="10.5" r="6.5"></circle>
-            <path d="M15.5 15.5 21 21"></path>
-          </svg>
           <input
             type="search"
             className="mobile-search-input"
@@ -51,6 +47,12 @@ export function MobileSearch() {
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
+          <button type="submit" className="mobile-search-submit" aria-label="Lancer la recherche">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+              <circle cx="10.5" cy="10.5" r="6.5"></circle>
+              <path d="M15.5 15.5 21 21"></path>
+            </svg>
+          </button>
         </form>
       )}
     </div>
