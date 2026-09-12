@@ -4,6 +4,7 @@
 set -e
 cd "$(dirname "$0")/.."
 git -C .. pull
+npm ci
 npm run build
 sudo systemctl restart torrow-web
 echo "Déployé."
