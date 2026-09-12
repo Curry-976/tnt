@@ -46,6 +46,10 @@ export async function signOutAction() {
   await signOut({ redirectTo: "/" });
 }
 
+export async function signInGoogleAction() {
+  await signIn("google", { redirectTo: "/compte/tableau-de-bord" });
+}
+
 export async function loginAction(
   _prevState: AuthActionState,
   formData: FormData

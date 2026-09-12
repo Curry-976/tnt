@@ -1083,6 +1083,30 @@ html[data-theme="dark"] .hero-title {
 .auth-tab.active { background: var(--cta-bg); border-color: var(--cta-border); color: var(--cta-color); }
 .auth-form { display: flex; flex-direction: column; gap: 16px; }
 
+.auth-google-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+  font-size: 12.5px;
+  color: var(--faint-color);
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule-border);
+}
+
 /* ---------- editorial pages (about / contact) ---------- */
 
 .prose { max-width: 640px; font-size: 15px; line-height: 1.7; color: var(--muted-color); }
