@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CollectionGrid } from "@/components/CollectionGrid";
-import { getAllProducts } from "@/sanity/lib/queries";
+import { getAllProducts, type ProductSeason } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
   title: "Collection",
@@ -8,14 +8,16 @@ export const metadata: Metadata = {
 };
 
 const VALID_FILTERS = new Set(["all", "home", "away", "keeper"]);
+const VALID_SEASONS = new Set(["ete", "hiver"]);
 
 export default async function CollectionPage({
   searchParams,
 }: {
-  searchParams: Promise<{ filtre?: string }>;
+  searchParams: Promise<{ filtre?: string; saison?: string }>;
 }) {
-  const { filtre } = await searchParams;
+  const { filtre, saison } = await searchParams;
   const initialFilter = VALID_FILTERS.has(filtre ?? "") ? (filtre as "all" | "home" | "away" | "keeper") : "all";
+  const initialSeason: ProductSeason = VALID_SEASONS.has(saison ?? "") ? (saison as ProductSeason) : "ete";
   const products = await getAllProducts();
 
   return (
@@ -26,7 +28,7 @@ export default async function CollectionPage({
         <p className="page-lede">Une seule team. 35 € pièce, nom et numéro pour 5 € de plus.</p>
       </div>
 
-      <CollectionGrid initialFilter={initialFilter} products={products} />
+      <CollectionGrid initialFilter={initialFilter} initialSeason={initialSeason} products={products} />
 
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">

@@ -4,7 +4,7 @@ import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
 import { getAllProducts } from "@/sanity/lib/queries";
 
 export default async function HomePage() {
-  const homeProducts = (await getAllProducts()).slice(0, 5);
+  const homeProducts = (await getAllProducts()).filter((p) => p.season === "ete").slice(0, 5);
 
   return (
     <>

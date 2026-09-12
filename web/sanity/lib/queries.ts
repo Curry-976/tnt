@@ -3,11 +3,14 @@ import { getClient } from "./client";
 import { isSanityConfigured } from "../env";
 import type { ProductCategory } from "@/lib/products";
 
+export type ProductSeason = "ete" | "hiver";
+
 export type Product = {
   slug: string;
   name: string;
   category: ProductCategory;
   categoryLabel: string;
+  season: ProductSeason;
   image: string;
   badge?: string;
   description: string;
@@ -23,6 +26,7 @@ type RawProduct = {
   name: string;
   slug: string | null;
   category: ProductCategory;
+  season: ProductSeason | null;
   image: string | null;
   badge: string | null;
   description: string | null;
@@ -35,6 +39,8 @@ function toProduct(raw: RawProduct): Product | null {
     name: raw.name,
     category: raw.category,
     categoryLabel: CATEGORY_LABELS[raw.category] ?? raw.category,
+    // Products published before the season field existed default to Été.
+    season: raw.season ?? "ete",
     image: raw.image,
     badge: raw.badge ?? undefined,
     description: raw.description ?? "",
@@ -46,6 +52,7 @@ const ALL_PRODUCTS_QUERY = defineQuery(`
     name,
     "slug": slug.current,
     category,
+    season,
     "image": image.asset->url,
     badge,
     description
@@ -57,6 +64,7 @@ const PRODUCT_BY_SLUG_QUERY = defineQuery(`
     name,
     "slug": slug.current,
     category,
+    season,
     "image": image.asset->url,
     badge,
     description
