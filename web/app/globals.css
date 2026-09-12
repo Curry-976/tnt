@@ -404,6 +404,12 @@ html[data-theme="dark"] {
   align-items: center;
   color: var(--text-color);
   position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
 }
 
 .cart-count {
