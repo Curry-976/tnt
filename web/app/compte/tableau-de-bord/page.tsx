@@ -34,7 +34,7 @@ export default async function TableauDeBordPage() {
       <div className="panel">
         <div className="panel-head">
           <h2>Mes commandes</h2>
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
             {isAdminEmail(session.user.email) && (
               <Link href="/admin/commandes" className="ghost">Commandes (admin)</Link>
             )}
@@ -50,7 +50,7 @@ export default async function TableauDeBordPage() {
         ) : (
           <div className="cart-list">
             {myOrders.map((order) => (
-              <div key={order.id} className="panel cart-row" style={{ gridTemplateColumns: "1fr auto auto" }}>
+              <div key={order.id} className="panel cart-row order-row">
                 <div>
                   <div className="cart-meta-name">Commande #{order.id}</div>
                   <div className="cart-meta-detail">

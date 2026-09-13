@@ -1033,6 +1033,7 @@ html[data-theme="dark"] .hero-title {
   align-items: center;
   padding: 14px;
 }
+.order-row { grid-template-columns: 1fr auto auto; }
 .cart-thumb { position: relative; width: 84px; height: 84px; border-radius: 12px; overflow: hidden; }
 .cart-thumb img { object-fit: cover; }
 .cart-meta-name { font-size: 14.5px; font-weight: 600; }
@@ -1170,6 +1171,7 @@ html[data-theme="dark"] .hero-title {
   .product-info-panel { position: static; }
   .cart-layout { grid-template-columns: 1fr; }
   .cart-row { grid-template-columns: 64px 1fr; }
+  .order-row { grid-template-columns: 1fr; row-gap: 8px; justify-items: start; }
   .contact-layout { grid-template-columns: 1fr; }
 }
 
