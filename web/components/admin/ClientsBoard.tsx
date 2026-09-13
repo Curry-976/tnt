@@ -63,8 +63,8 @@ export function ClientsBoard({ clients }: { clients: Client[] }) {
                       <div style={{ fontWeight: 700 }}>{client.name}</div>
                       <div style={{ color: "#9aa1af", fontSize: 12, overflow: "hidden", textOverflow: "ellipsis" }}>{client.email}</div>
                     </td>
-                    <td>{client.orderCount}</td>
-                    <td>{(client.totalCents / 100).toFixed(2)} €</td>
+                    <td data-label="Commandes">{client.orderCount}</td>
+                    <td data-label="Total">{(client.totalCents / 100).toFixed(2)} €</td>
                   </tr>
                 ))}
               </tbody>

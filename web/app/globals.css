@@ -1446,5 +1446,21 @@ html[data-theme="dark"] .hero-title {
   .admin-avatar-block { justify-content: center; padding: 12px 0 4px; }
   .admin-content { padding: 16px; }
   .admin-stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .admin-table th:last-child, .admin-table td:last-child { white-space: nowrap; }
+
+  /* The clients table becomes a stacked list of cards instead of a
+     horizontally-scrolling table — no sideways scroll on a phone. */
+  .admin-table-wrap { overflow-x: visible; }
+  .admin-table thead { display: none; }
+  .admin-table, .admin-table tbody, .admin-table tr, .admin-table td { display: block; width: 100%; }
+  .admin-table tr { padding: 12px 14px; border-top: 1px solid rgba(22,32,60,0.06); }
+  .admin-table tr:first-child { border-top: none; }
+  .admin-table td { padding: 2px 0; border-top: none; }
+  .admin-table td[data-label] {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: #6d7689;
+    margin-top: 4px;
+  }
+  .admin-table td[data-label]::before { content: attr(data-label); font-weight: 600; color: #9aa1af; }
 }
