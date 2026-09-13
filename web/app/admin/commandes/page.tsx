@@ -34,12 +34,19 @@ export default async function AdminCommandesPage() {
                 {order.email} · {(order.totalCents / 100).toFixed(2)} € · {orderStatusLabel(order.status)}
               </span>
             </div>
-            <OrderStatusForm orderId={order.id} status={order.status} />
-            <OrderTrackingForm
-              orderId={order.id}
-              trackingNumber={order.trackingNumber ?? ""}
-              trackingCarrierSlug={order.trackingCarrierSlug ?? ""}
-            />
+            <div className="admin-order-section">
+              <h3>Statut</h3>
+              <OrderStatusForm orderId={order.id} status={order.status} />
+            </div>
+
+            <div className="admin-order-section">
+              <h3>Livraison</h3>
+              <OrderTrackingForm
+                orderId={order.id}
+                trackingNumber={order.trackingNumber ?? ""}
+                trackingCarrierSlug={order.trackingCarrierSlug ?? ""}
+              />
+            </div>
           </div>
         ))}
         {allOrders.length === 0 && <p className="faint">Aucune commande pour l’instant.</p>}
