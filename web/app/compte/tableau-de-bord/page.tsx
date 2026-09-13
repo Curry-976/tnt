@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { eq, desc } from "drizzle-orm";
+import { eq, or, desc } from "drizzle-orm";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/db/schema";
@@ -18,7 +18,10 @@ export default async function TableauDeBordPage() {
   const myOrders = await db
     .select()
     .from(orders)
-    .where(eq(orders.userId, Number(session.user.id)))
+    // Also match by email so guest checkouts (no session at the time, so
+    // userId is null) still show up once someone logs into an account with
+    // that same email.
+    .where(or(eq(orders.userId, Number(session.user.id)), eq(orders.email, session.user.email ?? "")))
     .orderBy(desc(orders.createdAt));
 
   return (

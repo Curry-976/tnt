@@ -26,7 +26,11 @@ export default async function SuiviCommandePage({ params }: { params: Promise<{ 
   if (!session?.user) redirect("/compte");
 
   const [order] = await db.select().from(orders).where(eq(orders.id, Number(id))).limit(1);
-  if (!order || order.userId !== Number(session.user.id)) notFound();
+  // Also allow access by matching email, for guest checkouts (no session at
+  // the time, so userId is null) later viewed from an account with that
+  // same email — same reasoning as the order list on the dashboard.
+  const owns = order && (order.userId === Number(session.user.id) || order.email === session.user.email);
+  if (!owns) notFound();
   if (!order.trackingNumber) notFound();
 
   const tracking = await getTrackingStatus(order.trackingNumber, order.trackingCarrierSlug ?? undefined);
