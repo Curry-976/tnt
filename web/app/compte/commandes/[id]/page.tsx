@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect, notFound } from "next/navigation";
+import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
@@ -41,6 +42,10 @@ export default async function SuiviCommandePage({ params }: { params: Promise<{ 
         <div className="page-eyebrow">Compte</div>
         <h1 className="page-title">Suivi — commande #{order.id}</h1>
       </div>
+
+      <Link href="/compte/tableau-de-bord" className="ghost" style={{ display: "inline-flex", marginBottom: 20 }}>
+        <span>← Retour à mes commandes</span>
+      </Link>
 
       <div className="panel">
         <p className="faint" style={{ marginTop: 0 }}>Numéro de suivi : {order.trackingNumber}</p>
