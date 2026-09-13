@@ -11,6 +11,7 @@ export type Product = {
   image: string;
   imageDark?: string;
   badge?: string;
+  badgeColor?: string;
   description: string;
 };
 
@@ -21,6 +22,7 @@ type RawProduct = {
   image: string | null;
   imageDark: string | null;
   badge: string | null;
+  badgeColor: string | null;
   description: string | null;
 };
 
@@ -34,6 +36,7 @@ function toProduct(raw: RawProduct): Product | null {
     image: raw.image,
     imageDark: raw.imageDark ?? undefined,
     badge: raw.badge ?? undefined,
+    badgeColor: raw.badgeColor ?? undefined,
     description: raw.description ?? "",
   };
 }
@@ -46,6 +49,7 @@ const ALL_PRODUCTS_QUERY = defineQuery(`
     "image": image.asset->url,
     "imageDark": imageDark.asset->url,
     badge,
+    badgeColor,
     description
   }
 `);
@@ -58,6 +62,7 @@ const PRODUCT_BY_SLUG_QUERY = defineQuery(`
     "image": image.asset->url,
     "imageDark": imageDark.asset->url,
     badge,
+    badgeColor,
     description
   }
 `);

@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
 import { getAllProducts } from "@/sanity/lib/queries";
+import { ThemedProductImage } from "@/components/ThemedProductImage";
+import { badgeColorStyle } from "@/lib/badge-colors";
 
 export default async function HomePage() {
   const homeProducts = (await getAllProducts()).filter((p) => p.season === "ete").slice(0, 5);
@@ -121,8 +123,17 @@ export default async function HomePage() {
           {homeProducts.map((product) => (
             <Link key={product.slug} href={`/produit/${product.slug}`} className="card">
               <div className="card-media">
-                <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 50vw, 20vw" />
-                {product.badge && <span className="badge">{product.badge}</span>}
+                <ThemedProductImage
+                  src={product.image}
+                  srcDark={product.imageDark}
+                  alt={product.name}
+                  sizes="(max-width: 1080px) 50vw, 20vw"
+                />
+                {product.badge && (
+                  <span className="badge" style={badgeColorStyle(product.badgeColor)}>
+                    {product.badge}
+                  </span>
+                )}
               </div>
               <div className="card-name">TORROW NAM – {product.name}</div>
               <div className="card-row">

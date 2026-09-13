@@ -54,6 +54,24 @@ export const product = defineType({
       description: "Ex. « Nouveau », « Édition limitée » — laisser vide pour n'afficher aucun badge.",
     }),
     defineField({
+      name: "badgeColor",
+      title: "Couleur du badge",
+      type: "string",
+      description: "La couleur du bandeau — assortis-la au coloris de ce maillot.",
+      options: {
+        list: [
+          { title: "Or (par défaut)", value: "or" },
+          { title: "Rose", value: "rose" },
+          { title: "Vert", value: "vert" },
+          { title: "Violet", value: "violet" },
+          { title: "Corail", value: "corail" },
+          { title: "Bleu", value: "bleu" },
+        ],
+      },
+      initialValue: "or",
+      hidden: ({ document }) => !document?.badge,
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",

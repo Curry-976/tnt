@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { BASE_PRICE } from "@/lib/products";
 import type { Product } from "@/sanity/lib/queries";
 import { useFavorites } from "@/lib/favorites-context";
 import { FavoriteButton } from "./FavoriteButton";
+import { ThemedProductImage } from "./ThemedProductImage";
+import { badgeColorStyle } from "@/lib/badge-colors";
 
 export function FavoritesGrid({ products }: { products: Product[] }) {
   const { slugs, hydrated } = useFavorites();
@@ -30,8 +31,17 @@ export function FavoritesGrid({ products }: { products: Product[] }) {
       {favorites.map((product) => (
         <Link key={product.slug} href={`/produit/${product.slug}`} className="card">
           <div className="card-media">
-            <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 50vw, 20vw" />
-            {product.badge && <span className="badge">{product.badge}</span>}
+            <ThemedProductImage
+              src={product.image}
+              srcDark={product.imageDark}
+              alt={product.name}
+              sizes="(max-width: 1080px) 50vw, 20vw"
+            />
+            {product.badge && (
+              <span className="badge" style={badgeColorStyle(product.badgeColor)}>
+                {product.badge}
+              </span>
+            )}
             <FavoriteButton slug={product.slug} />
           </div>
           <div className="card-name">TORROW NAM – {product.name}</div>

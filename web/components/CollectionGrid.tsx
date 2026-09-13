@@ -6,6 +6,7 @@ import { BASE_PRICE } from "@/lib/products";
 import type { Product, ProductSeason } from "@/sanity/lib/queries";
 import { FavoriteButton } from "./FavoriteButton";
 import { ThemedProductImage } from "./ThemedProductImage";
+import { badgeColorStyle } from "@/lib/badge-colors";
 
 const SEASONS: { value: ProductSeason; label: string }[] = [
   { value: "ete", label: "Été" },
@@ -101,7 +102,11 @@ export function CollectionGrid({
                     alt={product.name}
                     sizes="(max-width: 1080px) 50vw, 20vw"
                   />
-                  {product.badge && <span className="badge">{product.badge}</span>}
+                  {product.badge && (
+                    <span className="badge" style={badgeColorStyle(product.badgeColor)}>
+                      {product.badge}
+                    </span>
+                  )}
                   <FavoriteButton slug={product.slug} />
                 </div>
                 <div className="card-name">TORROW NAM – {product.name}</div>
