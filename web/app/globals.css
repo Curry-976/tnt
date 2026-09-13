@@ -184,7 +184,10 @@ html[data-theme="dark"] {
 }
 
 .nav-left { display: flex; align-items: center; gap: 10px; }
+.logo-link { display: flex; align-items: center; gap: 8px; }
 .nav-left .logo { height: 26px; }
+.nav-icon { height: 28px; width: 28px; transition: filter 0.5s ease; }
+html[data-theme="dark"] .nav-icon { filter: invert(1); }
 
 .nav-hamburger {
   display: none;
