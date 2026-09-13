@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BASE_PRICE } from "@/lib/products";
 import { SITE_URL } from "@/lib/site";
 import { getProduct } from "@/sanity/lib/queries";
 import { ProductConfigurator } from "@/components/ProductConfigurator";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { ThemedProductImage } from "@/components/ThemedProductImage";
 
 export async function generateMetadata({
   params,
@@ -71,7 +71,13 @@ export default async function ProductPage({
       {/* Product rich-result data for search engines — see schema.org/Product. */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="product-gallery">
-        <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 100vw, 55vw" priority />
+        <ThemedProductImage
+          src={product.image}
+          srcDark={product.imageDark}
+          alt={product.name}
+          sizes="(max-width: 1080px) 100vw, 55vw"
+          priority
+        />
       </div>
       <div className="product-info-panel">
         <div className="panel">

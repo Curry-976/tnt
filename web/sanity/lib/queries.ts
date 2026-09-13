@@ -9,6 +9,7 @@ export type Product = {
   name: string;
   season: ProductSeason;
   image: string;
+  imageDark?: string;
   badge?: string;
   description: string;
 };
@@ -18,6 +19,7 @@ type RawProduct = {
   slug: string | null;
   season: ProductSeason | null;
   image: string | null;
+  imageDark: string | null;
   badge: string | null;
   description: string | null;
 };
@@ -30,6 +32,7 @@ function toProduct(raw: RawProduct): Product | null {
     // Products published before the season field existed default to Été.
     season: raw.season ?? "ete",
     image: raw.image,
+    imageDark: raw.imageDark ?? undefined,
     badge: raw.badge ?? undefined,
     description: raw.description ?? "",
   };
@@ -41,6 +44,7 @@ const ALL_PRODUCTS_QUERY = defineQuery(`
     "slug": slug.current,
     season,
     "image": image.asset->url,
+    "imageDark": imageDark.asset->url,
     badge,
     description
   }
@@ -52,6 +56,7 @@ const PRODUCT_BY_SLUG_QUERY = defineQuery(`
     "slug": slug.current,
     season,
     "image": image.asset->url,
+    "imageDark": imageDark.asset->url,
     badge,
     description
   }

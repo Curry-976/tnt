@@ -649,6 +649,14 @@ html[data-theme="dark"] .hero-title {
 .card-media { position: relative; height: 200px; border-radius: 12px; overflow: hidden; }
 .card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* Products can ship a separate photo per theme — see ThemedProductImage.
+   Specificity is bumped with :not()/[data-theme] so this reliably beats
+   container-specific "img" rules (e.g. .card-media img) regardless of
+   source order. */
+html:not([data-theme="dark"]) .theme-img-dark { display: none; }
+html[data-theme="dark"] .theme-img-dark { display: block; }
+html[data-theme="dark"] .theme-img-light { display: none; }
+
 .badge {
   position: absolute;
   top: 10px;

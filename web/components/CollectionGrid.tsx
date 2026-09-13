@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { BASE_PRICE } from "@/lib/products";
 import type { Product, ProductSeason } from "@/sanity/lib/queries";
 import { FavoriteButton } from "./FavoriteButton";
+import { ThemedProductImage } from "./ThemedProductImage";
 
 const SEASONS: { value: ProductSeason; label: string }[] = [
   { value: "ete", label: "Été" },
@@ -95,7 +95,12 @@ export function CollectionGrid({
             {visible.map((product) => (
               <Link key={product.slug} href={`/produit/${product.slug}`} className="card">
                 <div className="card-media">
-                  <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 50vw, 20vw" />
+                  <ThemedProductImage
+                    src={product.image}
+                    srcDark={product.imageDark}
+                    alt={product.name}
+                    sizes="(max-width: 1080px) 50vw, 20vw"
+                  />
                   {product.badge && <span className="badge">{product.badge}</span>}
                   <FavoriteButton slug={product.slug} />
                 </div>

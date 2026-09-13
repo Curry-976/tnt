@@ -35,10 +35,17 @@ export const product = defineType({
     }),
     defineField({
       name: "image",
-      title: "Photo",
+      title: "Photo (thème clair)",
       type: "image",
       options: { hotspot: true },
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "imageDark",
+      title: "Photo (thème sombre)",
+      type: "image",
+      options: { hotspot: true },
+      description: "Optionnel — laisser vide pour réutiliser la photo du thème clair dans les deux thèmes.",
     }),
     defineField({
       name: "badge",
