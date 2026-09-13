@@ -474,12 +474,7 @@ html[data-theme="dark"] .icon-moon { display: block; }
 }
 
 .hero-bg { position: absolute; inset: 0; }
-.hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-
-.hero-bg-dark { display: none; }
-.hero-bg-light { display: block; }
-html[data-theme="dark"] .hero-bg-light { display: none; }
-html[data-theme="dark"] .hero-bg-dark { display: block; }
+.hero-bg img, .hero-bg video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .hero-scrim {
   position: absolute;
