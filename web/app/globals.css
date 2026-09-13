@@ -916,6 +916,10 @@ html[data-theme="dark"] .hero-title {
   font-size: 14px;
   transition: background 0.5s ease, border-color 0.5s ease;
 }
+/* The dropdown list itself is an OS-native popup that doesn't reliably pick
+   up the page's theme colors — force a fixed light background/dark text on
+   its options so they stay readable regardless of the site's theme. */
+.form-select option { background-color: #fff; color: #111; }
 .form-input:focus, .form-select:focus, .filter-btn:focus-visible, .cta:focus-visible, .ghost:focus-visible, .iconbtn:focus-visible {
   outline: 2px solid var(--cta-bg);
   outline-offset: 2px;
