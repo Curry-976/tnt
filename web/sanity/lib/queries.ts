@@ -49,7 +49,7 @@ const ALL_PRODUCTS_QUERY = defineQuery(`
     "image": image.asset->url,
     "imageDark": imageDark.asset->url,
     badge,
-    badgeColor,
+    "badgeColor": badgeColor.hex,
     description
   }
 `);
@@ -62,7 +62,7 @@ const PRODUCT_BY_SLUG_QUERY = defineQuery(`
     "image": image.asset->url,
     "imageDark": imageDark.asset->url,
     badge,
-    badgeColor,
+    "badgeColor": badgeColor.hex,
     description
   }
 `);

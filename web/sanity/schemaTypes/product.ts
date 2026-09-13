@@ -63,19 +63,8 @@ export const product = defineType({
     defineField({
       name: "badgeColor",
       title: "Couleur du badge",
-      type: "string",
-      description: "La couleur du bandeau — assortis-la au coloris de ce maillot.",
-      options: {
-        list: [
-          { title: "Or (par défaut)", value: "or" },
-          { title: "Rose", value: "rose" },
-          { title: "Vert", value: "vert" },
-          { title: "Violet", value: "violet" },
-          { title: "Corail", value: "corail" },
-          { title: "Bleu", value: "bleu" },
-        ],
-      },
-      initialValue: "or",
+      type: "color",
+      description: "La couleur du bandeau — choisis-la pour l'assortir au coloris de ce maillot. Laisse vide pour le doré par défaut.",
       hidden: ({ document }) => !document?.badge,
     }),
     defineField({

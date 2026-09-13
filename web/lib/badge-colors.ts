@@ -1,19 +1,23 @@
-// Named badge colors editors can pick per product in Sanity, so "Nouveau" /
-// "Édition limitée" can each carry a color that matches that jersey's own
-// palette instead of one fixed color for every product.
-export const BADGE_COLORS = {
-  or: { background: "#f2c03c", color: "#191f1a" },
-  rose: { background: "#fce0e8", color: "#b23a63" },
-  vert: { background: "#dceedf", color: "#2f7a4d" },
-  violet: { background: "#e6e0f8", color: "#5b4b9e" },
-  corail: { background: "#fbe2de", color: "#b3423b" },
-  bleu: { background: "#dce8fb", color: "#2f5aa8" },
-} as const;
+// Editors pick an arbitrary color per product in Sanity (gradient color
+// picker via @sanity/color-input) so "Nouveau" / "Édition limitée" can match
+// that jersey's own palette. Text color is derived automatically for
+// contrast — nobody has to also pick a readable text color by hand.
+const DEFAULT_BADGE = { background: "#f2c03c", color: "#191f1a" };
 
-export type BadgeColor = keyof typeof BADGE_COLORS;
+function textColorFor(hex: string): string {
+  const clean = hex.replace("#", "");
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+  // Perceived brightness (ITU-R BT.601) — dark text above the midpoint,
+  // white text below it, so it stays readable whatever hue is picked.
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 155 ? "#191f1a" : "#ffffff";
+}
 
-export function badgeColorStyle(color: string | undefined) {
-  const match = color && color in BADGE_COLORS ? BADGE_COLORS[color as BadgeColor] : undefined;
-  if (!match) return undefined;
-  return { background: match.background, borderColor: "transparent", color: match.color };
+export function badgeColorStyle(hex: string | undefined) {
+  if (!hex || !/^#[0-9a-fA-F]{6}$/.test(hex)) {
+    return { background: DEFAULT_BADGE.background, borderColor: "transparent", color: DEFAULT_BADGE.color };
+  }
+  return { background: hex, borderColor: "transparent", color: textColorFor(hex) };
 }
