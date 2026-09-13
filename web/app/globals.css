@@ -63,6 +63,7 @@ input, textarea, select { font: inherit; color: inherit; }
   --card-bg: #fffdf8;
   --card-border: #e6e7e2;
   --hero-border: #e6e7e2;
+  --heroscrim: linear-gradient(100deg, rgba(255,253,248,0.96) 0%, rgba(255,253,248,0.82) 34%, rgba(255,253,248,0.2) 62%, rgba(255,253,248,0.12) 100%);
   --cta-bg: #f2c03c;
   --cta-border: #f2c03c;
   --cta-color: #191f1a;
@@ -102,6 +103,7 @@ html[data-theme="dark"] {
   --card-bg: rgba(255,255,255,0.04);
   --card-border: rgba(255,255,255,0.09);
   --hero-border: rgba(255,255,255,0.08);
+  --heroscrim: linear-gradient(100deg, rgba(4,6,9,0.94) 0%, rgba(4,6,9,0.78) 38%, rgba(4,6,9,0.28) 70%, rgba(4,6,9,0.45) 100%);
   --cta-bg: rgba(255,255,255,0.14);
   --cta-border: rgba(255,255,255,0.22);
   --cta-color: #ffffff;
@@ -467,12 +469,25 @@ html[data-theme="dark"] .icon-moon { display: block; }
   margin-top: 16px;
   padding: 72px 54px;
   border-radius: 26px;
+  overflow: hidden;
   background: var(--card-bg);
   border: 1px solid var(--hero-border);
   transition: border-color 0.5s ease, background 0.5s ease;
 }
 
+.hero-bg { position: absolute; inset: 0; }
+.hero-bg video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--heroscrim);
+  transition: background 0.5s ease;
+}
+
 .hero-copy {
+  position: relative;
+  z-index: 1;
   max-width: 620px;
   animation: tntFade 0.9s ease both;
 }

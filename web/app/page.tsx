@@ -9,6 +9,12 @@ export default async function HomePage() {
   return (
     <>
       <div className="hero">
+        <div className="hero-bg">
+          <video autoPlay muted loop playsInline poster="/assets/hero-06.jpg">
+            <source src="/assets/hero-video.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div className="hero-scrim" />
         <div className="hero-copy">
           <h1
             className="hero-title"
