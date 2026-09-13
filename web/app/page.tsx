@@ -9,67 +9,47 @@ export default async function HomePage() {
   return (
     <>
       <div className="hero">
-        <div className="hero-bg">
-          <video autoPlay muted loop playsInline poster="/assets/hero-06.jpg">
-            <source src="/assets/hero-video.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div className="hero-scrim" />
-
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <h1
-              className="hero-title"
-              data-dark="Maillots inspirés d’un territoire, portés par une identité."
-              data-light="L’identité en mode été."
-            >
-              L’identité en mode été.
-            </h1>
-            <p
-              className="hero-sub"
-              data-dark="Des maillots uniques où culture, histoire et design se rencontrent."
-              data-light="Des maillots inspirés d’un territoire qui respire la culture, le soleil et la fierté."
-            >
-              Des maillots inspirés d’un territoire qui respire la culture, le soleil et la fierté.
-            </p>
-            <div className="hero-actions">
-              <Link href="/collection" className="cta">
-                <span>Découvrir la collection</span>
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 12h15M13 6l6 6-6 6"></path>
-                </svg>
-              </Link>
-              <Link href="/a-propos" className="ghost">
-                En savoir plus
-              </Link>
-            </div>
-            <div className="proof">
-              <div className="avatars">
-                <div className="avatar">
-                  <Image src="/assets/hero-01.jpg" alt="Client 1" fill sizes="34px" />
-                </div>
-                <div className="avatar">
-                  <Image src="/assets/hero-02.jpg" alt="Client 2" fill sizes="34px" />
-                </div>
-                <div className="avatar">
-                  <Image src="/assets/hero-05.jpg" alt="Client 3" fill sizes="34px" />
-                </div>
-              </div>
-              <div className="proof-text">
-                <span className="proof-title">+1200 clients satisfaits</span>
-                <span className="faint">Rejoins la communauté</span>
-              </div>
-            </div>
+        <div className="hero-copy">
+          <h1
+            className="hero-title"
+            data-dark="Maillots inspirés d’un territoire, portés par une identité."
+            data-light="L’identité en mode été."
+          >
+            L’identité en mode été.
+          </h1>
+          <p
+            className="hero-sub"
+            data-dark="Des maillots uniques où culture, histoire et design se rencontrent."
+            data-light="Des maillots inspirés d’un territoire qui respire la culture, le soleil et la fierté."
+          >
+            Des maillots inspirés d’un territoire qui respire la culture, le soleil et la fierté.
+          </p>
+          <div className="hero-actions">
+            <Link href="/collection" className="cta">
+              <span>Découvrir la collection</span>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 12h15M13 6l6 6-6 6"></path>
+              </svg>
+            </Link>
+            <Link href="/a-propos" className="ghost">
+              En savoir plus
+            </Link>
           </div>
-
-          <div className="hero-visual">
-            <div className="hero-jersey">
-              <Image src="/assets/jersey-hanger.jpg" alt="Maillot Torrow Nam Torrow" fill sizes="50vw" />
+          <div className="proof">
+            <div className="avatars">
+              <div className="avatar">
+                <Image src="/assets/hero-01.jpg" alt="Client 1" fill sizes="34px" />
+              </div>
+              <div className="avatar">
+                <Image src="/assets/hero-02.jpg" alt="Client 2" fill sizes="34px" />
+              </div>
+              <div className="avatar">
+                <Image src="/assets/hero-05.jpg" alt="Client 3" fill sizes="34px" />
+              </div>
             </div>
-            <div className="rating">
-              <div className="star">★</div>
-              <div className="rating-score">4.9/5</div>
-              <div className="faint">Basé sur 380 avis</div>
+            <div className="proof-text">
+              <span className="proof-title">+1200 clients satisfaits</span>
+              <span className="faint">Rejoins la communauté</span>
             </div>
           </div>
         </div>
