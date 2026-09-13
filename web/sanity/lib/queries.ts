@@ -42,7 +42,7 @@ function toProduct(raw: RawProduct): Product | null {
 }
 
 const ALL_PRODUCTS_QUERY = defineQuery(`
-  *[_type == "product"] | order(order asc, name asc) {
+  *[_type == "product" && visible != false] | order(order asc, name asc) {
     name,
     "slug": slug.current,
     season,
@@ -55,7 +55,7 @@ const ALL_PRODUCTS_QUERY = defineQuery(`
 `);
 
 const PRODUCT_BY_SLUG_QUERY = defineQuery(`
-  *[_type == "product" && slug.current == $slug][0] {
+  *[_type == "product" && slug.current == $slug && visible != false][0] {
     name,
     "slug": slug.current,
     season,

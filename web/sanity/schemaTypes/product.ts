@@ -6,6 +6,13 @@ export const product = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "visible",
+      title: "Visible sur le site",
+      type: "boolean",
+      description: "Décoche pour retirer ce maillot du site sans le supprimer (ex. pour un brouillon ou un test).",
+      initialValue: true,
+    }),
+    defineField({
       name: "name",
       title: "Nom",
       type: "string",
@@ -87,6 +94,13 @@ export const product = defineType({
     }),
   ],
   preview: {
-    select: { title: "name", subtitle: "season", media: "image" },
+    select: { title: "name", subtitle: "season", media: "image", visible: "visible" },
+    prepare({ title, subtitle, media, visible }) {
+      return {
+        title,
+        subtitle: visible === false ? `Masqué · ${subtitle}` : subtitle,
+        media,
+      };
+    },
   },
 });
