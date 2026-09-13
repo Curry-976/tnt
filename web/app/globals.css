@@ -22,6 +22,11 @@ body {
   transition: background 0.5s ease, color 0.5s ease;
 }
 
+h1, h2, h3, .page-title, .hero-title, .panel-head h2 {
+  color: var(--heading-color);
+  transition: color 0.5s ease;
+}
+
 a { color: inherit; text-decoration: none; }
 a:hover { opacity: 0.78; }
 
@@ -45,43 +50,44 @@ input, textarea, select { font: inherit; color: inherit; }
    toggle script runs. */
 
 :root {
-  --shell-bg: linear-gradient(135deg, #bee8e8 0%, #c97b8a 100%);
-  --text-color: #16203c;
-  --nav-bg: rgba(255,255,255,0.92);
-  --nav-border: rgba(22,32,60,0.07);
+  --shell-bg: #fdfaf4;
+  --text-color: #191f1a;
+  --heading-color: #192d55;
+  --nav-bg: rgba(253,250,244,0.92);
+  --nav-border: #e6e7e2;
   --nav-shadow: 0 14px 34px rgba(22,32,60,0.08);
-  --menu-panel-bg: #fffdf7;
-  --navlinks-color: #42506b;
+  --menu-panel-bg: #fffdf8;
+  --navlinks-color: #5f6260;
   --panel-bg: #ffffff;
-  --panel-border: rgba(22,32,60,0.06);
+  --panel-border: #e6e7e2;
   --card-bg: #fffdf8;
-  --card-border: rgba(22,32,60,0.07);
-  --hero-border: rgba(22,32,60,0.06);
-  --heroscrim: linear-gradient(100deg, rgba(255,252,243,0.96) 0%, rgba(255,252,243,0.8) 34%, rgba(255,250,238,0.18) 62%, rgba(255,250,238,0.1) 100%);
-  --cta-bg: #f5b921;
-  --cta-border: #f5b921;
-  --cta-color: #16203c;
+  --card-border: #e6e7e2;
+  --hero-border: #e6e7e2;
+  --heroscrim: linear-gradient(100deg, rgba(253,250,244,0.96) 0%, rgba(253,250,244,0.8) 34%, rgba(253,250,244,0.18) 62%, rgba(253,250,244,0.1) 100%);
+  --cta-bg: #f2c03c;
+  --cta-border: #f2c03c;
+  --cta-color: #191f1a;
   --ghost-bg: #ffffff;
-  --ghost-border: rgba(22,32,60,0.14);
-  --ghost-color: #16203c;
-  --iconbtn-bg: #f5b921;
-  --iconbtn-border: #f5b921;
-  --iconbtn-color: #16203c;
-  --badge-bg: #ffe9a8;
-  --badge-border: rgba(22,32,60,0.08);
-  --badge-color: #16203c;
+  --ghost-border: #e6e7e2;
+  --ghost-color: #191f1a;
+  --iconbtn-bg: #f2c03c;
+  --iconbtn-border: #f2c03c;
+  --iconbtn-color: #191f1a;
+  --badge-bg: #f2c03c;
+  --badge-border: transparent;
+  --badge-color: #191f1a;
   --proof-bg: rgba(255,255,255,0.7);
-  --proof-border: rgba(22,32,60,0.07);
+  --proof-border: #e6e7e2;
   --rating-bg: #ffffff;
-  --rating-border: rgba(22,32,60,0.07);
-  --star-color: #f5b921;
-  --avatar-border: #fffdf7;
+  --rating-border: #e6e7e2;
+  --star-color: #f2c03c;
+  --avatar-border: #fffdf8;
   --field-bg: #ffffff;
-  --field-border: rgba(22,32,60,0.12);
-  --rule-border: rgba(22,32,60,0.08);
-  --logo-filter: invert(1) brightness(0.25);
-  --muted-color: #42506b;
-  --faint-color: #6d7689;
+  --field-border: #e6e7e2;
+  --rule-border: #e6e7e2;
+  --logo-filter: invert(58%) sepia(65%) saturate(387%) hue-rotate(182deg) brightness(47%) contrast(118%);
+  --muted-color: #5f6260;
+  --faint-color: #5f6260;
   --danger-color: #b3423b;
   --ok-color: #2f7a4d;
 }
@@ -89,6 +95,7 @@ input, textarea, select { font: inherit; color: inherit; }
 html[data-theme="dark"] {
   --shell-bg: radial-gradient(900px 600px at 15% 12%, rgba(60,110,70,0.2), transparent 62%), radial-gradient(820px 560px at 85% 70%, rgba(120,60,80,0.18), transparent 64%), #05070a;
   --text-color: #ffffff;
+  --heading-color: #ffffff;
   --nav-bg: rgba(255,255,255,0.06);
   --nav-border: rgba(255,255,255,0.1);
   --nav-shadow: 0 18px 40px rgba(0,0,0,0.45);
@@ -1199,18 +1206,18 @@ html[data-theme="dark"] .hero-title {
      inherit html[data-theme="dark"]'s overrides (e.g. white text on a
      white panel) whenever a visitor toggled dark mode on the storefront,
      since custom properties cascade right through this fixed overlay. */
-  --text-color: #16203c;
+  --text-color: #191f1a;
   --field-bg: #ffffff;
-  --field-border: rgba(22,32,60,0.12);
-  --cta-bg: #f5b921;
-  --cta-border: #f5b921;
-  --cta-color: #16203c;
+  --field-border: #e6e7e2;
+  --cta-bg: #f2c03c;
+  --cta-border: #f2c03c;
+  --cta-color: #191f1a;
   --ghost-bg: #ffffff;
-  --ghost-border: rgba(22,32,60,0.14);
-  --ghost-color: #16203c;
-  --faint-color: #6d7689;
-  --muted-color: #42506b;
-  --rule-border: rgba(22,32,60,0.08);
+  --ghost-border: #e6e7e2;
+  --ghost-color: #191f1a;
+  --faint-color: #5f6260;
+  --muted-color: #5f6260;
+  --rule-border: #e6e7e2;
   --danger-color: #b3423b;
   --ok-color: #2f7a4d;
 
@@ -1218,8 +1225,8 @@ html[data-theme="dark"] .hero-title {
   inset: 0;
   z-index: 500;
   display: flex;
-  background: #f7f5f0;
-  color: #16203c;
+  background: #fdfaf4;
+  color: #191f1a;
   font-family: Archivo, system-ui, sans-serif;
 }
 
@@ -1264,7 +1271,7 @@ html[data-theme="dark"] .hero-title {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #f5b921;
+  background: #f2c03c;
 }
 
 .admin-avatar-block {
@@ -1279,8 +1286,8 @@ html[data-theme="dark"] .hero-title {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #f5b921;
-  color: #16203c;
+  background: #f2c03c;
+  color: #191f1a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1317,8 +1324,8 @@ html[data-theme="dark"] .hero-title {
 
 .admin-chart { display: flex; align-items: flex-end; gap: 14px; height: 180px; padding-top: 20px; }
 .admin-chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
-.admin-chart-value { font-size: 11.5px; font-weight: 700; color: #16203c; }
-.admin-chart-bar { width: 100%; max-width: 40px; border-radius: 4px 4px 0 0; background: #f5b921; min-height: 3px; }
+.admin-chart-value { font-size: 11.5px; font-weight: 700; color: #191f1a; }
+.admin-chart-bar { width: 100%; max-width: 40px; border-radius: 4px 4px 0 0; background: #f2c03c; min-height: 3px; }
 .admin-chart-label { font-size: 11.5px; color: #9aa1af; }
 
 .status-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
@@ -1344,19 +1351,19 @@ html[data-theme="dark"] .hero-title {
   background: #ffffff;
   font-size: 13.5px;
 }
-.admin-search input:focus { outline: 2px solid #f5b921; outline-offset: -1px; }
+.admin-search input:focus { outline: 2px solid #f2c03c; outline-offset: -1px; }
 
 .admin-table { width: 100%; border-collapse: collapse; }
 .admin-table th { text-align: left; font-size: 11.5px; color: #9aa1af; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 0 12px 10px; }
 .admin-table td { padding: 12px; font-size: 13.5px; border-top: 1px solid rgba(22,32,60,0.06); }
 .admin-table tr[data-clickable] { cursor: pointer; }
 .admin-table tr[data-clickable]:hover td { background: rgba(22,32,60,0.02); }
-.admin-table tr.is-selected td { background: rgba(245,185,33,0.1); }
+.admin-table tr.is-selected td { background: rgba(242,192,60,0.1); }
 
 .admin-detail-panel { background: #ffffff; border: 1px solid rgba(22,32,60,0.06); border-radius: 16px; padding: 24px; align-self: start; }
 .admin-detail-empty { color: #6d7689; font-size: 13.5px; text-align: center; padding: 40px 0; }
 .admin-detail-close { cursor: pointer; color: #9aa1af; }
-.admin-detail-close:hover { color: #16203c; opacity: 1; }
+.admin-detail-close:hover { color: #191f1a; opacity: 1; }
 
 .admin-pipeline { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; height: 100%; align-items: flex-start; }
 .admin-pipeline-col { flex: 0 0 260px; display: flex; flex-direction: column; gap: 10px; }
@@ -1371,7 +1378,7 @@ html[data-theme="dark"] .hero-title {
   font-size: 13px;
 }
 .admin-pipeline-card:hover { border-color: rgba(22,32,60,0.2); opacity: 1; }
-.admin-pipeline-card.is-selected { border-color: #f5b921; outline: 1px solid #f5b921; }
+.admin-pipeline-card.is-selected { border-color: #f2c03c; outline: 1px solid #f2c03c; }
 .admin-pipeline-card-id { font-weight: 700; margin-bottom: 4px; }
 .admin-pipeline-card-meta { color: #6d7689; font-size: 12px; }
 .admin-pipeline-card-total { font-weight: 700; margin-top: 8px; }
@@ -1385,12 +1392,12 @@ html[data-theme="dark"] .hero-title {
 .admin-messages-list { overflow-y: auto; display: flex; flex-direction: column; }
 .admin-message-row { padding: 14px 12px; border-bottom: 1px solid rgba(22,32,60,0.06); cursor: pointer; }
 .admin-message-row:hover { background: rgba(22,32,60,0.02); opacity: 1; }
-.admin-message-row.is-selected { background: rgba(245,185,33,0.1); }
+.admin-message-row.is-selected { background: rgba(242,192,60,0.1); }
 .admin-message-row-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .admin-message-name { font-size: 13px; font-weight: 700; }
 .admin-message-snippet { font-size: 12px; color: #6d7689; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .admin-message-date { font-size: 11px; color: #9aa1af; margin-top: 6px; }
-.admin-unhandled-dot { width: 7px; height: 7px; border-radius: 50%; background: #f5b921; flex-shrink: 0; }
+.admin-unhandled-dot { width: 7px; height: 7px; border-radius: 50%; background: #f2c03c; flex-shrink: 0; }
 
 .admin-handled-btn {
   font-size: 12.5px;
@@ -1400,7 +1407,7 @@ html[data-theme="dark"] .hero-title {
   cursor: pointer;
   border: 1px solid rgba(22,32,60,0.14);
   background: #ffffff;
-  color: #16203c;
+  color: #191f1a;
 }
 .admin-handled-btn.is-handled { background: #e3f3e8; border-color: transparent; color: #2f7a4d; }
 
