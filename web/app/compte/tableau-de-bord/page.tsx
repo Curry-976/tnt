@@ -7,6 +7,7 @@ import { db } from "@/lib/db";
 import { orders } from "@/lib/db/schema";
 import { signOutAction } from "@/lib/actions/auth";
 import { isAdminEmail } from "@/lib/admin";
+import { orderStatusLabel } from "@/lib/order-status";
 
 export const metadata: Metadata = { title: "Mon compte" };
 export const dynamic = "force-dynamic";
@@ -54,8 +55,7 @@ export default async function TableauDeBordPage() {
                 <div>
                   <div className="cart-meta-name">Commande #{order.id}</div>
                   <div className="cart-meta-detail">
-                    {order.createdAt.toLocaleDateString("fr-FR")} ·{" "}
-                    {order.status === "paid" ? "Payée" : order.status === "cancelled" ? "Annulée" : "En attente"}
+                    {order.createdAt.toLocaleDateString("fr-FR")} · {orderStatusLabel(order.status)}
                   </div>
                 </div>
                 <div className="price">{(order.totalCents / 100).toFixed(2)} €</div>

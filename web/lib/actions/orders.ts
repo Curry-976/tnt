@@ -34,8 +34,30 @@ export async function setOrderTrackingAction(
 
   await db
     .update(orders)
-    .set({ trackingNumber, trackingCarrierSlug: trackingCarrierSlug || null })
+    .set({ trackingNumber, trackingCarrierSlug: trackingCarrierSlug || null, status: "shipped" })
     .where(eq(orders.id, orderId));
+
+  return { error: null, success: true };
+}
+
+const VALID_STATUSES = ["pending", "paid", "processing", "shipped", "cancelled"];
+
+export async function setOrderStatusAction(
+  _prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  const session = await auth();
+  if (!isAdminEmail(session?.user?.email)) {
+    return { error: "Non autorisé." };
+  }
+
+  const orderId = Number(formData.get("orderId"));
+  const status = String(formData.get("status") ?? "");
+  if (!orderId || !VALID_STATUSES.includes(status)) {
+    return { error: "Statut invalide." };
+  }
+
+  await db.update(orders).set({ status }).where(eq(orders.id, orderId));
 
   return { error: null, success: true };
 }

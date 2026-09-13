@@ -5,7 +5,9 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/db/schema";
 import { isAdminEmail } from "@/lib/admin";
+import { orderStatusLabel } from "@/lib/order-status";
 import { OrderTrackingForm } from "@/components/OrderTrackingForm";
+import { OrderStatusForm } from "@/components/OrderStatusForm";
 
 export const metadata: Metadata = { title: "Commandes — administration" };
 export const dynamic = "force-dynamic";
@@ -29,10 +31,10 @@ export default async function AdminCommandesPage() {
             <div className="panel-head">
               <h2>Commande #{order.id}</h2>
               <span className="faint">
-                {order.email} · {(order.totalCents / 100).toFixed(2)} € ·{" "}
-                {order.status === "paid" ? "Payée" : order.status === "cancelled" ? "Annulée" : "En attente"}
+                {order.email} · {(order.totalCents / 100).toFixed(2)} € · {orderStatusLabel(order.status)}
               </span>
             </div>
+            <OrderStatusForm orderId={order.id} status={order.status} />
             <OrderTrackingForm
               orderId={order.id}
               trackingNumber={order.trackingNumber ?? ""}
