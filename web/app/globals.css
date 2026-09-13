@@ -1199,6 +1199,26 @@ html[data-theme="dark"] .hero-title {
    living inside the route tree's Nav/Footer wrapper. */
 
 .admin-shell {
+  /* Re-pin every token the reused form components (.form-input, .cta, …)
+     read via var(...) to their light values — otherwise they silently
+     inherit html[data-theme="dark"]'s overrides (e.g. white text on a
+     white panel) whenever a visitor toggled dark mode on the storefront,
+     since custom properties cascade right through this fixed overlay. */
+  --text-color: #16203c;
+  --field-bg: #ffffff;
+  --field-border: rgba(22,32,60,0.12);
+  --cta-bg: #f5b921;
+  --cta-border: #f5b921;
+  --cta-color: #16203c;
+  --ghost-bg: #ffffff;
+  --ghost-border: rgba(22,32,60,0.14);
+  --ghost-color: #16203c;
+  --faint-color: #6d7689;
+  --muted-color: #42506b;
+  --rule-border: rgba(22,32,60,0.08);
+  --danger-color: #b3423b;
+  --ok-color: #2f7a4d;
+
   position: fixed;
   inset: 0;
   z-index: 500;
