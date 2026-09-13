@@ -1,12 +1,12 @@
-// Wrapper around the AfterShip Tracking API v4.
-// Docs: https://www.aftership.com/docs/tracking/v4
+// Wrapper around AfterShip's current dated Tracking API.
+// Docs: https://www.aftership.com/docs/tracking
 
-const API_BASE = "https://api.aftership.com/v4";
+const API_BASE = "https://api.aftership.com/tracking/2026-07";
 
 function headers() {
   const apiKey = process.env.AFTERSHIP_API_KEY;
   if (!apiKey) throw new Error("AFTERSHIP_API_KEY manquant.");
-  return { "aftership-api-key": apiKey, "Content-Type": "application/json" };
+  return { "as-api-key": apiKey, "Content-Type": "application/json" };
 }
 
 // Registers a shipment so AfterShip starts polling the carrier for updates.
@@ -17,10 +17,8 @@ export async function registerTracking(trackingNumber: string, carrierSlug?: str
     method: "POST",
     headers: headers(),
     body: JSON.stringify({
-      tracking: {
-        tracking_number: trackingNumber,
-        ...(carrierSlug ? { slug: carrierSlug } : {}),
-      },
+      tracking_number: trackingNumber,
+      ...(carrierSlug ? { slug: carrierSlug } : {}),
     }),
   });
 
@@ -62,25 +60,12 @@ export async function getTrackingStatus(
   trackingNumber: string,
   carrierSlug?: string
 ): Promise<TrackingStatus | null> {
-  // With a known carrier, fetch that specific tracking directly. Without
-  // one (carrier was auto-detected at registration), list trackings
-  // filtered by tracking number instead, since the slug isn't known here.
-  if (carrierSlug) {
-    const response = await fetch(
-      `${API_BASE}/trackings/${encodeURIComponent(carrierSlug)}/${encodeURIComponent(trackingNumber)}`,
-      { headers: headers() }
-    );
-    if (!response.ok) return null;
-    const body = await response.json();
-    const tracking = body?.data?.tracking;
-    return tracking ? mapTracking(tracking) : null;
-  }
+  const params = new URLSearchParams({ tracking_numbers: trackingNumber });
+  if (carrierSlug) params.set("slug", carrierSlug);
 
-  const response = await fetch(
-    `${API_BASE}/trackings?tracking_numbers=${encodeURIComponent(trackingNumber)}`,
-    { headers: headers() }
-  );
+  const response = await fetch(`${API_BASE}/trackings?${params}`, { headers: headers() });
   if (!response.ok) return null;
+
   const body = await response.json();
   const tracking = body?.data?.trackings?.[0];
   return tracking ? mapTracking(tracking) : null;
