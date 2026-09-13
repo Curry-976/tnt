@@ -1,12 +1,12 @@
-// Minimal wrapper around the AfterShip Tracking API.
-// Docs: https://www.aftership.com/docs/tracking/quickstart
+// Wrapper around the AfterShip Tracking API v4.
+// Docs: https://www.aftership.com/docs/tracking/v4
 
-const API_BASE = "https://api.aftership.com/tracking/2025-07";
+const API_BASE = "https://api.aftership.com/v4";
 
 function headers() {
   const apiKey = process.env.AFTERSHIP_API_KEY;
   if (!apiKey) throw new Error("AFTERSHIP_API_KEY manquant.");
-  return { "as-api-key": apiKey, "Content-Type": "application/json" };
+  return { "aftership-api-key": apiKey, "Content-Type": "application/json" };
 }
 
 // Registers a shipment so AfterShip starts polling the carrier for updates.
@@ -42,27 +42,46 @@ export type TrackingStatus = {
   checkpoints: TrackingCheckpoint[];
 };
 
+type RawTracking = {
+  tag?: string;
+  checkpoints?: { message?: string; location?: string; checkpoint_time: string }[];
+};
+
+function mapTracking(tracking: RawTracking): TrackingStatus {
+  return {
+    tag: tracking.tag ?? "Pending",
+    checkpoints: (tracking.checkpoints ?? []).map((c) => ({
+      message: c.message ?? null,
+      location: c.location ?? null,
+      createdAt: c.checkpoint_time,
+    })),
+  };
+}
+
 export async function getTrackingStatus(
   trackingNumber: string,
   carrierSlug?: string
 ): Promise<TrackingStatus | null> {
-  const query = carrierSlug ? `?slug=${encodeURIComponent(carrierSlug)}` : "";
+  // With a known carrier, fetch that specific tracking directly. Without
+  // one (carrier was auto-detected at registration), list trackings
+  // filtered by tracking number instead, since the slug isn't known here.
+  if (carrierSlug) {
+    const response = await fetch(
+      `${API_BASE}/trackings/${encodeURIComponent(carrierSlug)}/${encodeURIComponent(trackingNumber)}`,
+      { headers: headers() }
+    );
+    if (!response.ok) return null;
+    const body = await response.json();
+    const tracking = body?.data?.tracking;
+    return tracking ? mapTracking(tracking) : null;
+  }
+
   const response = await fetch(
-    `${API_BASE}/trackings/${encodeURIComponent(trackingNumber)}${query}`,
+    `${API_BASE}/trackings?tracking_numbers=${encodeURIComponent(trackingNumber)}`,
     { headers: headers() }
   );
   if (!response.ok) return null;
-
   const body = await response.json();
-  const tracking = body?.data?.tracking;
-  if (!tracking) return null;
-
-  return {
-    tag: tracking.tag ?? "Pending",
-    checkpoints: (tracking.checkpoints ?? []).map((c: { message?: string; location?: string; created_at: string }) => ({
-      message: c.message ?? null,
-      location: c.location ?? null,
-      createdAt: c.created_at,
-    })),
-  };
+  const tracking = body?.data?.trackings?.[0];
+  return tracking ? mapTracking(tracking) : null;
 }
