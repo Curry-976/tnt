@@ -1,0 +1,1 @@
+ALTER TABLE "contact_messages" ADD COLUMN "handled" boolean DEFAULT false NOT NULL;

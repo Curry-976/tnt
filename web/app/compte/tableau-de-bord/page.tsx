@@ -37,7 +37,7 @@ export default async function TableauDeBordPage() {
           <h2>Mes commandes</h2>
           <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
             {isAdminEmail(session.user.email) && (
-              <Link href="/admin/commandes" className="ghost">Commandes (admin)</Link>
+              <Link href="/admin" className="ghost">Administration</Link>
             )}
             <Link href="/compte/parametres" className="ghost">Modifier mes infos</Link>
             <form action={signOutAction}>
