@@ -33,7 +33,7 @@ export function OrdersPipeline({ orders }: { orders: Order[] }) {
   const selected = orders.find((o) => o.id === selectedId) ?? null;
 
   return (
-    <div className="admin-two-col" style={{ flex: 1, gridTemplateColumns: selected ? "minmax(0,1fr) 380px" : "1fr" }}>
+    <div className={`admin-two-col${selected ? " has-detail" : ""}`} style={{ flex: 1 }}>
       <div className="admin-pipeline">
         {columns.map((col) => (
           <div className="admin-pipeline-col" key={col.status}>
