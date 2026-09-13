@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { orders } from "@/lib/db/schema";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
+import { markOrderPaid } from "@/lib/order-fulfillment";
 import { ClearCartOnMount } from "@/components/ClearCartOnMount";
 
 export const metadata: Metadata = { title: "Commande confirmée" };
@@ -26,7 +24,10 @@ export default async function CheckoutSuccessPage({
       orderId = Number(metaOrderId);
       // Belt and suspenders: mark paid here too, in case the webhook hasn't
       // landed yet (e.g. Stripe CLI not forwarding events in local dev).
-      await db.update(orders).set({ status: "paid" }).where(eq(orders.id, orderId));
+      // markOrderPaid is idempotent (checks current status first), so this
+      // never double-sends the confirmation/notification emails if the
+      // webhook also fires for the same order.
+      await markOrderPaid(orderId);
     }
   }
 

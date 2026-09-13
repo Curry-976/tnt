@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { orders } from "@/lib/db/schema";
 import { getStripe } from "@/lib/stripe";
+import { markOrderPaid } from "@/lib/order-fulfillment";
 import type Stripe from "stripe";
 
 export async function POST(request: Request) {
@@ -25,7 +23,7 @@ export async function POST(request: Request) {
     const checkoutSession = event.data.object as Stripe.Checkout.Session;
     const orderId = checkoutSession.metadata?.orderId;
     if (orderId) {
-      await db.update(orders).set({ status: "paid" }).where(eq(orders.id, Number(orderId)));
+      await markOrderPaid(Number(orderId));
     }
   }
 
