@@ -1246,6 +1246,7 @@ html[data-theme="dark"] .hero-title {
 }
 
 .admin-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.admin-nav-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 10px 12px; }
 
 .admin-nav-item {
   display: flex;
@@ -1442,6 +1443,7 @@ html[data-theme="dark"] .hero-title {
   .admin-sidebar { width: 64px; padding: 22px 8px; }
   .admin-sidebar .admin-wordmark, .admin-sidebar .admin-nav-item span, .admin-avatar-name, .admin-avatar-role { display: none; }
   .admin-nav-item { justify-content: center; padding: 11px 4px; }
+  .admin-nav-external { display: none; }
   .admin-nav-dot { right: 6px; }
   .admin-avatar-block { justify-content: center; padding: 12px 0 4px; }
   .admin-content { padding: 16px; }

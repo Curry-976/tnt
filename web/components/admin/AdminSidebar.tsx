@@ -73,6 +73,18 @@ export function AdminSidebar({
             </Link>
           );
         })}
+        <div className="admin-nav-divider" />
+        <a href="/studio" target="_blank" rel="noopener noreferrer" className="admin-nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M4 8.5 12 4l8 4.5-8 4.5-8-4.5Z" />
+            <path d="M4 8.5v7L12 20l8-4.5v-7" />
+            <path d="M12 13v7" />
+          </svg>
+          <span>Produits</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="admin-nav-external" style={{ marginLeft: "auto", flexShrink: 0, opacity: 0.6 }}>
+            <path d="M7 17 17 7M9 7h8v8" />
+          </svg>
+        </a>
       </nav>
       <div className="admin-avatar-block">
         <div className="admin-avatar">{initials}</div>
