@@ -127,7 +127,7 @@ export function MobileSearch() {
                         <Image src={product.image} alt={product.name} fill sizes="64px" />
                       </div>
                       <div>
-                        <div className="mobile-search-result-name">TORROW NAM – {product.name}</div>
+                        <div className="mobile-search-result-name">{product.name}</div>
                         <div className="faint">{BASE_PRICE} €</div>
                       </div>
                     </Link>

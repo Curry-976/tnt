@@ -16,7 +16,7 @@ export async function generateMetadata({
   const product = await getProduct(slug);
   if (!product) return {};
 
-  const title = `TORROW NAM – ${product.name}`;
+  const title = product.name;
   const url = `${SITE_URL}/produit/${product.slug}`;
 
   return {
@@ -52,7 +52,7 @@ export default async function ProductPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `TORROW NAM – ${product.name}`,
+    name: product.name,
     description: product.description,
     image: [product.image],
     sku: product.slug,
@@ -85,7 +85,7 @@ export default async function ProductPage({
             {product.season === "hiver" ? "Hiver" : "Été"}
           </span>
           <h1 className="product-name" style={{ marginTop: 14 }}>
-            TORROW NAM – {product.name}
+            {product.name}
           </h1>
           <div className="product-price-row">
             <span className="price" style={{ fontSize: 22 }}>{BASE_PRICE} €</span>

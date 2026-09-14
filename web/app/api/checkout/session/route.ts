@@ -90,7 +90,7 @@ export async function POST(request: Request) {
         currency: "eur",
         unit_amount: unitPrice(item) * 100,
         product_data: {
-          name: `TORROW NAM – ${product.name} (taille ${item.size}${item.floque ? `, flocage ${item.nom} ${item.numero}` : ""})`,
+          name: `${product.name} (taille ${item.size}${item.floque ? `, flocage ${item.nom} ${item.numero}` : ""})`,
           images: [product.image],
         },
       },

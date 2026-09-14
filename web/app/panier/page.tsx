@@ -30,7 +30,7 @@ export default function PanierPage() {
                   <Image src={item.image} alt={item.name} fill sizes="84px" />
                 </div>
                 <div>
-                  <div className="cart-meta-name">TORROW NAM – {item.name}</div>
+                  <div className="cart-meta-name">{item.name}</div>
                   <div className="cart-meta-detail">
                     Taille {item.size}
                     {item.floque && item.nom && item.numero ? ` · Flocage ${item.nom} ${item.numero}` : ""}

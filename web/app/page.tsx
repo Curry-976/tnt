@@ -139,7 +139,7 @@ export default async function HomePage() {
                   )
                 )}
               </div>
-              <div className="card-name">TORROW NAM – {product.name}</div>
+              <div className="card-name">{product.name}</div>
               <div className="card-row">
                 <span className="price">{BASE_PRICE} €</span>
                 <span className="iconbtn" aria-hidden="true">
