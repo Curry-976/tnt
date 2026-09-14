@@ -1440,3 +1440,8 @@ html[data-theme="dark"] .theme-img-light { display: none; }
   }
   .admin-table td[data-label]::before { content: attr(data-label); font-weight: 600; color: #9aa1af; }
 }
+
+@media print {
+  .nav, .site-footer, .no-print { display: none !important; }
+  .receipt { border: none; box-shadow: none; padding: 0; }
+}

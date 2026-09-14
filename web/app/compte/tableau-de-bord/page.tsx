@@ -59,11 +59,12 @@ export default async function TableauDeBordPage() {
                   </div>
                 </div>
                 <div className="price">{(order.totalCents / 100).toFixed(2)} €</div>
-                {order.trackingNumber ? (
-                  <Link href={`/compte/commandes/${order.id}`} className="ghost">Suivre mon colis</Link>
-                ) : (
-                  <span />
-                )}
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <Link href={`/compte/commandes/${order.id}/recu`} className="ghost">Récapitulatif</Link>
+                  {order.trackingNumber && (
+                    <Link href={`/compte/commandes/${order.id}`} className="ghost">Suivre mon colis</Link>
+                  )}
+                </div>
               </div>
             ))}
           </div>
