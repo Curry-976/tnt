@@ -13,6 +13,13 @@ export const product = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "outOfStock",
+      title: "Rupture de stock",
+      type: "boolean",
+      description: "Coche pour garder la fiche visible mais désactiver l'achat (bouton « Rupture de stock »).",
+      initialValue: false,
+    }),
+    defineField({
       name: "name",
       title: "Nom",
       type: "string",
@@ -83,11 +90,12 @@ export const product = defineType({
     }),
   ],
   preview: {
-    select: { title: "name", subtitle: "season", media: "image", visible: "visible" },
-    prepare({ title, subtitle, media, visible }) {
+    select: { title: "name", subtitle: "season", media: "image", visible: "visible", outOfStock: "outOfStock" },
+    prepare({ title, subtitle, media, visible, outOfStock }) {
+      const tags = [visible === false && "Masqué", outOfStock && "Rupture de stock"].filter(Boolean);
       return {
         title,
-        subtitle: visible === false ? `Masqué · ${subtitle}` : subtitle,
+        subtitle: tags.length ? `${tags.join(" · ")} · ${subtitle}` : subtitle,
         media,
       };
     },

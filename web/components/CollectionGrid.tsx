@@ -95,17 +95,21 @@ export function CollectionGrid({
           <div className="product-grid">
             {visible.map((product) => (
               <Link key={product.slug} href={`/produit/${product.slug}`} className="card">
-                <div className="card-media">
+                <div className="card-media" style={product.outOfStock ? { opacity: 0.6 } : undefined}>
                   <ThemedProductImage
                     src={product.image}
                     srcDark={product.imageDark}
                     alt={product.name}
                     sizes="(max-width: 1080px) 50vw, 20vw"
                   />
-                  {product.badge && (
-                    <span className="badge" style={badgeColorStyle(product.badgeColor)}>
-                      {product.badge}
-                    </span>
+                  {product.outOfStock ? (
+                    <span className="badge badge-outofstock">Rupture de stock</span>
+                  ) : (
+                    product.badge && (
+                      <span className="badge" style={badgeColorStyle(product.badgeColor)}>
+                        {product.badge}
+                      </span>
+                    )
                   )}
                   <FavoriteButton slug={product.slug} />
                 </div>

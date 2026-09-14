@@ -672,6 +672,8 @@ html[data-theme="dark"] .theme-img-light { display: none; }
   transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
 
+.badge-outofstock { background: rgba(22,32,60,0.82); border-color: transparent; color: #ffffff; }
+
 .favorite-btn {
   position: absolute;
   top: 10px;

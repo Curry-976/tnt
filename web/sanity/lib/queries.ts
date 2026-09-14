@@ -12,6 +12,7 @@ export type Product = {
   imageDark?: string;
   badge?: string;
   badgeColor?: string;
+  outOfStock: boolean;
   description: string;
 };
 
@@ -23,6 +24,7 @@ type RawProduct = {
   imageDark: string | null;
   badge: string | null;
   badgeColor: string | null;
+  outOfStock: boolean | null;
   description: string | null;
 };
 
@@ -37,6 +39,7 @@ function toProduct(raw: RawProduct): Product | null {
     imageDark: raw.imageDark ?? undefined,
     badge: raw.badge ?? undefined,
     badgeColor: raw.badgeColor ?? undefined,
+    outOfStock: raw.outOfStock ?? false,
     description: raw.description ?? "",
   };
 }
@@ -50,6 +53,7 @@ const ALL_PRODUCTS_QUERY = defineQuery(`
     "imageDark": imageDark.asset->url,
     badge,
     "badgeColor": badgeColor.hex,
+    outOfStock,
     description
   }
 `);
@@ -63,6 +67,7 @@ const PRODUCT_BY_SLUG_QUERY = defineQuery(`
     "imageDark": imageDark.asset->url,
     badge,
     "badgeColor": badgeColor.hex,
+    outOfStock,
     description
   }
 `);

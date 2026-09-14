@@ -116,9 +116,15 @@ export function ProductConfigurator({ product }: { product: Product }) {
         <span className="price" style={{ fontSize: 22 }}>{total} €</span>
       </div>
 
-      <button type="button" className="cta" style={{ width: "100%", marginTop: 18 }} onClick={handleAdd}>
-        <span>{justAdded ? "Ajouté au panier ✓" : "Ajouter au panier"}</span>
-      </button>
+      {product.outOfStock ? (
+        <button type="button" className="cta" style={{ width: "100%", marginTop: 18 }} disabled>
+          <span>Rupture de stock</span>
+        </button>
+      ) : (
+        <button type="button" className="cta" style={{ width: "100%", marginTop: 18 }} onClick={handleAdd}>
+          <span>{justAdded ? "Ajouté au panier ✓" : "Ajouter au panier"}</span>
+        </button>
+      )}
       {justAdded && (
         <button
           type="button"
