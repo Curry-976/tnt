@@ -63,7 +63,7 @@ export function OrdersPipeline({ orders }: { orders: Order[] }) {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
             <div>
               <div style={{ fontSize: 16, fontWeight: 700 }}>Commande #{selected.id}</div>
-              <div style={{ fontSize: 13, color: "#6d7689", marginTop: 4 }}>
+              <div style={{ fontSize: 13, color: "#525a68", marginTop: 4 }}>
                 {selected.email} · {new Date(selected.createdAt).toLocaleDateString("fr-FR")}
               </div>
             </div>
@@ -83,7 +83,7 @@ export function OrdersPipeline({ orders }: { orders: Order[] }) {
             </span>
           </div>
 
-          <div style={{ fontSize: 12.5, fontWeight: 700, color: "#9aa1af", marginBottom: 8, textTransform: "uppercase" }}>
+          <div style={{ fontSize: 12.5, fontWeight: 700, color: "#636c7d", marginBottom: 8, textTransform: "uppercase" }}>
             Articles
           </div>
           {selected.items.map((item, i) => (
@@ -95,14 +95,14 @@ export function OrdersPipeline({ orders }: { orders: Order[] }) {
           <div style={{ fontWeight: 700, fontSize: 14, marginTop: 10 }}>Total : {(selected.totalCents / 100).toFixed(2)} €</div>
 
           <div className="admin-order-section" style={{ marginTop: 20, paddingTop: 20, borderTop: "1px solid rgba(22,32,60,0.08)" }}>
-            <div style={{ fontSize: 12.5, fontWeight: 700, color: "#9aa1af", marginBottom: 10, textTransform: "uppercase" }}>
+            <div style={{ fontSize: 12.5, fontWeight: 700, color: "#636c7d", marginBottom: 10, textTransform: "uppercase" }}>
               Statut
             </div>
             <OrderStatusForm orderId={selected.id} status={selected.status} />
           </div>
 
           <div className="admin-order-section" style={{ marginTop: 20, paddingTop: 20, borderTop: "1px solid rgba(22,32,60,0.08)" }}>
-            <div style={{ fontSize: 12.5, fontWeight: 700, color: "#9aa1af", marginBottom: 10, textTransform: "uppercase" }}>
+            <div style={{ fontSize: 12.5, fontWeight: 700, color: "#636c7d", marginBottom: 10, textTransform: "uppercase" }}>
               Livraison
             </div>
             <OrderTrackingForm

@@ -61,7 +61,7 @@ export function ClientsBoard({ clients }: { clients: Client[] }) {
                   >
                     <td style={{ maxWidth: 200 }}>
                       <div style={{ fontWeight: 700 }}>{client.name}</div>
-                      <div style={{ color: "#9aa1af", fontSize: 12, overflow: "hidden", textOverflow: "ellipsis" }}>{client.email}</div>
+                      <div style={{ color: "#636c7d", fontSize: 12, overflow: "hidden", textOverflow: "ellipsis" }}>{client.email}</div>
                     </td>
                     <td data-label="Commandes">{client.orderCount}</td>
                     <td data-label="Total">{(client.totalCents / 100).toFixed(2)} €</td>
@@ -79,7 +79,7 @@ export function ClientsBoard({ clients }: { clients: Client[] }) {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18 }}>
             <div>
               <div style={{ fontSize: 16, fontWeight: 700 }}>{selected.name}</div>
-              <div style={{ fontSize: 13, color: "#6d7689", marginTop: 4 }}>{selected.email}</div>
+              <div style={{ fontSize: 13, color: "#525a68", marginTop: 4 }}>{selected.email}</div>
             </div>
             <span className="admin-detail-close" onClick={() => setSelectedId(null)}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -87,7 +87,7 @@ export function ClientsBoard({ clients }: { clients: Client[] }) {
               </svg>
             </span>
           </div>
-          <div style={{ fontSize: 12.5, fontWeight: 700, color: "#9aa1af", marginBottom: 10, textTransform: "uppercase" }}>
+          <div style={{ fontSize: 12.5, fontWeight: 700, color: "#636c7d", marginBottom: 10, textTransform: "uppercase" }}>
             Historique des commandes
           </div>
           {selected.orders.length === 0 && <p className="admin-detail-empty">Aucune commande.</p>}
@@ -95,7 +95,7 @@ export function ClientsBoard({ clients }: { clients: Client[] }) {
             <div className="admin-list-row" key={order.id}>
               <div>
                 <div style={{ fontWeight: 700, fontSize: 13 }}>#{order.id}</div>
-                <div style={{ fontSize: 12, color: "#9aa1af" }}>
+                <div style={{ fontSize: 12, color: "#636c7d" }}>
                   {new Date(order.createdAt).toLocaleDateString("fr-FR")}
                 </div>
               </div>

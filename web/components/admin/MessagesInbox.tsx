@@ -45,7 +45,7 @@ export function MessagesInbox({ messages }: { messages: Message[] }) {
           <>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20, gap: 16 }}>
               <div>
-                <div style={{ fontSize: 13, color: "#6d7689" }}>
+                <div style={{ fontSize: 13, color: "#525a68" }}>
                   {selected.name} · {selected.email} · {new Date(selected.createdAt).toLocaleDateString("fr-FR")}
                 </div>
               </div>
