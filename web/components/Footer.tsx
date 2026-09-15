@@ -78,7 +78,7 @@ export function Footer() {
         </div>
       </div>
       <div className="footer-rule">
-        <span className="faint">© TORROW 2026 – Tous droits réservés.</span>
+        <span className="faint">© TORROW 2026. Tous droits réservés.</span>
         <div className="footer-legal faint">
           <Link href="/a-propos#mentions-legales">Mentions légales</Link>
           <Link href="/a-propos#cgu">CGU</Link>

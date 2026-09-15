@@ -61,12 +61,12 @@ export default function AProposPage() {
             </tr>
           </thead>
           <tbody>
-            <tr><td>XS</td><td>84–88 cm</td><td>66 cm</td></tr>
-            <tr><td>S</td><td>89–93 cm</td><td>68 cm</td></tr>
-            <tr><td>M</td><td>94–98 cm</td><td>70 cm</td></tr>
-            <tr><td>L</td><td>99–104 cm</td><td>72 cm</td></tr>
-            <tr><td>XL</td><td>105–111 cm</td><td>74 cm</td></tr>
-            <tr><td>XXL</td><td>112–118 cm</td><td>76 cm</td></tr>
+            <tr><td>XS</td><td>84 à 88 cm</td><td>66 cm</td></tr>
+            <tr><td>S</td><td>89 à 93 cm</td><td>68 cm</td></tr>
+            <tr><td>M</td><td>94 à 98 cm</td><td>70 cm</td></tr>
+            <tr><td>L</td><td>99 à 104 cm</td><td>72 cm</td></tr>
+            <tr><td>XL</td><td>105 à 111 cm</td><td>74 cm</td></tr>
+            <tr><td>XXL</td><td>112 à 118 cm</td><td>76 cm</td></tr>
           </tbody>
         </table>
         <p className="form-note" style={{ marginTop: 12 }}>
