@@ -5,6 +5,7 @@ import { FavoritesProvider } from "@/lib/favorites-context";
 import { SITE_URL } from "@/lib/site";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { FlyToCartAnimation } from "@/components/FlyToCartAnimation";
 import "./globals.css";
 
 const SITE_NAME = "Torrow Nam Torrow";
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               {children}
               <Footer />
             </div>
+            <FlyToCartAnimation />
           </FavoritesProvider>
         </CartProvider>
       </body>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
 import { BASE_PRICE, FLOQUAGE_PRICE, SIZES, type Size } from "@/lib/products";
 import type { Product } from "@/sanity/lib/queries";
+import { flyToCartFromElement } from "@/lib/fly-to-cart";
 
 export function ProductConfigurator({ product }: { product: Product }) {
   const { addItem } = useCart();
@@ -30,6 +31,7 @@ export function ProductConfigurator({ product }: { product: Product }) {
       return;
     }
     setError(null);
+    flyToCartFromElement(document.querySelector(".product-gallery img"), product.image);
     addItem({
       slug: product.slug,
       name: product.name,
