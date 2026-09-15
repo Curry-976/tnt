@@ -29,7 +29,7 @@ export function PanierClient({ products }: { products: Product[] }) {
             {items.map((item) => (
               <div key={item.id} className="panel cart-row">
                 <div className="cart-thumb">
-                  <Image src={item.image} alt={item.name} fill sizes="84px" />
+                  <Image src={item.image} alt={`Maillot ${item.name}`} fill sizes="84px" />
                 </div>
                 <div>
                   <div className="cart-meta-name">{item.name}</div>
@@ -92,7 +92,7 @@ export function PanierClient({ products }: { products: Product[] }) {
                   className="card-media"
                   style={{ display: "block", opacity: product.outOfStock ? 0.6 : undefined }}
                 >
-                  <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 50vw, 20vw" />
+                  <Image src={product.image} alt={`Maillot ${product.name}`} fill sizes="(max-width: 1080px) 50vw, 20vw" />
                   {product.outOfStock ? (
                     <span className="badge badge-outofstock">Rupture de stock</span>
                   ) : (

@@ -47,13 +47,13 @@ export default async function HomePage() {
           <div className="proof">
             <div className="avatars">
               <div className="avatar">
-                <Image src="/assets/hero-01.jpg" alt="Client 1" fill sizes="34px" />
+                <Image src="/assets/hero-01.jpg" alt="" fill sizes="34px" />
               </div>
               <div className="avatar">
-                <Image src="/assets/hero-02.jpg" alt="Client 2" fill sizes="34px" />
+                <Image src="/assets/hero-02.jpg" alt="" fill sizes="34px" />
               </div>
               <div className="avatar">
-                <Image src="/assets/hero-05.jpg" alt="Client 3" fill sizes="34px" />
+                <Image src="/assets/hero-05.jpg" alt="" fill sizes="34px" />
               </div>
             </div>
             <div className="proof-text">
@@ -127,7 +127,7 @@ export default async function HomePage() {
                 <ThemedProductImage
                   src={product.image}
                   srcDark={product.imageDark}
-                  alt={product.name}
+                  alt={`Maillot ${product.name}`}
                   sizes="(max-width: 1080px) 50vw, 20vw"
                 />
                 {product.outOfStock ? (
@@ -169,19 +169,19 @@ export default async function HomePage() {
         </div>
         <div className="tiles">
           <Link href="/collection" className="tile">
-            <Image src="/assets/jersey-details-green.webp" alt="Héritage" fill sizes="25vw" />
+            <Image src="/assets/jersey-details-green.webp" alt="Collection Héritage" fill sizes="25vw" />
             <span className="tile-label">Héritage</span>
           </Link>
           <Link href="/collection" className="tile">
-            <Image src="/assets/hero-06.jpg" alt="Nature" fill sizes="25vw" />
+            <Image src="/assets/hero-06.jpg" alt="Collection Nature" fill sizes="25vw" />
             <span className="tile-label">Nature</span>
           </Link>
           <Link href="/collection" className="tile">
-            <Image src="/assets/hero-03.jpg" alt="Lagon" fill sizes="25vw" />
+            <Image src="/assets/hero-03.jpg" alt="Collection Lagon" fill sizes="25vw" />
             <span className="tile-label">Lagon</span>
           </Link>
           <Link href="/collection" className="tile">
-            <Image src="/assets/jersey-details-pink.webp" alt="Culture" fill sizes="25vw" />
+            <Image src="/assets/jersey-details-pink.webp" alt="Collection Culture" fill sizes="25vw" />
             <span className="tile-label">Culture</span>
           </Link>
         </div>

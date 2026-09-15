@@ -100,7 +100,7 @@ export function CollectionGrid({
                   <ThemedProductImage
                     src={product.image}
                     srcDark={product.imageDark}
-                    alt={product.name}
+                    alt={`Maillot ${product.name}`}
                     sizes="(max-width: 1080px) 50vw, 20vw"
                   />
                   {product.outOfStock ? (

@@ -76,7 +76,7 @@ export default async function ProductPage({
         <ThemedProductImage
           src={product.image}
           srcDark={product.imageDark}
-          alt={product.name}
+          alt={`Maillot ${product.name}`}
           sizes="(max-width: 1080px) 100vw, 55vw"
           priority
         />
