@@ -82,6 +82,77 @@ export default function AProposPage() {
         </p>
       </div>
 
+      <div id="cgu" className="panel about-section">
+        <h2>Conditions générales d’utilisation</h2>
+
+        <p className="form-note" style={{ marginBottom: 20 }}>
+          L’identité complète de l’éditeur (raison sociale, SIRET) sera ajoutée ci-dessous dès
+          l’immatriculation de l’activité, avant l’ouverture des ventes réelles.
+        </p>
+
+        <h3>Article 1 — Objet</h3>
+        <p className="prose">
+          Les présentes conditions générales d’utilisation (CGU) régissent l’accès et
+          l’utilisation du site Torrow Nam Torrow, édité par [nom, SIRET et adresse du siège à
+          compléter après immatriculation]. Naviguer sur le site vaut acceptation pleine et
+          entière de ces CGU. Les règles propres à l’achat d’un maillot sont détaillées dans les{" "}
+          <a href="/a-propos#cgv" style={{ textDecoration: "underline" }}>
+            conditions générales de vente
+          </a>
+          .
+        </p>
+
+        <h3>Article 2 — Accès au site</h3>
+        <p className="prose">
+          Le site est accessible gratuitement à tout utilisateur disposant d’un accès à internet.
+          Tous les frais nécessaires à cet accès (matériel, connexion internet, etc.) sont à la
+          charge de l’utilisateur. Torrow Nam Torrow met tout en œuvre pour assurer un accès
+          continu au site, mais ne garantit pas une disponibilité sans interruption
+          (maintenance, incident technique, cas de force majeure).
+        </p>
+
+        <h3>Article 3 — Création de compte</h3>
+        <p className="prose">
+          La création d’un compte client permet de suivre ses commandes et d’enregistrer ses
+          informations de livraison. L’utilisateur s’engage à fournir des informations exactes
+          et à jour, et à garder confidentiels ses identifiants de connexion. Il est responsable
+          de toute activité effectuée depuis son compte.
+        </p>
+
+        <h3>Article 4 — Utilisation du site</h3>
+        <p className="prose">
+          L’utilisateur s’engage à utiliser le site conformément à sa destination et à ne pas :
+        </p>
+        <ul className="prose">
+          <li>porter atteinte au bon fonctionnement du site (intrusion, saturation, etc.) ;</li>
+          <li>utiliser le site à des fins frauduleuses ou illicites ;</li>
+          <li>copier, reproduire ou exploiter tout ou partie du contenu du site sans autorisation.</li>
+        </ul>
+
+        <h3>Article 5 — Propriété intellectuelle</h3>
+        <p className="prose">
+          L’ensemble des éléments du site (textes, visuels, logos, designs de maillots, marque
+          Torrow Nam Torrow) est protégé par le droit de la propriété intellectuelle. Toute
+          reproduction ou représentation, totale ou partielle, sans autorisation préalable, est
+          interdite.
+        </p>
+
+        <h3>Article 6 — Responsabilité</h3>
+        <p className="prose">
+          Torrow Nam Torrow ne saurait être tenu responsable des dommages directs ou indirects
+          résultant de l’utilisation du site, d’une interruption de service, ou de l’usage de
+          liens hypertextes vers des sites tiers.
+        </p>
+
+        <h3>Article 7 — Modification des CGU</h3>
+        <p className="prose">
+          Ces CGU peuvent être modifiées à tout moment ; la version applicable est celle en
+          ligne au moment de la visite du site. Les présentes conditions sont soumises au droit
+          français. Pour toute question, écris-nous depuis la page{" "}
+          <a href="/contact" style={{ textDecoration: "underline" }}>Contact</a>.
+        </p>
+      </div>
+
       <div id="cgv" className="panel about-section">
         <h2>Conditions générales de vente</h2>
 

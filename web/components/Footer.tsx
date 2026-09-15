@@ -81,6 +81,7 @@ export function Footer() {
         <span className="faint">© TORROW 2026 – Tous droits réservés.</span>
         <div className="footer-legal faint">
           <Link href="/a-propos#mentions-legales">Mentions légales</Link>
+          <Link href="/a-propos#cgu">CGU</Link>
           <Link href="/a-propos#cgv">CGV</Link>
           <Link href="/a-propos#rgpd">Confidentialité (RGPD)</Link>
         </div>
