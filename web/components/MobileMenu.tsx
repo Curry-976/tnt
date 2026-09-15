@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -58,6 +59,7 @@ export function MobileMenu({ links, extraLinks = [] }: { links: NavLink[]; extra
       </button>
 
       {open && (
+        createPortal(
         <nav className="mobile-menu-panel" aria-label="Menu principal">
           {links.map((link) => (
             <Link key={link.href + link.label} href={link.href} onClick={() => setOpen(false)}>
@@ -96,7 +98,9 @@ export function MobileMenu({ links, extraLinks = [] }: { links: NavLink[]; extra
             <span>Thème</span>
             <ThemeToggle />
           </div>
-        </nav>
+        </nav>,
+        document.body
+        )
       )}
     </div>
   );

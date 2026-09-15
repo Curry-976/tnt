@@ -323,19 +323,21 @@ html[data-theme="dark"] .nav-icon { filter: invert(1); }
 .mobile-menu { display: contents; }
 
 .mobile-menu-panel {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
+  position: fixed;
+  inset: 0;
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  padding: 6px 26px 10px;
+  /* Top padding clears the sticky nav bar (~64px) so the first link doesn't
+     render underneath its translucent backdrop-blur. */
+  padding: 84px 26px 10px;
   background: var(--menu-panel-bg);
   border-top: 1px solid var(--nav-border);
   box-shadow: var(--nav-shadow);
-  z-index: 30;
-  max-height: 85vh;
+  /* Below the sticky nav (z-index: 20) so the nav bar — including the close
+     button — stays visible and clickable on top of the fullscreen panel. */
+  z-index: 19;
+  height: 100dvh;
   overflow-y: auto;
   animation: tntFade 0.2s ease both;
 }
