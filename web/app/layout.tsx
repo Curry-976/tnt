@@ -6,6 +6,7 @@ import { SITE_URL } from "@/lib/site";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { FlyToCartAnimation } from "@/components/FlyToCartAnimation";
+import { CookieBanner } from "@/components/CookieBanner";
 import "./globals.css";
 
 const SITE_NAME = "Torrow Nam Torrow";
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Footer />
             </div>
             <FlyToCartAnimation />
+            <CookieBanner />
           </FavoritesProvider>
         </CartProvider>
       </body>
