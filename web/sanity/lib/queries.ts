@@ -78,6 +78,23 @@ export async function getAllProducts(): Promise<Product[]> {
   return raw.map(toProduct).filter((p): p is Product => p !== null);
 }
 
+const PRODUCT_SLUGS_QUERY = defineQuery(`
+  *[_type == "product" && visible != false] {
+    "slug": slug.current,
+    "updatedAt": _updatedAt
+  }
+`);
+
+export async function getProductSlugsForSitemap(): Promise<{ slug: string; updatedAt: string }[]> {
+  if (!isSanityConfigured) return [];
+  const raw = await getClient().fetch<{ slug: string | null; updatedAt: string }[]>(
+    PRODUCT_SLUGS_QUERY,
+    {},
+    { next: { revalidate: 60 } }
+  );
+  return raw.filter((r): r is { slug: string; updatedAt: string } => Boolean(r.slug));
+}
+
 export async function getProduct(slug: string): Promise<Product | null> {
   if (!isSanityConfigured) return null;
   const raw = await getClient().fetch<RawProduct | null>(
