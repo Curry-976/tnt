@@ -12,6 +12,7 @@ export function CartLink() {
         <circle cx="9.5" cy="19.3" r="1.3"></circle>
         <circle cx="17.5" cy="19.3" r="1.3"></circle>
       </svg>
+      {count > 0 && <span className="cart-count">{count}</span>}
     </Link>
   );
 }

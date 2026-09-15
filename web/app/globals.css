@@ -430,6 +430,9 @@ html[data-theme="dark"] .nav-icon { filter: invert(1); }
 }
 
 .cart-count {
+  position: absolute;
+  top: -7px;
+  right: -8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -441,6 +444,8 @@ html[data-theme="dark"] .nav-icon { filter: invert(1); }
   color: var(--cta-color);
   font-size: 10px;
   font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .iconbtn {
