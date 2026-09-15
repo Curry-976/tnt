@@ -3,8 +3,9 @@ import { CollectionGrid } from "@/components/CollectionGrid";
 import { getAllProducts, type ProductSeason } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
-  title: "Collection",
-  description: "Une seule team. 35 € pièce, nom et numéro pour 5 € de plus.",
+  title: "Maillots streetwear Mayotte : la collection",
+  description:
+    "Toute la collection de maillots streetwear Torrow Nam Torrow. 35 € pièce, nom et numéro personnalisés pour 5 € de plus.",
 };
 
 const VALID_SEASONS = new Set(["ete", "hiver"]);

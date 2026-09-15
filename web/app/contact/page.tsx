@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Une question sur une commande ou un maillot ? Écris-nous, on répond sous 48h.",
+};
 
 export default function ContactPage() {
   return (

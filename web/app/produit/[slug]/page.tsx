@@ -16,7 +16,9 @@ export async function generateMetadata({
   const product = await getProduct(slug);
   if (!product) return {};
 
-  const title = product.name;
+  // "Maillot" in the meta title helps search visibility without touching
+  // the plain product name shown on cards and the page's own <h1>.
+  const title = `Maillot ${product.name}`;
   const url = `${SITE_URL}/produit/${product.slug}`;
 
   return {

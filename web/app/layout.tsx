@@ -10,12 +10,14 @@ import { CookieBanner } from "@/components/CookieBanner";
 import "./globals.css";
 
 const SITE_NAME = "Torrow Nam Torrow";
-const SITE_DESCRIPTION = "Maillots streetwear inspirés de Mayotte. Torrow Nam Torrow : une team, une identité.";
+const HOME_TITLE = `${SITE_NAME} · Maillots streetwear inspirés de Mayotte`;
+const SITE_DESCRIPTION =
+  "Maillots streetwear inspirés de Mayotte, personnalisables nom et numéro. 35 € la pièce, livraison en France métropolitaine.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: SITE_NAME,
+    default: HOME_TITLE,
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -23,13 +25,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: SITE_NAME,
-    title: SITE_NAME,
+    title: HOME_TITLE,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_NAME,
+    title: HOME_TITLE,
     description: SITE_DESCRIPTION,
   },
 };
