@@ -6,19 +6,13 @@ import { itemUnitPrice, useCart } from "@/lib/cart-context";
 import { BASE_PRICE } from "@/lib/products";
 import type { Product } from "@/sanity/lib/queries";
 import { badgeColorStyle } from "@/lib/badge-colors";
-import { flyToCartFromElement } from "@/lib/fly-to-cart";
+import { CartQuickAddButton } from "./CartQuickAddButton";
 
 export function PanierClient({ products }: { products: Product[] }) {
-  const { items, subtotal, setQty, removeItem, addItem, hydrated } = useCart();
+  const { items, subtotal, setQty, removeItem, hydrated } = useCart();
 
   const cartSlugs = new Set(items.map((i) => i.slug));
-  const suggestions = products.filter((p) => !cartSlugs.has(p.slug) && !p.outOfStock);
-
-  function quickAdd(product: Product, e: React.MouseEvent<HTMLButtonElement>) {
-    const card = e.currentTarget.closest(".card");
-    flyToCartFromElement(card?.querySelector("img") ?? null, product.image);
-    addItem({ slug: product.slug, name: product.name, image: product.image, size: "M", floque: false, qty: 1 });
-  }
+  const suggestions = products.filter((p) => !cartSlugs.has(p.slug));
 
   return (
     <>
@@ -93,29 +87,26 @@ export function PanierClient({ products }: { products: Product[] }) {
           <div className="product-grid">
             {suggestions.map((product) => (
               <div key={product.slug} className="card">
-                <Link href={`/produit/${product.slug}`} className="card-media" style={{ display: "block" }}>
+                <Link
+                  href={`/produit/${product.slug}`}
+                  className="card-media"
+                  style={{ display: "block", opacity: product.outOfStock ? 0.6 : undefined }}
+                >
                   <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 50vw, 20vw" />
-                  {product.badge && (
-                    <span className="badge" style={badgeColorStyle(product.badgeColor)}>
-                      {product.badge}
-                    </span>
+                  {product.outOfStock ? (
+                    <span className="badge badge-outofstock">Rupture de stock</span>
+                  ) : (
+                    product.badge && (
+                      <span className="badge" style={badgeColorStyle(product.badgeColor)}>
+                        {product.badge}
+                      </span>
+                    )
                   )}
                 </Link>
                 <div className="card-name">{product.name}</div>
                 <div className="card-row">
                   <span className="price">{BASE_PRICE} €</span>
-                  <button
-                    type="button"
-                    className="iconbtn"
-                    aria-label={`Ajouter ${product.name} au panier`}
-                    onClick={(e) => quickAdd(product, e)}
-                  >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 5h2.2l2.3 10.6h10l1.9-7.6H6.4"></path>
-                      <circle cx="9.5" cy="19.3" r="1.3"></circle>
-                      <circle cx="17.5" cy="19.3" r="1.3"></circle>
-                    </svg>
-                  </button>
+                  <CartQuickAddButton product={product} />
                 </div>
               </div>
             ))}

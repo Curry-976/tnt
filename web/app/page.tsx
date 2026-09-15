@@ -4,6 +4,7 @@ import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
 import { getAllProducts } from "@/sanity/lib/queries";
 import { ThemedProductImage } from "@/components/ThemedProductImage";
 import { badgeColorStyle } from "@/lib/badge-colors";
+import { CartQuickAddButton } from "@/components/CartQuickAddButton";
 
 export default async function HomePage() {
   const homeProducts = (await getAllProducts()).filter((p) => p.season === "ete").slice(0, 5);
@@ -142,13 +143,7 @@ export default async function HomePage() {
               <div className="card-name">{product.name}</div>
               <div className="card-row">
                 <span className="price">{BASE_PRICE} €</span>
-                <span className="iconbtn" aria-hidden="true">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M3 5h2.2l2.3 10.6h10l1.9-7.6H6.4"></path>
-                    <circle cx="9.5" cy="19.3" r="1.3"></circle>
-                    <circle cx="17.5" cy="19.3" r="1.3"></circle>
-                  </svg>
-                </span>
+                <CartQuickAddButton product={product} />
               </div>
             </Link>
           ))}
