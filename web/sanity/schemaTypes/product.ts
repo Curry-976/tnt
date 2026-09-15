@@ -1,9 +1,11 @@
 import { defineField, defineType } from "sanity";
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 
 export const product = defineType({
   name: "product",
   title: "Maillot",
   type: "document",
+  orderings: [orderRankOrdering],
   fields: [
     defineField({
       name: "visible",
@@ -81,13 +83,7 @@ export const product = defineType({
       rows: 4,
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: "order",
-      title: "Ordre d'affichage",
-      type: "number",
-      description: "Les maillots s'affichent du plus petit au plus grand nombre.",
-      initialValue: 0,
-    }),
+    orderRankField({ type: "product" }),
   ],
   preview: {
     select: { title: "name", subtitle: "season", media: "image", visible: "visible", outOfStock: "outOfStock" },
