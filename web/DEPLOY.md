@@ -43,7 +43,7 @@ nano .env.local   # remplir NEXT_PUBLIC_SANITY_PROJECT_ID, DATABASE_URL, AUTH_SE
 ```
 
 `NEXT_PUBLIC_SITE_URL` doit être l'URL publique finale (ex.
-`https://torrownamtorrow.com`) — Stripe s'en sert pour les redirections
+`https://tnt-jersey.fr`) — Stripe s'en sert pour les redirections
 après paiement.
 
 ## 5. Base de données (une fois DATABASE_URL renseigné)
@@ -83,7 +83,7 @@ sudo cp deploy/nginx.conf /etc/nginx/sites-available/torrow-web
 sudo nano /etc/nginx/sites-available/torrow-web   # remplacer le domaine
 sudo ln -s /etc/nginx/sites-available/torrow-web /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
-sudo certbot --nginx -d torrownamtorrow.com -d www.torrownamtorrow.com
+sudo certbot --nginx --redirect -d tnt-jersey.fr -d www.tnt-jersey.fr
 ```
 
 ## 9. Webhook Stripe
