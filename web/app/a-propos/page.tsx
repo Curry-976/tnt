@@ -164,6 +164,87 @@ export default function AProposPage() {
           l’activité immatriculée. Les présentes conditions sont soumises au droit français.
         </p>
       </div>
+
+      <div id="rgpd" className="panel about-section">
+        <h2>Politique de confidentialité (RGPD)</h2>
+
+        <p className="form-note" style={{ marginBottom: 20 }}>
+          L’identité complète du responsable de traitement (raison sociale, SIRET) sera ajoutée
+          ci-dessous dès l’immatriculation de l’activité, avant l’ouverture des ventes réelles.
+        </p>
+
+        <h3>Responsable du traitement</h3>
+        <p className="prose">
+          Torrow Nam Torrow — [nom, SIRET et adresse du siège à compléter après immatriculation]
+          est responsable du traitement des données personnelles collectées sur ce site. Pour
+          toute question, écris-nous depuis la page{" "}
+          <a href="/contact" style={{ textDecoration: "underline" }}>Contact</a>.
+        </p>
+
+        <h3>Données collectées</h3>
+        <p className="prose">
+          On collecte uniquement les données nécessaires au fonctionnement du site et à la
+          gestion des commandes :
+        </p>
+        <ul className="prose">
+          <li>Compte client : email, nom, mot de passe (stocké de façon chiffrée).</li>
+          <li>
+            Commande : email, adresse de livraison, contenu de la commande (taille, flocage nom
+            et numéro le cas échéant).
+          </li>
+          <li>Contact : nom, email et message envoyés via la page Contact.</li>
+          <li>Newsletter : email, uniquement si tu t’inscris volontairement.</li>
+          <li>
+            Paiement : géré directement par Stripe, notre prestataire de paiement — on ne
+            stocke jamais tes coordonnées bancaires sur nos serveurs.
+          </li>
+        </ul>
+
+        <h3>Cookies et stockage local</h3>
+        <p className="prose">
+          Le site n’utilise pas de cookies de suivi publicitaire. Le thème choisi (clair/sombre),
+          le contenu du panier et les favoris sont enregistrés dans le stockage local de ton
+          navigateur (localStorage), uniquement sur ton appareil, pour te faire retrouver ces
+          préférences d’une visite à l’autre.
+        </p>
+
+        <h3>Finalités et base légale</h3>
+        <p className="prose">
+          Ces données sont traitées pour exécuter le contrat de vente (commande, livraison,
+          service après-vente), gérer ton compte client, répondre à tes messages, et t’envoyer
+          la newsletter si tu t’y es inscrit·e (sur la base de ton consentement, retirable à tout
+          moment).
+        </p>
+
+        <h3>Destinataires des données</h3>
+        <p className="prose">
+          Tes données sont partagées uniquement avec les prestataires nécessaires au
+          fonctionnement du site : Stripe (paiement), Brevo (envoi de la newsletter), notre
+          hébergeur de base de données et notre hébergeur web. Aucune donnée n’est vendue à des
+          tiers.
+        </p>
+
+        <h3>Durée de conservation</h3>
+        <p className="prose">
+          Les données de compte sont conservées tant que le compte est actif. Les données de
+          commande sont conservées le temps nécessaire aux obligations comptables et légales. Les
+          messages de contact sont conservés le temps de traiter ta demande. Tu peux demander la
+          suppression de tes données à tout moment (voir « Tes droits » ci-dessous).
+        </p>
+
+        <h3>Tes droits</h3>
+        <p className="prose">
+          Conformément au RGPD, tu disposes d’un droit d’accès, de rectification, d’effacement,
+          de limitation, de portabilité et d’opposition sur tes données personnelles. Pour
+          exercer ces droits, écris-nous depuis la page{" "}
+          <a href="/contact" style={{ textDecoration: "underline" }}>Contact</a>. Tu peux
+          également introduire une réclamation auprès de la CNIL (
+          <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>
+            cnil.fr
+          </a>
+          ).
+        </p>
+      </div>
     </>
   );
 }

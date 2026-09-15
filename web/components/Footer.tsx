@@ -82,6 +82,7 @@ export function Footer() {
         <div className="footer-legal faint">
           <Link href="/a-propos#mentions-legales">Mentions légales</Link>
           <Link href="/a-propos#cgv">CGV</Link>
+          <Link href="/a-propos#rgpd">Confidentialité (RGPD)</Link>
         </div>
       </div>
     </footer>
