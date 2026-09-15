@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Archivo, Caveat } from "next/font/google";
 import Script from "next/script";
 import { CartProvider } from "@/lib/cart-context";
 import { FavoritesProvider } from "@/lib/favorites-context";
@@ -38,6 +39,22 @@ export const metadata: Metadata = {
   },
 };
 
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
+  variable: "--font-archivo",
+});
+
+// Only weight 700 is ever used (see .hero-title in globals.css) — the old
+// <link> setup loaded 500 too, for nothing.
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: "700",
+  display: "swap",
+  variable: "--font-caveat",
+});
+
 const THEME_INIT = `
 try {
   var t = localStorage.getItem('tnt-theme');
@@ -47,16 +64,7 @@ try {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fr">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router root layout, not pages/_document; this link is shared site-wide. */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Caveat:wght@500;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="fr" className={`${archivo.variable} ${caveat.variable}`}>
       <body>
         <Script id="tnt-theme-init" strategy="beforeInteractive">
           {THEME_INIT}
