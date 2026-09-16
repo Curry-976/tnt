@@ -4,9 +4,12 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { orders, orderItems } from "@/lib/db/schema";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
-import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
+import { BASE_PRICE, FLOQUAGE_PRICE, SIZES } from "@/lib/products";
 import { getProduct, type Product } from "@/sanity/lib/queries";
 import type { CartItem } from "@/lib/cart-context";
+import { isRateLimited, ipFromForwardedFor } from "@/lib/rate-limit";
+
+const MAX_QTY = 9; // matches the qty stepper's own cap in ProductConfigurator/PanierClient
 
 type CheckoutBody = {
   items: CartItem[];
@@ -22,6 +25,11 @@ export async function POST(request: Request) {
     );
   }
 
+  const ip = ipFromForwardedFor(request.headers.get("x-forwarded-for"));
+  if (isRateLimited(`checkout:${ip}`, { limit: 10, windowMs: 10 * 60 * 1000 })) {
+    return NextResponse.json({ error: "Trop de tentatives, réessaie un peu plus tard." }, { status: 429 });
+  }
+
   const body = (await request.json()) as CheckoutBody;
   const { items, email, shippingAddress } = body;
 
@@ -30,6 +38,17 @@ export async function POST(request: Request) {
   }
   if (!email || !email.includes("@")) {
     return NextResponse.json({ error: "Email de livraison invalide." }, { status: 400 });
+  }
+
+  // Size and quantity come from the client cart — clamp/validate them here
+  // too rather than trusting them as-is (the UI already restricts both, but
+  // a direct request to this endpoint wouldn't go through the UI).
+  const sanitizedItems = items
+    .filter((item) => (SIZES as readonly string[]).includes(item.size))
+    .map((item) => ({ ...item, qty: Math.min(Math.max(Math.trunc(item.qty), 1), MAX_QTY) }));
+
+  if (sanitizedItems.length === 0) {
+    return NextResponse.json({ error: "Le panier est vide." }, { status: 400 });
   }
 
   const session = await auth();
@@ -42,7 +61,7 @@ export async function POST(request: Request) {
   // trusted from the client.
   const validated = (
     await Promise.all(
-      items.map(async (item) => {
+      sanitizedItems.map(async (item) => {
         const product = await getProduct(item.slug);
         return product ? { item, product } : null;
       })
