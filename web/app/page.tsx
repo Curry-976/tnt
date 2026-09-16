@@ -40,9 +40,6 @@ export default async function HomePage() {
                 <path d="M4 12h15M13 6l6 6-6 6"></path>
               </svg>
             </Link>
-            <Link href="/a-propos" className="ghost">
-              En savoir plus
-            </Link>
           </div>
           <div className="proof">
             <div className="avatars">
