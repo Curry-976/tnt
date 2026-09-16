@@ -1,12 +1,14 @@
 "use server";
 
 import { randomBytes, createHash } from "node:crypto";
+import { headers } from "next/headers";
 import bcrypt from "bcryptjs";
 import { eq, and, gt } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { users, passwordResetTokens } from "@/lib/db/schema";
 import { sendPasswordResetEmail } from "@/lib/email";
 import { SITE_URL } from "@/lib/site";
+import { isRateLimited, ipFromForwardedFor } from "@/lib/rate-limit";
 
 export type ActionState = { error: string | null; success?: boolean };
 
@@ -23,6 +25,17 @@ export async function requestPasswordResetAction(
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   if (!email || !email.includes("@")) {
     return { error: "Adresse email invalide." };
+  }
+
+  const ip = ipFromForwardedFor((await headers()).get("x-forwarded-for"));
+  // Limits both a bot hammering many different emails from one IP, and
+  // someone spamming a single victim's inbox with reset links.
+  const ipLimited = isRateLimited(`password-reset-ip:${ip}`, { limit: 10, windowMs: 10 * 60 * 1000 });
+  const emailLimited = isRateLimited(`password-reset-email:${email}`, { limit: 3, windowMs: 60 * 60 * 1000 });
+  if (ipLimited || emailLimited) {
+    // Same generic message as a real success — don't reveal that a limit
+    // exists, which would itself leak whether the account is being targeted.
+    return { error: null, success: true };
   }
 
   // Always return the same success message whether or not the account

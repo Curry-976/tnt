@@ -8,6 +8,7 @@ import { BASE_PRICE, FLOQUAGE_PRICE, SIZES } from "@/lib/products";
 import { getProduct, type Product } from "@/sanity/lib/queries";
 import type { CartItem } from "@/lib/cart-context";
 import { isRateLimited, ipFromForwardedFor } from "@/lib/rate-limit";
+import { isDomTomPostalCode } from "@/lib/shipping";
 
 const MAX_QTY = 9; // matches the qty stepper's own cap in ProductConfigurator/PanierClient
 
@@ -15,6 +16,7 @@ type CheckoutBody = {
   items: CartItem[];
   email: string;
   shippingAddress: string;
+  postalCode: string;
 };
 
 export async function POST(request: Request) {
@@ -31,13 +33,21 @@ export async function POST(request: Request) {
   }
 
   const body = (await request.json()) as CheckoutBody;
-  const { items, email, shippingAddress } = body;
+  const { items, email, shippingAddress, postalCode } = body;
 
   if (!items?.length) {
     return NextResponse.json({ error: "Le panier est vide." }, { status: 400 });
   }
   if (!email || !email.includes("@")) {
     return NextResponse.json({ error: "Email de livraison invalide." }, { status: 400 });
+  }
+  // The UI already blocks DOM-TOM postal codes — re-checked here so a direct
+  // request to this endpoint can't place an order that can't be fulfilled.
+  if (!postalCode || !/^\d{5}$/.test(postalCode)) {
+    return NextResponse.json({ error: "Code postal invalide." }, { status: 400 });
+  }
+  if (isDomTomPostalCode(postalCode)) {
+    return NextResponse.json({ error: "Livraison non disponible en DOM-TOM pour l'instant." }, { status: 400 });
   }
 
   // Size and quantity come from the client cart — clamp/validate them here

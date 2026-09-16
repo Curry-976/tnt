@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { itemUnitPrice, useCart } from "@/lib/cart-context";
-
-const DOM_TOM_PREFIXES = ["97", "98"];
+import { isDomTomPostalCode } from "@/lib/shipping";
 
 export function CheckoutForm({ defaultEmail }: { defaultEmail: string }) {
   const { items, subtotal } = useCart();
@@ -24,7 +23,7 @@ export function CheckoutForm({ defaultEmail }: { defaultEmail: string }) {
       setError("Le code postal doit contenir 5 chiffres.");
       return;
     }
-    if (DOM_TOM_PREFIXES.includes(postalCode.slice(0, 2))) {
+    if (isDomTomPostalCode(postalCode)) {
       setError("Livraison non disponible en DOM-TOM pour l'instant.");
       return;
     }
@@ -43,7 +42,7 @@ export function CheckoutForm({ defaultEmail }: { defaultEmail: string }) {
       const res = await fetch("/api/checkout/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, email, shippingAddress }),
+        body: JSON.stringify({ items, email, shippingAddress, postalCode }),
       });
       const data = await res.json();
       if (!res.ok) {
