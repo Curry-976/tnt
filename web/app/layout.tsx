@@ -8,6 +8,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { FlyToCartAnimation } from "@/components/FlyToCartAnimation";
 import { CookieBanner } from "@/components/CookieBanner";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 const SITE_NAME = "Torrow Nam Torrow";
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </div>
             <FlyToCartAnimation />
             <CookieBanner />
+            <GoogleAnalytics />
           </FavoritesProvider>
         </CartProvider>
       </body>

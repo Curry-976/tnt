@@ -2,13 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getCookieConsent, setCookieConsent } from "@/lib/cookie-consent";
+import { COOKIE_CONSENT_EVENT, getCookieConsent, setCookieConsent, type CookieConsent } from "@/lib/cookie-consent";
 
 export function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     if (!getCookieConsent()) setVisible(true);
+
+    // Reopens when consent is reset (the footer's "Gérer les cookies" link).
+    function handle(event: Event) {
+      const value = (event as CustomEvent<CookieConsent | null>).detail;
+      if (value === null) setVisible(true);
+    }
+    window.addEventListener(COOKIE_CONSENT_EVENT, handle);
+    return () => window.removeEventListener(COOKIE_CONSENT_EVENT, handle);
   }, []);
 
   function choose(value: "accepted" | "rejected") {
@@ -22,7 +30,8 @@ export function CookieBanner() {
     <div className="cookie-banner" role="dialog" aria-label="Préférences cookies">
       <p className="cookie-banner-text">
         On utilise le stockage de ton navigateur pour ton panier, tes favoris et le thème
-        clair/sombre — rien de publicitaire. Détails sur notre{" "}
+        clair/sombre, et — si tu acceptes — Google Analytics pour mesurer la fréquentation du
+        site (pas de publicité ciblée). Détails sur notre{" "}
         <Link href="/a-propos#rgpd" style={{ textDecoration: "underline" }}>
           politique de confidentialité
         </Link>

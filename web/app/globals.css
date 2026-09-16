@@ -886,6 +886,7 @@ html[data-theme="dark"] .theme-img-light { display: none; }
 }
 .footer-rule .faint { font-size: 12.5px; }
 .footer-legal { display: flex; gap: 26px; font-size: 12.5px; }
+.footer-legal button:hover { opacity: 0.78; }
 
 /* ---------- forms (used by product/cart/checkout/account) ---------- */
 

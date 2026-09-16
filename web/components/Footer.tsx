@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { NewsletterForm } from "./NewsletterForm";
+import { ManageCookiesButton } from "./ManageCookiesButton";
 
 export function Footer() {
   return (
@@ -84,6 +85,7 @@ export function Footer() {
           <Link href="/a-propos#cgu">CGU</Link>
           <Link href="/a-propos#cgv">CGV</Link>
           <Link href="/a-propos#rgpd">Confidentialité (RGPD)</Link>
+          <ManageCookiesButton />
         </div>
       </div>
     </footer>

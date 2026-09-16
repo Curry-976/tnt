@@ -276,23 +276,31 @@ export default function AProposPage() {
           Le site n’utilise pas de cookies de suivi publicitaire. Le thème choisi (clair/sombre),
           le contenu du panier et les favoris sont enregistrés dans le stockage local de ton
           navigateur (localStorage), uniquement sur ton appareil, pour te faire retrouver ces
-          préférences d’une visite à l’autre.
+          préférences d’une visite à l’autre — ceux-là ne demandent pas de consentement,
+          strictement nécessaires au fonctionnement du site.
+        </p>
+        <p className="prose">
+          Si tu acceptes la bannière de cookies, Google Analytics dépose également des cookies de
+          mesure d’audience (fréquentation, pages visitées) avec l’IP anonymisée — jamais de
+          publicité ciblée. Tu peux changer d’avis à tout moment via le lien « Gérer les
+          cookies » en bas de page.
         </p>
 
         <h3>Finalités et base légale</h3>
         <p className="prose">
           Ces données sont traitées pour exécuter le contrat de vente (commande, livraison,
-          service après-vente), gérer ton compte client, répondre à tes messages, et t’envoyer
-          la newsletter si tu t’y es inscrit·e (sur la base de ton consentement, retirable à tout
-          moment).
+          service après-vente), gérer ton compte client, répondre à tes messages, t’envoyer
+          la newsletter si tu t’y es inscrit·e, et mesurer la fréquentation du site via Google
+          Analytics — ces deux derniers usages reposent sur ton consentement, retirable à tout
+          moment.
         </p>
 
         <h3>Destinataires des données</h3>
         <p className="prose">
           Tes données sont partagées uniquement avec les prestataires nécessaires au
-          fonctionnement du site : Stripe (paiement), Brevo (envoi de la newsletter), notre
-          hébergeur de base de données et notre hébergeur web. Aucune donnée n’est vendue à des
-          tiers.
+          fonctionnement du site : Stripe (paiement), Brevo (envoi de la newsletter), Google
+          Analytics (mesure d’audience, si tu l’acceptes), notre hébergeur de base de données et
+          notre hébergeur web. Aucune donnée n’est vendue à des tiers.
         </p>
 
         <h3>Durée de conservation</h3>
