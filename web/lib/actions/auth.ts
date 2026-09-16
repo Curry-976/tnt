@@ -1,17 +1,28 @@
 "use server";
 
+import { headers } from "next/headers";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { signIn, signOut } from "@/auth";
+import { isRateLimited, ipFromForwardedFor } from "@/lib/rate-limit";
 
 export type AuthActionState = { error: string | null };
+
+async function clientIp() {
+  return ipFromForwardedFor((await headers()).get("x-forwarded-for"));
+}
 
 export async function registerAction(
   _prevState: AuthActionState,
   formData: FormData
 ): Promise<AuthActionState> {
+  const ip = await clientIp();
+  if (isRateLimited(`register:${ip}`, { limit: 5, windowMs: 60 * 60 * 1000 })) {
+    return { error: "Trop de tentatives, réessaie un peu plus tard." };
+  }
+
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
@@ -62,6 +73,16 @@ export async function loginAction(
   _prevState: AuthActionState,
   formData: FormData
 ): Promise<AuthActionState> {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const ip = await clientIp();
+  // Both limits together: an IP can't brute-force many accounts, and a
+  // single account can't be brute-forced from many IPs.
+  const ipLimited = isRateLimited(`login-ip:${ip}`, { limit: 15, windowMs: 10 * 60 * 1000 });
+  const emailLimited = email && isRateLimited(`login-email:${email}`, { limit: 8, windowMs: 10 * 60 * 1000 });
+  if (ipLimited || emailLimited) {
+    return { error: "Trop de tentatives, réessaie un peu plus tard." };
+  }
+
   try {
     await signIn("credentials", {
       email: formData.get("email"),
