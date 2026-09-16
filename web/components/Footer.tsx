@@ -34,7 +34,7 @@ export function Footer() {
                 <path d="M21 5.4c-.7.3-1.4.5-2.2.6a3.7 3.7 0 0 0 1.7-2 7.6 7.6 0 0 1-2.4.9 3.8 3.8 0 0 0-6.5 3.4A10.7 10.7 0 0 1 4 4.6a3.8 3.8 0 0 0 1.2 5 3.7 3.7 0 0 1-1.7-.5 3.8 3.8 0 0 0 3 3.7 3.8 3.8 0 0 1-1.7.1 3.8 3.8 0 0 0 3.5 2.6A7.6 7.6 0 0 1 3 17.1a10.7 10.7 0 0 0 5.8 1.7c7 0 10.8-5.8 10.8-10.8v-.5c.8-.5 1.4-1.2 1.9-2z"></path>
               </svg>
             </a>
-            <a href="mailto:contact@torrownamtorrow.com" aria-label="Email">
+            <a href="mailto:contact@tnt-jersey.fr" aria-label="Email">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
                 <rect x="3.5" y="5.5" width="17" height="13" rx="2.5"></rect>
                 <path d="m4.5 7.5 7.5 5.5 7.5-5.5"></path>
