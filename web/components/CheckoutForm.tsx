@@ -148,7 +148,7 @@ export function CheckoutForm({ defaultEmail }: { defaultEmail: string }) {
           <span>{loading ? "Redirection vers le paiement…" : `Payer ${subtotal} €`}</span>
         </button>
         <p className="form-note">
-          Paiement sécurisé par Stripe. Tu seras redirigé pour entrer ta carte. Livraison France
+          Paiement sécurisé par SumUp. Tu seras redirigé pour entrer ta carte. Livraison France
           métropolitaine uniquement pour l&apos;instant.
         </p>
       </form>

@@ -4,8 +4,8 @@ import { orders, orderItems } from "@/lib/db/schema";
 import { sendOrderConfirmationEmail, sendAdminOrderNotificationEmail } from "@/lib/email";
 import { getAdminEmails } from "@/lib/admin";
 
-// Called from both the Stripe webhook and the checkout success page (belt
-// and suspenders, in case the webhook hasn't landed yet). Stripe also
+// Called from both the SumUp webhook and the checkout success page (belt
+// and suspenders, in case the webhook hasn't landed yet). SumUp also
 // retries webhook deliveries, so this only acts — and only emails — once,
 // on the pending -> paid transition, never on an order already marked paid.
 export async function markOrderPaid(orderId: number) {

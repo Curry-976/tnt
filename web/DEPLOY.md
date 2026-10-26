@@ -39,12 +39,12 @@ d'ajout/édition/suppression de maillots, upload de photos).
 
 ```bash
 cp .env.example .env.local
-nano .env.local   # remplir NEXT_PUBLIC_SANITY_PROJECT_ID, DATABASE_URL, AUTH_SECRET, STRIPE_*, NEXT_PUBLIC_SITE_URL
+nano .env.local   # remplir NEXT_PUBLIC_SANITY_PROJECT_ID, DATABASE_URL, AUTH_SECRET, SUMUP_*, NEXT_PUBLIC_SITE_URL
 ```
 
 `NEXT_PUBLIC_SITE_URL` doit être l'URL publique finale (ex.
-`https://torrownamtorrow.com`) — Stripe s'en sert pour les redirections
-après paiement.
+`https://torrownamtorrow.com`) — SumUp s'en sert pour le retour
+après paiement et pour notifier le site des paiements.
 
 ## 5. Base de données (une fois DATABASE_URL renseigné)
 
@@ -86,12 +86,13 @@ sudo nginx -t && sudo systemctl reload nginx
 sudo certbot --nginx -d torrownamtorrow.com -d www.torrownamtorrow.com
 ```
 
-## 9. Webhook Stripe
+## 9. Paiements SumUp
 
-Dans le dashboard Stripe (mode Live une fois prêt), crée un endpoint
-webhook pointant vers `https://<ton-domaine>/api/webhooks/stripe`, événement
-`checkout.session.completed`. Copie le secret de signature dans
-`STRIPE_WEBHOOK_SECRET` sur le VPS, puis redémarre le service :
+Rien à configurer côté dashboard : à chaque paiement, le site transmet à SumUp
+l'adresse `https://<ton-domaine>/api/webhooks/sumup`, que SumUp appelle quand
+le statut change. Il suffit que `SUMUP_API_KEY`, `SUMUP_MERCHANT_CODE` et
+`NEXT_PUBLIC_SITE_URL` soient renseignés sur le VPS (le site doit être joignable
+en HTTPS depuis Internet), puis de redémarrer le service :
 
 ```bash
 sudo systemctl restart torrow-web

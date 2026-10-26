@@ -121,7 +121,7 @@ export default function AProposPage() {
         <h3>Article 5 — Commande et paiement</h3>
         <p className="prose">
           La commande se fait en sélectionnant une taille et, le cas échéant, l’option flocage, puis
-          en réglant par carte bancaire via une passerelle de paiement sécurisée (Stripe). Le
+          en réglant par carte bancaire via une passerelle de paiement sécurisée (SumUp). Le
           paiement est débité à la validation de la commande. Un email de confirmation est envoyé
           après paiement.
         </p>

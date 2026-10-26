@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { orders, orderItems } from "@/lib/db/schema";
-import { getStripe, isStripeConfigured } from "@/lib/stripe";
+import { createHostedCheckout, isSumUpConfigured } from "@/lib/sumup";
 import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
 import { getProduct, type Product } from "@/sanity/lib/queries";
 import type { CartItem } from "@/lib/cart-context";
@@ -15,7 +15,7 @@ type CheckoutBody = {
 };
 
 export async function POST(request: Request) {
-  if (!isStripeConfigured()) {
+  if (!isSumUpConfigured()) {
     return NextResponse.json(
       { error: "Le paiement n'est pas encore configuré sur ce site. Réessaie plus tard." },
       { status: 503 }
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
   const unitPrice = (item: CartItem) => BASE_PRICE + (item.floque ? FLOQUAGE_PRICE : 0);
 
   // Re-validate every line against the catalog (source of truth: Sanity) so a
-  // tampered slug/name in the client-submitted cart can't reach Stripe or the
+  // tampered slug/name in the client-submitted cart can't reach SumUp or the
   // order record. Price itself is always computed server-side above, never
   // trusted from the client.
   const validated = (
@@ -80,27 +80,38 @@ export async function POST(request: Request) {
     });
   }
 
-  const stripe = getStripe();
-  const checkoutSession = await stripe.checkout.sessions.create({
-    mode: "payment",
-    customer_email: email,
-    line_items: validated.map(({ item, product }) => ({
-      quantity: item.qty,
-      price_data: {
-        currency: "eur",
-        unit_amount: unitPrice(item) * 100,
-        product_data: {
-          name: `TORROW NAM – ${product.name} (taille ${item.size}${item.floque ? `, flocage ${item.nom} ${item.numero}` : ""})`,
-          images: [product.image],
-        },
-      },
-    })),
-    metadata: { orderId: String(order.id) },
-    success_url: `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${siteUrl}/checkout/cancel`,
-  });
+  // SumUp's hosted page shows a single amount + description, not line items,
+  // so the detail lives in the description (and in the order record above).
+  const description = validated
+    .map(
+      ({ item, product }) =>
+        `${item.qty}× ${product.name} (${item.size}${item.floque ? `, ${item.nom} ${item.numero}` : ""})`
+    )
+    .join(", ");
 
-  await db.update(orders).set({ stripeSessionId: checkoutSession.id }).where(eq(orders.id, order.id));
+  let checkout;
+  try {
+    checkout = await createHostedCheckout({
+      // Must be unique per checkout on the SumUp side; order ids already are.
+      reference: `torrow-order-${order.id}`,
+      amountCents: totalCents,
+      description: `TORROW NAM – commande #${order.id} : ${description}`.slice(0, 255),
+      webhookUrl: `${siteUrl}/api/webhooks/sumup`,
+      redirectUrl: `${siteUrl}/checkout/success?order=${order.id}`,
+    });
+    if (!checkout.hosted_checkout_url) {
+      throw new Error(`No hosted_checkout_url returned for checkout ${checkout.id}`);
+    }
+  } catch (err) {
+    console.error("[checkout] Échec de création du paiement SumUp :", err);
+    await db.update(orders).set({ status: "cancelled" }).where(eq(orders.id, order.id));
+    return NextResponse.json(
+      { error: "Le paiement n'a pas pu être initialisé. Réessaie dans un instant." },
+      { status: 502 }
+    );
+  }
 
-  return NextResponse.json({ url: checkoutSession.url });
+  await db.update(orders).set({ paymentCheckoutId: checkout.id }).where(eq(orders.id, order.id));
+
+  return NextResponse.json({ url: checkout.hosted_checkout_url });
 }

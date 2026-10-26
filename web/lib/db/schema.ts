@@ -15,7 +15,9 @@ export const orders = pgTable("orders", {
   userId: integer("user_id").references(() => users.id),
   email: varchar("email", { length: 255 }).notNull(),
   status: varchar("status", { length: 20 }).notNull().default("pending"), // pending | paid | cancelled
-  stripeSessionId: varchar("stripe_session_id", { length: 255 }),
+  // SumUp checkout id. The column keeps its old name from the Stripe era so
+  // switching providers didn't need a data migration on existing orders.
+  paymentCheckoutId: varchar("stripe_session_id", { length: 255 }),
   totalCents: integer("total_cents").notNull(),
   shippingAddress: text("shipping_address"),
   // Set once the order ships — registers the shipment with AfterShip so its
