@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { BASE_PRICE } from "@/lib/products";
 import type { Product } from "@/sanity/lib/queries";
 import { useFavorites } from "@/lib/favorites-context";
 import { FavoriteButton } from "./FavoriteButton";
@@ -51,7 +50,7 @@ export function FavoritesGrid({ products }: { products: Product[] }) {
           </div>
           <div className="card-name">{product.name}</div>
           <div className="card-row">
-            <span className="price">{BASE_PRICE} €</span>
+            <span className="price">{product.price} €</span>
             <CartQuickAddButton product={product} />
           </div>
         </Link>

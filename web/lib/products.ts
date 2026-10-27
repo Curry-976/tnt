@@ -1,7 +1,7 @@
-// Base price and personalisation fee are fixed store-wide (see chats/chat1.md
-// and TNT Collection.dc.html: "35 € pièce, nom et numéro pour 5 € de plus").
-// The product catalog itself (names, images, descriptions) lives in Sanity —
-// see sanity/lib/queries.ts.
+// Each jersey's price is set per product in Sanity (Studio field « Prix »).
+// BASE_PRICE is only the fallback for products whose price was left empty
+// (e.g. those published before the field existed). The personalisation fee
+// stays fixed store-wide. Catalog lives in Sanity — see sanity/lib/queries.ts.
 export const BASE_PRICE = 35;
 export const FLOQUAGE_PRICE = 5;
 

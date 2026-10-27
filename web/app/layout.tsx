@@ -14,7 +14,7 @@ import "./globals.css";
 const SITE_NAME = "Torrow Nam Torrow";
 const HOME_TITLE = `${SITE_NAME} · Maillots streetwear inspirés de Mayotte`;
 const SITE_DESCRIPTION =
-  "Maillots streetwear inspirés de Mayotte, personnalisables nom et numéro. 35 € la pièce, livraison en France métropolitaine.";
+  "Maillots streetwear inspirés de Mayotte, personnalisables nom et numéro, livraison en France métropolitaine.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

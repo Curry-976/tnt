@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { orders, orderItems } from "@/lib/db/schema";
 import { createHostedCheckout, isSumUpConfigured } from "@/lib/sumup";
-import { BASE_PRICE, FLOQUAGE_PRICE, SIZES } from "@/lib/products";
+import { FLOQUAGE_PRICE, SIZES } from "@/lib/products";
 import { getProduct, type Product } from "@/sanity/lib/queries";
 import type { CartItem } from "@/lib/cart-context";
 import { isRateLimited, ipFromForwardedFor } from "@/lib/rate-limit";
@@ -63,12 +63,11 @@ export async function POST(request: Request) {
 
   const session = await auth();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? new URL(request.url).origin;
-  const unitPrice = (item: CartItem) => BASE_PRICE + (item.floque ? FLOQUAGE_PRICE : 0);
 
   // Re-validate every line against the catalog (source of truth: Sanity) so a
   // tampered slug/name in the client-submitted cart can't reach SumUp or the
-  // order record. Price itself is always computed server-side above, never
-  // trusted from the client.
+  // order record. Price itself always comes from the Sanity product, never
+  // from the client cart.
   const validated = (
     await Promise.all(
       sanitizedItems.map(async (item) => {
@@ -82,7 +81,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Ces articles ne sont plus disponibles." }, { status: 400 });
   }
 
-  const totalCents = validated.reduce((sum, { item }) => sum + unitPrice(item) * 100 * item.qty, 0);
+  const unitPrice = (item: CartItem, product: Product) => product.price + (item.floque ? FLOQUAGE_PRICE : 0);
+  const totalCents = validated.reduce((sum, { item, product }) => sum + unitPrice(item, product) * 100 * item.qty, 0);
 
   const [order] = await db
     .insert(orders)
@@ -105,7 +105,7 @@ export async function POST(request: Request) {
       nom: item.nom,
       numero: item.numero,
       qty: item.qty,
-      unitPriceCents: unitPrice(item) * 100,
+      unitPriceCents: unitPrice(item, product) * 100,
     });
   }
 

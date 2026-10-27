@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { itemUnitPrice, useCart } from "@/lib/cart-context";
-import { BASE_PRICE } from "@/lib/products";
 import type { Product } from "@/sanity/lib/queries";
 import { badgeColorStyle } from "@/lib/badge-colors";
 import { CartQuickAddButton } from "./CartQuickAddButton";
@@ -105,7 +104,7 @@ export function PanierClient({ products }: { products: Product[] }) {
                 </Link>
                 <div className="card-name">{product.name}</div>
                 <div className="card-row">
-                  <span className="price">{BASE_PRICE} €</span>
+                  <span className="price">{product.price} €</span>
                   <CartQuickAddButton product={product} />
                 </div>
               </div>
