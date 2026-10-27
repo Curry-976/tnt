@@ -1,11 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { BASE_PRICE } from "@/lib/products";
 import type { Product, ProductSeason } from "@/sanity/lib/queries";
 import { FavoriteButton } from "./FavoriteButton";
+import { ThemedProductImage } from "./ThemedProductImage";
+import { badgeColorStyle } from "@/lib/badge-colors";
+import { CartQuickAddButton } from "./CartQuickAddButton";
 
 const SEASONS: { value: ProductSeason; label: string }[] = [
   { value: "ete", label: "Été" },
@@ -94,21 +96,28 @@ export function CollectionGrid({
           <div className="product-grid">
             {visible.map((product) => (
               <Link key={product.slug} href={`/produit/${product.slug}`} className="card">
-                <div className="card-media">
-                  <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 50vw, 20vw" />
-                  {product.badge && <span className="badge">{product.badge}</span>}
+                <div className="card-media" style={product.outOfStock ? { opacity: 0.6 } : undefined}>
+                  <ThemedProductImage
+                    src={product.image}
+                    srcDark={product.imageDark}
+                    alt={`Maillot ${product.name}`}
+                    sizes="(max-width: 1080px) 50vw, 20vw"
+                  />
+                  {product.outOfStock ? (
+                    <span className="badge badge-outofstock">Rupture de stock</span>
+                  ) : (
+                    product.badge && (
+                      <span className="badge" style={badgeColorStyle(product.badgeColor)}>
+                        {product.badge}
+                      </span>
+                    )
+                  )}
                   <FavoriteButton slug={product.slug} />
                 </div>
-                <div className="card-name">TORROW NAM – {product.name}</div>
+                <div className="card-name">{product.name}</div>
                 <div className="card-row">
                   <span className="price">{BASE_PRICE} €</span>
-                  <span className="iconbtn" aria-hidden="true">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 5h2.2l2.3 10.6h10l1.9-7.6H6.4"></path>
-                      <circle cx="9.5" cy="19.3" r="1.3"></circle>
-                      <circle cx="17.5" cy="19.3" r="1.3"></circle>
-                    </svg>
-                  </span>
+                  <CartQuickAddButton product={product} />
                 </div>
               </Link>
             ))}

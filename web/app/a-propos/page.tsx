@@ -61,12 +61,12 @@ export default function AProposPage() {
             </tr>
           </thead>
           <tbody>
-            <tr><td>XS</td><td>84–88 cm</td><td>66 cm</td></tr>
-            <tr><td>S</td><td>89–93 cm</td><td>68 cm</td></tr>
-            <tr><td>M</td><td>94–98 cm</td><td>70 cm</td></tr>
-            <tr><td>L</td><td>99–104 cm</td><td>72 cm</td></tr>
-            <tr><td>XL</td><td>105–111 cm</td><td>74 cm</td></tr>
-            <tr><td>XXL</td><td>112–118 cm</td><td>76 cm</td></tr>
+            <tr><td>XS</td><td>84 à 88 cm</td><td>66 cm</td></tr>
+            <tr><td>S</td><td>89 à 93 cm</td><td>68 cm</td></tr>
+            <tr><td>M</td><td>94 à 98 cm</td><td>70 cm</td></tr>
+            <tr><td>L</td><td>99 à 104 cm</td><td>72 cm</td></tr>
+            <tr><td>XL</td><td>105 à 111 cm</td><td>74 cm</td></tr>
+            <tr><td>XXL</td><td>112 à 118 cm</td><td>76 cm</td></tr>
           </tbody>
         </table>
         <p className="form-note" style={{ marginTop: 12 }}>
@@ -79,6 +79,77 @@ export default function AProposPage() {
         <p className="prose">
           Torrow Nam Torrow : site en cours de mise en ligne. Les informations légales complètes (raison
           sociale, SIRET, siège social, hébergeur) seront publiées ici avant l’ouverture des ventes.
+        </p>
+      </div>
+
+      <div id="cgu" className="panel about-section">
+        <h2>Conditions générales d’utilisation</h2>
+
+        <p className="form-note" style={{ marginBottom: 20 }}>
+          L’identité complète de l’éditeur (raison sociale, SIRET) sera ajoutée ci-dessous dès
+          l’immatriculation de l’activité, avant l’ouverture des ventes réelles.
+        </p>
+
+        <h3>Article 1 — Objet</h3>
+        <p className="prose">
+          Les présentes conditions générales d’utilisation (CGU) régissent l’accès et
+          l’utilisation du site Torrow Nam Torrow, édité par [nom, SIRET et adresse du siège à
+          compléter après immatriculation]. Naviguer sur le site vaut acceptation pleine et
+          entière de ces CGU. Les règles propres à l’achat d’un maillot sont détaillées dans les{" "}
+          <a href="/a-propos#cgv" style={{ textDecoration: "underline" }}>
+            conditions générales de vente
+          </a>
+          .
+        </p>
+
+        <h3>Article 2 — Accès au site</h3>
+        <p className="prose">
+          Le site est accessible gratuitement à tout utilisateur disposant d’un accès à internet.
+          Tous les frais nécessaires à cet accès (matériel, connexion internet, etc.) sont à la
+          charge de l’utilisateur. Torrow Nam Torrow met tout en œuvre pour assurer un accès
+          continu au site, mais ne garantit pas une disponibilité sans interruption
+          (maintenance, incident technique, cas de force majeure).
+        </p>
+
+        <h3>Article 3 — Création de compte</h3>
+        <p className="prose">
+          La création d’un compte client permet de suivre ses commandes et d’enregistrer ses
+          informations de livraison. L’utilisateur s’engage à fournir des informations exactes
+          et à jour, et à garder confidentiels ses identifiants de connexion. Il est responsable
+          de toute activité effectuée depuis son compte.
+        </p>
+
+        <h3>Article 4 — Utilisation du site</h3>
+        <p className="prose">
+          L’utilisateur s’engage à utiliser le site conformément à sa destination et à ne pas :
+        </p>
+        <ul className="prose">
+          <li>porter atteinte au bon fonctionnement du site (intrusion, saturation, etc.) ;</li>
+          <li>utiliser le site à des fins frauduleuses ou illicites ;</li>
+          <li>copier, reproduire ou exploiter tout ou partie du contenu du site sans autorisation.</li>
+        </ul>
+
+        <h3>Article 5 — Propriété intellectuelle</h3>
+        <p className="prose">
+          L’ensemble des éléments du site (textes, visuels, logos, designs de maillots, marque
+          Torrow Nam Torrow) est protégé par le droit de la propriété intellectuelle. Toute
+          reproduction ou représentation, totale ou partielle, sans autorisation préalable, est
+          interdite.
+        </p>
+
+        <h3>Article 6 — Responsabilité</h3>
+        <p className="prose">
+          Torrow Nam Torrow ne saurait être tenu responsable des dommages directs ou indirects
+          résultant de l’utilisation du site, d’une interruption de service, ou de l’usage de
+          liens hypertextes vers des sites tiers.
+        </p>
+
+        <h3>Article 7 — Modification des CGU</h3>
+        <p className="prose">
+          Ces CGU peuvent être modifiées à tout moment ; la version applicable est celle en
+          ligne au moment de la visite du site. Les présentes conditions sont soumises au droit
+          français. Pour toute question, écris-nous depuis la page{" "}
+          <a href="/contact" style={{ textDecoration: "underline" }}>Contact</a>.
         </p>
       </div>
 
@@ -162,6 +233,95 @@ export default function AProposPage() {
           <a href="/contact" style={{ textDecoration: "underline" }}>Contact</a> ; on répond sous
           48h. Les coordonnées d’un médiateur de la consommation seront ajoutées ici une fois
           l’activité immatriculée. Les présentes conditions sont soumises au droit français.
+        </p>
+      </div>
+
+      <div id="rgpd" className="panel about-section">
+        <h2>Politique de confidentialité (RGPD)</h2>
+
+        <p className="form-note" style={{ marginBottom: 20 }}>
+          L’identité complète du responsable de traitement (raison sociale, SIRET) sera ajoutée
+          ci-dessous dès l’immatriculation de l’activité, avant l’ouverture des ventes réelles.
+        </p>
+
+        <h3>Responsable du traitement</h3>
+        <p className="prose">
+          Torrow Nam Torrow — [nom, SIRET et adresse du siège à compléter après immatriculation]
+          est responsable du traitement des données personnelles collectées sur ce site. Pour
+          toute question, écris-nous depuis la page{" "}
+          <a href="/contact" style={{ textDecoration: "underline" }}>Contact</a>.
+        </p>
+
+        <h3>Données collectées</h3>
+        <p className="prose">
+          On collecte uniquement les données nécessaires au fonctionnement du site et à la
+          gestion des commandes :
+        </p>
+        <ul className="prose">
+          <li>Compte client : email, nom, mot de passe (stocké de façon chiffrée).</li>
+          <li>
+            Commande : email, adresse de livraison, contenu de la commande (taille, flocage nom
+            et numéro le cas échéant).
+          </li>
+          <li>Contact : nom, email et message envoyés via la page Contact.</li>
+          <li>Newsletter : email, uniquement si tu t’inscris volontairement.</li>
+          <li>
+            Paiement : géré directement par SumUp, notre prestataire de paiement — on ne
+            stocke jamais tes coordonnées bancaires sur nos serveurs.
+          </li>
+        </ul>
+
+        <h3>Cookies et stockage local</h3>
+        <p className="prose">
+          Le site n’utilise pas de cookies de suivi publicitaire. Le thème choisi (clair/sombre),
+          le contenu du panier et les favoris sont enregistrés dans le stockage local de ton
+          navigateur (localStorage), uniquement sur ton appareil, pour te faire retrouver ces
+          préférences d’une visite à l’autre — ceux-là ne demandent pas de consentement,
+          strictement nécessaires au fonctionnement du site.
+        </p>
+        <p className="prose">
+          Si tu acceptes la bannière de cookies, Google Analytics dépose également des cookies de
+          mesure d’audience (fréquentation, pages visitées) avec l’IP anonymisée — jamais de
+          publicité ciblée. Tu peux changer d’avis à tout moment via le lien « Gérer les
+          cookies » en bas de page.
+        </p>
+
+        <h3>Finalités et base légale</h3>
+        <p className="prose">
+          Ces données sont traitées pour exécuter le contrat de vente (commande, livraison,
+          service après-vente), gérer ton compte client, répondre à tes messages, t’envoyer
+          la newsletter si tu t’y es inscrit·e, et mesurer la fréquentation du site via Google
+          Analytics — ces deux derniers usages reposent sur ton consentement, retirable à tout
+          moment.
+        </p>
+
+        <h3>Destinataires des données</h3>
+        <p className="prose">
+          Tes données sont partagées uniquement avec les prestataires nécessaires au
+          fonctionnement du site : SumUp (paiement), Brevo (envoi de la newsletter), Google
+          Analytics (mesure d’audience, si tu l’acceptes), notre hébergeur de base de données et
+          notre hébergeur web. Aucune donnée n’est vendue à des tiers.
+        </p>
+
+        <h3>Durée de conservation</h3>
+        <p className="prose">
+          Les données de compte sont conservées tant que le compte est actif. Les données de
+          commande sont conservées le temps nécessaire aux obligations comptables et légales. Les
+          messages de contact sont conservés le temps de traiter ta demande. Tu peux demander la
+          suppression de tes données à tout moment (voir « Tes droits » ci-dessous).
+        </p>
+
+        <h3>Tes droits</h3>
+        <p className="prose">
+          Conformément au RGPD, tu disposes d’un droit d’accès, de rectification, d’effacement,
+          de limitation, de portabilité et d’opposition sur tes données personnelles. Pour
+          exercer ces droits, écris-nous depuis la page{" "}
+          <a href="/contact" style={{ textDecoration: "underline" }}>Contact</a>. Tu peux
+          également introduire une réclamation auprès de la CNIL (
+          <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>
+            cnil.fr
+          </a>
+          ).
         </p>
       </div>
     </>

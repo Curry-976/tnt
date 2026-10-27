@@ -43,6 +43,13 @@
       "when": 1789255816279,
       "tag": "0005_happy_thunderbolts",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789299488364,
+      "tag": "0006_clammy_black_panther",
+      "breakpoints": true
     }
   ]
 }

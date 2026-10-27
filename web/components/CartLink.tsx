@@ -6,12 +6,13 @@ import { useCart } from "@/lib/cart-context";
 export function CartLink() {
   const { count } = useCart();
   return (
-    <Link href="/panier" className="nav-action" aria-label={`Panier (${count})`} title="Panier">
+    <Link id="cart-icon" href="/panier" className="nav-action" aria-label={`Panier (${count})`} title="Panier">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
         <path d="M3 5h2.2l2.3 10.6h10l1.9-7.6H6.4"></path>
         <circle cx="9.5" cy="19.3" r="1.3"></circle>
         <circle cx="17.5" cy="19.3" r="1.3"></circle>
       </svg>
+      {count > 0 && <span className="cart-count">{count}</span>}
     </Link>
   );
 }

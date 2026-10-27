@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
 import { getAllProducts } from "@/sanity/lib/queries";
+import { ThemedProductImage } from "@/components/ThemedProductImage";
+import { badgeColorStyle } from "@/lib/badge-colors";
+import { CartQuickAddButton } from "@/components/CartQuickAddButton";
 
 export default async function HomePage() {
   const homeProducts = (await getAllProducts()).filter((p) => p.season === "ete").slice(0, 5);
@@ -9,68 +12,50 @@ export default async function HomePage() {
   return (
     <>
       <div className="hero">
-        <div className="hero-bg hero-bg-dark">
-          <Image src="/assets/hero-06.jpg" alt="" fill sizes="100vw" priority />
-        </div>
-        <div className="hero-bg hero-bg-light">
-          <Image src="/assets/hero-03.jpg" alt="" fill sizes="100vw" priority />
+        <div className="hero-bg">
+          <video autoPlay muted loop playsInline poster="/assets/hero-06.jpg">
+            <source src="/assets/hero-video.mp4" type="video/mp4" />
+          </video>
         </div>
         <div className="hero-scrim" />
-
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <h1
-              className="hero-title"
-              data-dark="Maillots inspirés d’un territoire, portés par une identité."
-              data-light="L’identité en mode été."
-            >
-              L’identité en mode été.
-            </h1>
-            <p
-              className="hero-sub"
-              data-dark="Des maillots uniques où culture, histoire et design se rencontrent."
-              data-light="Des maillots inspirés d’un territoire qui respire la culture, le soleil et la fierté."
-            >
-              Des maillots inspirés d’un territoire qui respire la culture, le soleil et la fierté.
-            </p>
-            <div className="hero-actions">
-              <Link href="/collection" className="cta">
-                <span>Découvrir la collection</span>
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 12h15M13 6l6 6-6 6"></path>
-                </svg>
-              </Link>
-              <Link href="/a-propos" className="ghost">
-                En savoir plus
-              </Link>
-            </div>
-            <div className="proof">
-              <div className="avatars">
-                <div className="avatar">
-                  <Image src="/assets/hero-01.jpg" alt="Client 1" fill sizes="34px" />
-                </div>
-                <div className="avatar">
-                  <Image src="/assets/hero-02.jpg" alt="Client 2" fill sizes="34px" />
-                </div>
-                <div className="avatar">
-                  <Image src="/assets/hero-05.jpg" alt="Client 3" fill sizes="34px" />
-                </div>
-              </div>
-              <div className="proof-text">
-                <span className="proof-title">+1200 clients satisfaits</span>
-                <span className="faint">Rejoins la communauté</span>
-              </div>
-            </div>
+        <div className="hero-copy">
+          <h1
+            className="hero-title"
+            data-dark="Maillots inspirés d’un territoire, portés par une identité."
+            data-light="L’identité en mode été."
+          >
+            L’identité en mode été.
+          </h1>
+          <p
+            className="hero-sub"
+            data-dark="Des maillots uniques où culture, histoire et design se rencontrent."
+            data-light="Des maillots inspirés d’un territoire qui respire la culture, le soleil et la fierté."
+          >
+            Des maillots inspirés d’un territoire qui respire la culture, le soleil et la fierté.
+          </p>
+          <div className="hero-actions">
+            <Link href="/collection" className="cta">
+              <span>Découvrir la collection</span>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 12h15M13 6l6 6-6 6"></path>
+              </svg>
+            </Link>
           </div>
-
-          <div className="hero-visual">
-            <div className="hero-jersey">
-              <Image src="/assets/jersey-hanger.jpg" alt="Maillot Torrow Nam Torrow" fill sizes="50vw" />
+          <div className="proof">
+            <div className="avatars">
+              <div className="avatar">
+                <Image src="/assets/hero-01.jpg" alt="" fill sizes="34px" />
+              </div>
+              <div className="avatar">
+                <Image src="/assets/hero-02.jpg" alt="" fill sizes="34px" />
+              </div>
+              <div className="avatar">
+                <Image src="/assets/hero-05.jpg" alt="" fill sizes="34px" />
+              </div>
             </div>
-            <div className="rating">
-              <div className="star">★</div>
-              <div className="rating-score">4.9/5</div>
-              <div className="faint">Basé sur 380 avis</div>
+            <div className="proof-text">
+              <span className="proof-title">+1200 clients satisfaits</span>
+              <span className="faint">Rejoins la communauté</span>
             </div>
           </div>
         </div>
@@ -135,20 +120,27 @@ export default async function HomePage() {
         <div className="product-grid">
           {homeProducts.map((product) => (
             <Link key={product.slug} href={`/produit/${product.slug}`} className="card">
-              <div className="card-media">
-                <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 50vw, 20vw" />
-                {product.badge && <span className="badge">{product.badge}</span>}
+              <div className="card-media" style={product.outOfStock ? { opacity: 0.6 } : undefined}>
+                <ThemedProductImage
+                  src={product.image}
+                  srcDark={product.imageDark}
+                  alt={`Maillot ${product.name}`}
+                  sizes="(max-width: 1080px) 50vw, 20vw"
+                />
+                {product.outOfStock ? (
+                  <span className="badge badge-outofstock">Rupture de stock</span>
+                ) : (
+                  product.badge && (
+                    <span className="badge" style={badgeColorStyle(product.badgeColor)}>
+                      {product.badge}
+                    </span>
+                  )
+                )}
               </div>
-              <div className="card-name">TORROW NAM – {product.name}</div>
+              <div className="card-name">{product.name}</div>
               <div className="card-row">
                 <span className="price">{BASE_PRICE} €</span>
-                <span className="iconbtn" aria-hidden="true">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M3 5h2.2l2.3 10.6h10l1.9-7.6H6.4"></path>
-                    <circle cx="9.5" cy="19.3" r="1.3"></circle>
-                    <circle cx="17.5" cy="19.3" r="1.3"></circle>
-                  </svg>
-                </span>
+                <CartQuickAddButton product={product} />
               </div>
             </Link>
           ))}
@@ -174,19 +166,19 @@ export default async function HomePage() {
         </div>
         <div className="tiles">
           <Link href="/collection" className="tile">
-            <Image src="/assets/jersey-details-green.webp" alt="Héritage" fill sizes="25vw" />
+            <Image src="/assets/jersey-details-green.webp" alt="Collection Héritage" fill sizes="25vw" />
             <span className="tile-label">Héritage</span>
           </Link>
           <Link href="/collection" className="tile">
-            <Image src="/assets/hero-06.jpg" alt="Nature" fill sizes="25vw" />
+            <Image src="/assets/hero-06.jpg" alt="Collection Nature" fill sizes="25vw" />
             <span className="tile-label">Nature</span>
           </Link>
           <Link href="/collection" className="tile">
-            <Image src="/assets/hero-03.jpg" alt="Lagon" fill sizes="25vw" />
+            <Image src="/assets/hero-03.jpg" alt="Collection Lagon" fill sizes="25vw" />
             <span className="tile-label">Lagon</span>
           </Link>
           <Link href="/collection" className="tile">
-            <Image src="/assets/jersey-details-pink.webp" alt="Culture" fill sizes="25vw" />
+            <Image src="/assets/jersey-details-pink.webp" alt="Collection Culture" fill sizes="25vw" />
             <span className="tile-label">Culture</span>
           </Link>
         </div>

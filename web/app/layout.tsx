@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
+import { Archivo, Caveat } from "next/font/google";
 import Script from "next/script";
 import { CartProvider } from "@/lib/cart-context";
 import { FavoritesProvider } from "@/lib/favorites-context";
 import { SITE_URL } from "@/lib/site";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { FlyToCartAnimation } from "@/components/FlyToCartAnimation";
+import { CookieBanner } from "@/components/CookieBanner";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 const SITE_NAME = "Torrow Nam Torrow";
-const SITE_DESCRIPTION = "Maillots streetwear inspirés de Mayotte. Torrow Nam Torrow : une team, une identité.";
+const HOME_TITLE = `${SITE_NAME} · Maillots streetwear inspirés de Mayotte`;
+const SITE_DESCRIPTION =
+  "Maillots streetwear inspirés de Mayotte, personnalisables nom et numéro. 35 € la pièce, livraison en France métropolitaine.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: SITE_NAME,
+    default: HOME_TITLE,
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -21,16 +27,34 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: SITE_NAME,
-    title: SITE_NAME,
+    title: HOME_TITLE,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
+    images: [{ url: "/assets/hero-06.jpg", width: 1376, height: 768, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_NAME,
+    title: HOME_TITLE,
     description: SITE_DESCRIPTION,
+    images: ["/assets/hero-06.jpg"],
   },
 };
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
+  variable: "--font-archivo",
+});
+
+// Only weight 700 is ever used (see .hero-title in globals.css) — the old
+// <link> setup loaded 500 too, for nothing.
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: "700",
+  display: "swap",
+  variable: "--font-caveat",
+});
 
 const THEME_INIT = `
 try {
@@ -41,16 +65,7 @@ try {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fr">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router root layout, not pages/_document; this link is shared site-wide. */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Caveat:wght@500;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="fr" className={`${archivo.variable} ${caveat.variable}`}>
       <body>
         <Script id="tnt-theme-init" strategy="beforeInteractive">
           {THEME_INIT}
@@ -62,6 +77,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               {children}
               <Footer />
             </div>
+            <FlyToCartAnimation />
+            <CookieBanner />
+            <GoogleAnalytics />
           </FavoritesProvider>
         </CartProvider>
       </body>

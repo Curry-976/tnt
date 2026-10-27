@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
 import { BASE_PRICE, FLOQUAGE_PRICE, SIZES, type Size } from "@/lib/products";
 import type { Product } from "@/sanity/lib/queries";
+import { flyToCartFromElement } from "@/lib/fly-to-cart";
 
 export function ProductConfigurator({ product }: { product: Product }) {
   const { addItem } = useCart();
@@ -30,6 +31,7 @@ export function ProductConfigurator({ product }: { product: Product }) {
       return;
     }
     setError(null);
+    flyToCartFromElement(document.querySelector(".product-gallery img"), product.image);
     addItem({
       slug: product.slug,
       name: product.name,
@@ -116,9 +118,15 @@ export function ProductConfigurator({ product }: { product: Product }) {
         <span className="price" style={{ fontSize: 22 }}>{total} €</span>
       </div>
 
-      <button type="button" className="cta" style={{ width: "100%", marginTop: 18 }} onClick={handleAdd}>
-        <span>{justAdded ? "Ajouté au panier ✓" : "Ajouter au panier"}</span>
-      </button>
+      {product.outOfStock ? (
+        <button type="button" className="cta" style={{ width: "100%", marginTop: 18 }} disabled>
+          <span>Rupture de stock</span>
+        </button>
+      ) : (
+        <button type="button" className="cta" style={{ width: "100%", marginTop: 18 }} onClick={handleAdd}>
+          <span>{justAdded ? "Ajouté au panier ✓" : "Ajouter au panier"}</span>
+        </button>
+      )}
       {justAdded && (
         <button
           type="button"

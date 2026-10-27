@@ -22,6 +22,7 @@ export function Nav() {
     <header className="nav">
       <div className="nav-left">
         <Link href="/" aria-label="Accueil Torrow Nam Torrow" className="logo-link">
+          <Image className="nav-icon" src="/assets/tnt-icon.png" alt="" height={28} width={28} priority />
           <Image className="logo" src="/assets/torrow-wordmark.png" alt="TORROW" height={26} width={122} priority />
         </Link>
       </div>

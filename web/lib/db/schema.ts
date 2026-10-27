@@ -63,5 +63,6 @@ export const contactMessages = pgTable("contact_messages", {
   name: varchar("name", { length: 120 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
   message: text("message").notNull(),
+  handled: boolean("handled").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

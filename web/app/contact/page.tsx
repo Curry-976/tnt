@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Une question sur une commande ou un maillot ? Écris-nous, on répond sous 48h.",
+};
 
 export default function ContactPage() {
   return (
@@ -24,7 +27,7 @@ export default function ContactPage() {
               <rect x="3.5" y="5.5" width="17" height="13" rx="2.5"></rect>
               <path d="m4.5 7.5 7.5 5.5 7.5-5.5"></path>
             </svg>
-            <a href="mailto:contact@torrownamtorrow.com">contact@torrownamtorrow.com</a>
+            <a href="mailto:contact@tnt-jersey.fr">contact@tnt-jersey.fr</a>
           </div>
           <div className="contact-info-row">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">

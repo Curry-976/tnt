@@ -124,10 +124,10 @@ export function MobileSearch() {
                   {results.map((product) => (
                     <Link key={product.slug} href={`/produit/${product.slug}`} className="mobile-search-result" onClick={close}>
                       <div className="mobile-search-result-media">
-                        <Image src={product.image} alt={product.name} fill sizes="64px" />
+                        <Image src={product.image} alt={`Maillot ${product.name}`} fill sizes="64px" />
                       </div>
                       <div>
-                        <div className="mobile-search-result-name">TORROW NAM – {product.name}</div>
+                        <div className="mobile-search-result-name">{product.name}</div>
                         <div className="faint">{BASE_PRICE} €</div>
                       </div>
                     </Link>

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BASE_PRICE } from "@/lib/products";
 import { SITE_URL } from "@/lib/site";
 import { getProduct } from "@/sanity/lib/queries";
 import { ProductConfigurator } from "@/components/ProductConfigurator";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { ThemedProductImage } from "@/components/ThemedProductImage";
 
 export async function generateMetadata({
   params,
@@ -16,7 +16,9 @@ export async function generateMetadata({
   const product = await getProduct(slug);
   if (!product) return {};
 
-  const title = `TORROW NAM – ${product.name}`;
+  // "Maillot" in the meta title helps search visibility without touching
+  // the plain product name shown on cards and the page's own <h1>.
+  const title = `Maillot ${product.name}`;
   const url = `${SITE_URL}/produit/${product.slug}`;
 
   return {
@@ -52,7 +54,7 @@ export default async function ProductPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: `TORROW NAM – ${product.name}`,
+    name: product.name,
     description: product.description,
     image: [product.image],
     sku: product.slug,
@@ -71,7 +73,13 @@ export default async function ProductPage({
       {/* Product rich-result data for search engines — see schema.org/Product. */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="product-gallery">
-        <Image src={product.image} alt={product.name} fill sizes="(max-width: 1080px) 100vw, 55vw" priority />
+        <ThemedProductImage
+          src={product.image}
+          srcDark={product.imageDark}
+          alt={`Maillot ${product.name}`}
+          sizes="(max-width: 1080px) 100vw, 55vw"
+          priority
+        />
       </div>
       <div className="product-info-panel">
         <div className="panel">
@@ -79,7 +87,7 @@ export default async function ProductPage({
             {product.season === "hiver" ? "Hiver" : "Été"}
           </span>
           <h1 className="product-name" style={{ marginTop: 14 }}>
-            TORROW NAM – {product.name}
+            {product.name}
           </h1>
           <div className="product-price-row">
             <span className="price" style={{ fontSize: 22 }}>{BASE_PRICE} €</span>

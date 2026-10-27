@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { TurnstileWidget } from "./TurnstileWidget";
 
 export function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot — real visitors never see or fill this
+  const [renderedAt] = useState(() => Date.now());
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
@@ -18,7 +22,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, website, renderedAt, turnstileToken }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -80,6 +84,23 @@ export function ContactForm() {
           onChange={(e) => setMessage(e.target.value)}
         />
       </div>
+
+      {/* Honeypot: hidden from real visitors via CSS, never via type="hidden"
+          (some bots skip those) — off-screen instead. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor="contact-website">Site web</label>
+        <input
+          id="contact-website"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
+
+      <TurnstileWidget onToken={setTurnstileToken} />
+
       {error && <p className="form-error">{error}</p>}
       <button type="submit" className="cta" disabled={loading}>
         <span>{loading ? "Envoi…" : "Envoyer"}</span>

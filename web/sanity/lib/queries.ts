@@ -9,7 +9,10 @@ export type Product = {
   name: string;
   season: ProductSeason;
   image: string;
+  imageDark?: string;
   badge?: string;
+  badgeColor?: string;
+  outOfStock: boolean;
   description: string;
 };
 
@@ -18,7 +21,10 @@ type RawProduct = {
   slug: string | null;
   season: ProductSeason | null;
   image: string | null;
+  imageDark: string | null;
   badge: string | null;
+  badgeColor: string | null;
+  outOfStock: boolean | null;
   description: string | null;
 };
 
@@ -30,29 +36,38 @@ function toProduct(raw: RawProduct): Product | null {
     // Products published before the season field existed default to Été.
     season: raw.season ?? "ete",
     image: raw.image,
+    imageDark: raw.imageDark ?? undefined,
     badge: raw.badge ?? undefined,
+    badgeColor: raw.badgeColor ?? undefined,
+    outOfStock: raw.outOfStock ?? false,
     description: raw.description ?? "",
   };
 }
 
 const ALL_PRODUCTS_QUERY = defineQuery(`
-  *[_type == "product"] | order(order asc, name asc) {
+  *[_type == "product" && visible != false] | order(orderRank asc) {
     name,
     "slug": slug.current,
     season,
     "image": image.asset->url,
+    "imageDark": imageDark.asset->url,
     badge,
+    "badgeColor": badgeColor.hex,
+    outOfStock,
     description
   }
 `);
 
 const PRODUCT_BY_SLUG_QUERY = defineQuery(`
-  *[_type == "product" && slug.current == $slug][0] {
+  *[_type == "product" && slug.current == $slug && visible != false][0] {
     name,
     "slug": slug.current,
     season,
     "image": image.asset->url,
+    "imageDark": imageDark.asset->url,
     badge,
+    "badgeColor": badgeColor.hex,
+    outOfStock,
     description
   }
 `);
@@ -61,6 +76,23 @@ export async function getAllProducts(): Promise<Product[]> {
   if (!isSanityConfigured) return [];
   const raw = await getClient().fetch<RawProduct[]>(ALL_PRODUCTS_QUERY, {}, { next: { revalidate: 60 } });
   return raw.map(toProduct).filter((p): p is Product => p !== null);
+}
+
+const PRODUCT_SLUGS_QUERY = defineQuery(`
+  *[_type == "product" && visible != false] {
+    "slug": slug.current,
+    "updatedAt": _updatedAt
+  }
+`);
+
+export async function getProductSlugsForSitemap(): Promise<{ slug: string; updatedAt: string }[]> {
+  if (!isSanityConfigured) return [];
+  const raw = await getClient().fetch<{ slug: string | null; updatedAt: string }[]>(
+    PRODUCT_SLUGS_QUERY,
+    {},
+    { next: { revalidate: 60 } }
+  );
+  return raw.filter((r): r is { slug: string; updatedAt: string } => Boolean(r.slug));
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {
