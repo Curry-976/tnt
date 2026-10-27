@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { CollectionGrid } from "@/components/CollectionGrid";
-import { FLOQUAGE_PRICE } from "@/lib/products";
 import { getAllProducts, type ProductSeason } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
@@ -26,7 +25,7 @@ export default async function CollectionPage({
       <div className="page-head">
         <div className="page-eyebrow">Boutique</div>
         <h1 className="page-title">La collection</h1>
-        <p className="page-lede">Une seule team. Nom et numéro pour {FLOQUAGE_PRICE} € de plus.</p>
+        <p className="page-lede">Une seule team. Nom et numéro personnalisés en option.</p>
       </div>
 
       <CollectionGrid initialSeason={initialSeason} initialQuery={initialQuery} products={products} />
@@ -39,7 +38,7 @@ export default async function CollectionPage({
               <span className="sep">/</span>
               <span>Livraison non disponible en DOM TOM</span>
               <span className="sep">/</span>
-              <span>Flocage nom et numéro 5 €</span>
+              <span>Flocage nom et numéro</span>
               <span className="sep">/</span>
               <span>Tissu recyclé 100%</span>
               <span className="sep">/</span>
