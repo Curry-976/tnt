@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FLOQUAGE_PRICE } from "@/lib/products";
 import { getAllProducts } from "@/sanity/lib/queries";
 import { ThemedProductImage } from "@/components/ThemedProductImage";
 import { badgeColorStyle } from "@/lib/badge-colors";
@@ -185,7 +184,7 @@ export default async function HomePage() {
       </div>
 
       <p className="faint" style={{ textAlign: "center", fontSize: 12.5, margin: "16px 0 0" }}>
-        Flocage nom et numéro +{FLOQUAGE_PRICE} € · Livraison France métropolitaine 15 à 20
+        Flocage nom et numéro en option · Livraison France métropolitaine 15 à 20
         jours · non disponible en DOM-TOM pour l’instant
       </p>
     </>

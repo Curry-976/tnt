@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 import { getClient } from "./client";
 import { isSanityConfigured } from "../env";
-import { BASE_PRICE } from "@/lib/products";
+import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
 
 export type ProductSeason = "ete" | "hiver";
 
@@ -11,6 +11,8 @@ export type Product = {
   season: ProductSeason;
   // Euros, whole number. Falls back to BASE_PRICE when left empty in Studio.
   price: number;
+  // Euros, whole number. Falls back to FLOQUAGE_PRICE when left empty.
+  floquagePrice: number;
   image: string;
   imageDark?: string;
   badge?: string;
@@ -24,6 +26,7 @@ type RawProduct = {
   slug: string | null;
   season: ProductSeason | null;
   price: number | null;
+  floquagePrice: number | null;
   image: string | null;
   imageDark: string | null;
   badge: string | null;
@@ -40,6 +43,7 @@ function toProduct(raw: RawProduct): Product | null {
     // Products published before the season field existed default to Été.
     season: raw.season ?? "ete",
     price: raw.price ?? BASE_PRICE,
+    floquagePrice: raw.floquagePrice ?? FLOQUAGE_PRICE,
     image: raw.image,
     imageDark: raw.imageDark ?? undefined,
     badge: raw.badge ?? undefined,
@@ -55,6 +59,7 @@ const ALL_PRODUCTS_QUERY = defineQuery(`
     "slug": slug.current,
     season,
     price,
+    floquagePrice,
     "image": image.asset->url,
     "imageDark": imageDark.asset->url,
     badge,
@@ -70,6 +75,7 @@ const PRODUCT_BY_SLUG_QUERY = defineQuery(`
     "slug": slug.current,
     season,
     price,
+    floquagePrice,
     "image": image.asset->url,
     "imageDark": imageDark.asset->url,
     badge,

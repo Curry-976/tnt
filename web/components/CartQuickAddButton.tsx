@@ -35,7 +35,7 @@ export function CartQuickAddButton({ product }: { product: Product }) {
         e.stopPropagation();
         const card = e.currentTarget.closest(".card");
         flyToCartFromElement(card?.querySelector("img") ?? null, product.image);
-        addItem({ slug: product.slug, name: product.name, image: product.image, price: product.price, size: "M", floque: false, qty: 1 });
+        addItem({ slug: product.slug, name: product.name, image: product.image, price: product.price, floquagePrice: product.floquagePrice, size: "M", floque: false, qty: 1 });
       }}
     >
       {CART_ICON}
