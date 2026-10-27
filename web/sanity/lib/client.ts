@@ -3,7 +3,7 @@ import { apiVersion, dataset, projectId, isSanityConfigured } from "../env";
 
 // Built lazily — constructing the client eagerly throws when projectId is
 // empty, which would break every page that imports this module before
-// Sanity is configured (same pattern as lib/db and lib/stripe).
+// Sanity is configured (same pattern as lib/db and lib/sumup).
 let cached: SanityClient | null = null;
 
 export function getClient(): SanityClient {

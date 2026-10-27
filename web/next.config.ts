@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 // Every directive needed by what this site actually loads in the browser:
 // self-hosted fonts (next/font), Google Analytics (gated behind cookie
-// consent), Cloudflare Turnstile, and next/image's own optimizer. Stripe
-// checkout is a full-page redirect to a Stripe-hosted URL, not an embedded
+// consent), Cloudflare Turnstile, and next/image's own optimizer. SumUp
+// checkout is a full-page redirect to a SumUp-hosted URL, not an embedded
 // script, so it needs no allowance here. Inline styles/scripts stay allowed
 // (`unsafe-inline`) because the app uses plenty of inline `style={}` and a
 // couple of small inline bootstrap scripts (theme init, GA init) — moving to

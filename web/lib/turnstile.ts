@@ -1,5 +1,5 @@
 // Cloudflare Turnstile — optional, same "configured or skipped" pattern as
-// Stripe/Sanity elsewhere in this codebase. Without the two env vars, forms
+// SumUp/Sanity elsewhere in this codebase. Without the two env vars, forms
 // simply don't render the widget and skip verification (relying on the
 // honeypot + rate limit + timing check instead).
 export const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";

@@ -192,7 +192,7 @@ export default function AProposPage() {
         <h3>Article 5 — Commande et paiement</h3>
         <p className="prose">
           La commande se fait en sélectionnant une taille et, le cas échéant, l’option flocage, puis
-          en réglant par carte bancaire via une passerelle de paiement sécurisée (Stripe). Le
+          en réglant par carte bancaire via une passerelle de paiement sécurisée (SumUp). Le
           paiement est débité à la validation de la commande. Un email de confirmation est envoyé
           après paiement.
         </p>
@@ -266,7 +266,7 @@ export default function AProposPage() {
           <li>Contact : nom, email et message envoyés via la page Contact.</li>
           <li>Newsletter : email, uniquement si tu t’inscris volontairement.</li>
           <li>
-            Paiement : géré directement par Stripe, notre prestataire de paiement — on ne
+            Paiement : géré directement par SumUp, notre prestataire de paiement — on ne
             stocke jamais tes coordonnées bancaires sur nos serveurs.
           </li>
         </ul>
@@ -298,7 +298,7 @@ export default function AProposPage() {
         <h3>Destinataires des données</h3>
         <p className="prose">
           Tes données sont partagées uniquement avec les prestataires nécessaires au
-          fonctionnement du site : Stripe (paiement), Brevo (envoi de la newsletter), Google
+          fonctionnement du site : SumUp (paiement), Brevo (envoi de la newsletter), Google
           Analytics (mesure d’audience, si tu l’acceptes), notre hébergeur de base de données et
           notre hébergeur web. Aucune donnée n’est vendue à des tiers.
         </p>

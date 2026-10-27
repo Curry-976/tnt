@@ -24,7 +24,6 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "sanity": "^6.13.2",
-    "stripe": "^22.6.2",
     "styled-components": "^6.5.3",
     "zod": "^4.6.2"
   },
