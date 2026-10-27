@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BASE_PRICE, FLOQUAGE_PRICE } from "@/lib/products";
+import { FLOQUAGE_PRICE } from "@/lib/products";
 import { getAllProducts } from "@/sanity/lib/queries";
 import { ThemedProductImage } from "@/components/ThemedProductImage";
 import { badgeColorStyle } from "@/lib/badge-colors";
@@ -139,7 +139,7 @@ export default async function HomePage() {
               </div>
               <div className="card-name">{product.name}</div>
               <div className="card-row">
-                <span className="price">{BASE_PRICE} €</span>
+                <span className="price">{product.price} €</span>
                 <CartQuickAddButton product={product} />
               </div>
             </Link>
@@ -185,7 +185,7 @@ export default async function HomePage() {
       </div>
 
       <p className="faint" style={{ textAlign: "center", fontSize: 12.5, margin: "16px 0 0" }}>
-        Maillot {BASE_PRICE} € · Flocage nom et numéro +{FLOQUAGE_PRICE} € · Livraison France métropolitaine 15 à 20
+        Flocage nom et numéro +{FLOQUAGE_PRICE} € · Livraison France métropolitaine 15 à 20
         jours · non disponible en DOM-TOM pour l’instant
       </p>
     </>

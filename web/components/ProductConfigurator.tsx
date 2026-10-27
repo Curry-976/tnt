@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
-import { BASE_PRICE, FLOQUAGE_PRICE, SIZES, type Size } from "@/lib/products";
+import { FLOQUAGE_PRICE, SIZES, type Size } from "@/lib/products";
 import type { Product } from "@/sanity/lib/queries";
 import { flyToCartFromElement } from "@/lib/fly-to-cart";
 
@@ -18,7 +18,7 @@ export function ProductConfigurator({ product }: { product: Product }) {
   const [error, setError] = useState<string | null>(null);
   const [justAdded, setJustAdded] = useState(false);
 
-  const unitPrice = BASE_PRICE + (floque ? FLOQUAGE_PRICE : 0);
+  const unitPrice = product.price + (floque ? FLOQUAGE_PRICE : 0);
   const total = useMemo(() => unitPrice * qty, [unitPrice, qty]);
 
   function handleAdd() {
@@ -36,6 +36,7 @@ export function ProductConfigurator({ product }: { product: Product }) {
       slug: product.slug,
       name: product.name,
       image: product.image,
+      price: product.price,
       size,
       floque,
       nom: floque ? nom.trim() : undefined,

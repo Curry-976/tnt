@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BASE_PRICE } from "@/lib/products";
 import { SITE_URL } from "@/lib/site";
 import { getProduct } from "@/sanity/lib/queries";
 import { ProductConfigurator } from "@/components/ProductConfigurator";
@@ -63,7 +62,7 @@ export default async function ProductPage({
       "@type": "Offer",
       url: productUrl,
       priceCurrency: "EUR",
-      price: BASE_PRICE,
+      price: product.price,
       availability: "https://schema.org/InStock",
     },
   };
@@ -90,7 +89,7 @@ export default async function ProductPage({
             {product.name}
           </h1>
           <div className="product-price-row">
-            <span className="price" style={{ fontSize: 22 }}>{BASE_PRICE} €</span>
+            <span className="price" style={{ fontSize: 22 }}>{product.price} €</span>
             <span className="faint">flocage nom + numéro en option</span>
           </div>
           <p className="product-desc">{product.description}</p>

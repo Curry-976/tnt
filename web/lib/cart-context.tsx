@@ -17,6 +17,10 @@ export type CartItem = {
   name: string;
   image: string;
   size: Size;
+  // Jersey price (euros, without flocage) when it was added. Optional because
+  // carts saved before per-product prices existed don't have it. Display
+  // only — the checkout route always recomputes prices from Sanity.
+  price?: number;
   floque: boolean;
   nom?: string;
   numero?: string;
@@ -44,8 +48,8 @@ function makeId(input: AddInput) {
   return [input.slug, input.size, input.floque ? "floque" : "brut", input.nom ?? "", input.numero ?? ""].join("::");
 }
 
-export function itemUnitPrice(item: Pick<CartItem, "floque">) {
-  return BASE_PRICE + (item.floque ? FLOQUAGE_PRICE : 0);
+export function itemUnitPrice(item: Pick<CartItem, "floque" | "price">) {
+  return (item.price ?? BASE_PRICE) + (item.floque ? FLOQUAGE_PRICE : 0);
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {

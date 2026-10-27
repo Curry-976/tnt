@@ -36,6 +36,13 @@ export const product = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "price",
+      title: "Prix (€)",
+      type: "number",
+      description: "Prix du maillot en euros, sans le flocage (ajouté automatiquement). Laisse vide pour le prix par défaut de 35 €.",
+      validation: (rule) => rule.integer().min(1).max(1000),
+    }),
+    defineField({
       name: "season",
       title: "Saison",
       type: "string",
