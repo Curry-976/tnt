@@ -1,0 +1,12 @@
+# Netlify — le site Next.js vit dans web/. Netlify détecte Next.js et installe
+# automatiquement son adaptateur (OpenNext) : pages, routes API, Server
+# Actions et ISR tournent dans des fonctions Node.js. Les variables
+# d'environnement (DATABASE_URL, SUMUP_*, SMTP_*, …) se règlent dans
+# l'interface Netlify, jamais dans ce fichier.
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"

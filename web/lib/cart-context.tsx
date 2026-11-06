@@ -21,6 +21,8 @@ export type CartItem = {
   // carts saved before per-product prices existed don't have it. Display
   // only — the checkout route always recomputes prices from Sanity.
   price?: number;
+  // Same for this jersey's flocage fee.
+  floquagePrice?: number;
   floque: boolean;
   nom?: string;
   numero?: string;
@@ -48,8 +50,8 @@ function makeId(input: AddInput) {
   return [input.slug, input.size, input.floque ? "floque" : "brut", input.nom ?? "", input.numero ?? ""].join("::");
 }
 
-export function itemUnitPrice(item: Pick<CartItem, "floque" | "price">) {
-  return (item.price ?? BASE_PRICE) + (item.floque ? FLOQUAGE_PRICE : 0);
+export function itemUnitPrice(item: Pick<CartItem, "floque" | "price" | "floquagePrice">) {
+  return (item.price ?? BASE_PRICE) + (item.floque ? (item.floquagePrice ?? FLOQUAGE_PRICE) : 0);
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {

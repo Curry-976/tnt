@@ -184,8 +184,8 @@ export default function AProposPage() {
 
         <h3>Article 4 — Prix</h3>
         <p className="prose">
-          Prix indiqués en euros, toutes taxes comprises, sur la fiche de chaque maillot ; option
-          flocage nom et numéro à 5 € supplémentaires. Les frais de livraison, s’il y en a, sont précisés avant la
+          Prix indiqués en euros, toutes taxes comprises, sur la fiche de chaque maillot, de même que le
+          supplément pour l’option flocage nom et numéro. Les frais de livraison, s’il y en a, sont précisés avant la
           validation de la commande.
         </p>
 

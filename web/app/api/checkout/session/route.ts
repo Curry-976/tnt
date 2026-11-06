@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { orders, orderItems } from "@/lib/db/schema";
 import { createHostedCheckout, isSumUpConfigured } from "@/lib/sumup";
-import { FLOQUAGE_PRICE, SIZES } from "@/lib/products";
+import { SIZES } from "@/lib/products";
 import { getProduct, type Product } from "@/sanity/lib/queries";
 import type { CartItem } from "@/lib/cart-context";
 import { isRateLimited, ipFromForwardedFor } from "@/lib/rate-limit";
@@ -81,7 +81,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Ces articles ne sont plus disponibles." }, { status: 400 });
   }
 
-  const unitPrice = (item: CartItem, product: Product) => product.price + (item.floque ? FLOQUAGE_PRICE : 0);
+  const unitPrice = (item: CartItem, product: Product) => product.price + (item.floque ? product.floquagePrice : 0);
   const totalCents = validated.reduce((sum, { item, product }) => sum + unitPrice(item, product) * 100 * item.qty, 0);
 
   const [order] = await db
