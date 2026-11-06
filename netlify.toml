@@ -10,3 +10,10 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Adaptateur Next.js de Netlify (OpenNext). Déclaré explicitement : sans lui,
+# Netlify ne publie que les fichiers statiques de .next, sans la fonction
+# serveur, et toutes les pages répondent « Page not found ». Sa version est
+# fixée dans web/package.json (devDependencies).
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
