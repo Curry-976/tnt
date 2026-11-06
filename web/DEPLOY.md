@@ -1,117 +1,126 @@
-# Déploiement sur le VPS
+# Déploiement sur Netlify
 
-Ce guide suppose un VPS Debian/Ubuntu classique, avec accès root ou sudo.
-Adapte les chemins (`/var/www/torrow-web`) et le nom de domaine à ta config.
+Le site est hébergé sur **Netlify** (offre gratuite, usage commercial
+autorisé). Netlify reconstruit et met en ligne le site **automatiquement à
+chaque modification de la branche `main` sur GitHub** : il n'y a plus de
+serveur à mettre à jour à la main.
 
-## 1. Prérequis sur le VPS
+La configuration de build est dans `netlify.toml`, à la racine du dépôt.
+Netlify y lit que le site est dans `web/` et installe tout seul son
+adaptateur Next.js.
 
-```bash
-# Node.js 22 LTS (adapter si le VPS a déjà une version récente)
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt-get install -y nodejs nginx certbot python3-certbot-nginx git
-```
+Ce qui ne change pas : la base de données (Neon), le catalogue (Sanity), les
+emails (boîte OVH en SMTP), SumUp, Brevo, AfterShip. Ce sont des services
+externes, le site s'y connecte de la même façon.
 
-## 2. Récupérer le code
+## 1. Créer le site sur Netlify
 
-```bash
-sudo mkdir -p /var/www/torrow-web
-sudo chown $USER:$USER /var/www/torrow-web
-git clone <url-du-repo> /var/www/torrow-web
-cd /var/www/torrow-web/web
-```
+1. Crée un compte sur https://app.netlify.com/signup en choisissant
+   **« Sign up with GitHub »**.
+2. **Add new project** → **Import an existing project** → **GitHub** →
+   autorise Netlify puis choisis le dépôt `Curry-976/tnt`.
+3. Netlify lit `netlify.toml` et pré-remplit les réglages (base `web`,
+   commande `npm run build`). Ne change rien.
+4. **Avant de cliquer sur Deploy**, ajoute les variables d'environnement
+   (étape 2). Sinon le premier build échouera ou le site sera incomplet.
 
-## 3. Catalogue produits (Sanity)
+## 2. Variables d'environnement
 
-```bash
-npm ci
-npx sanity@latest init
-```
+Dans **Project configuration → Environment variables**, ajoute les mêmes
+variables que dans `.env.local` (la liste et leur rôle sont dans
+`.env.example`). Le plus simple : **Add a variable → Import from a .env
+file**, puis colle le contenu de ton `.env.local`.
 
-Cette commande est interactive : elle ouvre une page de connexion (crée un
-compte Sanity gratuit si besoin), puis propose de créer un projet. Choisis
-« Create new project », dataset `production`. À la fin elle affiche le
-`project ID` — note-le pour l'étape suivante.
+À vérifier en particulier :
 
-Le catalogue se gère ensuite depuis `https://<ton-domaine>/studio` (formulaire
-d'ajout/édition/suppression de maillots, upload de photos).
+- `NEXT_PUBLIC_SITE_URL=https://tnt-jersey.fr` et `AUTH_URL=https://tnt-jersey.fr`
+  (sans `/` à la fin).
+- `SUMUP_API_KEY` et `SUMUP_MERCHANT_CODE` : tes vraies valeurs.
+- `DATABASE_URL`, `AUTH_SECRET`, `SMTP_*`, `NEXT_PUBLIC_SANITY_*`,
+  `ADMIN_EMAILS`, et les variables optionnelles que tu utilises
+  (Google/Apple, Brevo, AfterShip, Turnstile, Google Analytics).
 
-## 4. Variables d'environnement
+Les variables `NEXT_PUBLIC_*` sont intégrées au moment du build : après en
+avoir modifié une, relance un déploiement (**Deploys → Trigger deploy →
+Deploy project**).
 
-```bash
-cp .env.example .env.local
-nano .env.local   # remplir NEXT_PUBLIC_SANITY_PROJECT_ID, DATABASE_URL, AUTH_SECRET, SUMUP_*, NEXT_PUBLIC_SITE_URL
-```
+## 3. Premier déploiement et test
 
-`NEXT_PUBLIC_SITE_URL` doit être l'URL publique finale (ex.
-`https://tnt-jersey.fr`) — SumUp s'en sert pour le retour
-après paiement et pour notifier le site des paiements.
+Lance le déploiement. Netlify donne une adresse du type
+`https://<nom>.netlify.app`. Vérifie que les pages s'affichent.
 
-## 5. Base de données (une fois DATABASE_URL renseigné)
+Le paiement, la connexion Google et les liens dans les emails pointent vers
+`NEXT_PUBLIC_SITE_URL` (`tnt-jersey.fr`), donc ils ne fonctionneront
+vraiment qu'après l'étape 4.
 
-```bash
-npm run db:push    # crée les tables dans Neon
-```
+## 4. Brancher le nom de domaine
 
-## 6. Build
+1. Dans Netlify : **Domain management → Add a domain** → `tnt-jersey.fr`.
+   Ajoute aussi `www.tnt-jersey.fr`. Netlify recommande de faire de `www` le
+   domaine principal quand le DNS reste chez OVH.
+2. Dans l'espace client OVH : **Noms de domaine → tnt-jersey.fr → Zone DNS** :
+   - modifie l'enregistrement **A** de `tnt-jersey.fr` (celui qui pointe
+     vers l'IP du VPS, `51.210.102.96`) pour qu'il pointe vers
+     **`75.2.60.5`** (le répartiteur de charge de Netlify) ;
+   - **supprime** l'enregistrement **AAAA** de `tnt-jersey.fr` s'il existe
+     (adresse IPv6 du VPS) ;
+   - pour `www`, mets un enregistrement **CNAME** vers
+     **`<nom>.netlify.app.`** (l'adresse donnée par Netlify, avec le point
+     final) et supprime l'ancien enregistrement A/AAAA de `www` s'il y en a un ;
+   - **ne touche pas** aux enregistrements **MX**, **SPF/TXT** et
+     **autoconfig** : ce sont ceux de ta boîte email OVH.
+3. La propagation DNS prend de quelques minutes à 48 h. Netlify active
+   ensuite le HTTPS (certificat Let's Encrypt) tout seul, dans
+   **Domain management → HTTPS**.
 
-```bash
-npm run build
-```
+## 5. Services à mettre à jour
 
-`next start` (lancé à l'étape suivante) sert directement depuis ce dossier
-`web/` — pas de copie manuelle de `public/`, des assets ou de `.env.local`,
-contrairement à un build `standalone`.
+- **Sanity** (https://www.sanity.io/manage → ton projet → API → CORS
+  origins) : `https://tnt-jersey.fr` est déjà autorisé. Ajoute
+  `https://www.tnt-jersey.fr` si `www` devient le domaine principal, et
+  `https://<nom>.netlify.app` pour pouvoir utiliser `/studio` avant le
+  branchement du domaine. Coche **Allow credentials** pour chacun.
+- **Connexion Google** : si `www` devient le domaine principal, ajoute
+  `https://www.tnt-jersey.fr/api/auth/callback/google` dans les URI de
+  redirection autorisées de ton client OAuth, et mets `www` dans
+  `NEXT_PUBLIC_SITE_URL` et `AUTH_URL`.
+- **SumUp** : rien à faire. L'adresse de notification
+  (`/api/webhooks/sumup`) est envoyée avec chaque paiement.
 
-## 7. Lancer le service (systemd)
+## 6. Arrêter le VPS
 
-Un unit file prêt à l'emploi est fourni dans `deploy/torrow-web.service` —
-adapte le chemin (`WorkingDirectory` doit pointer vers `web/`) et le port
-si besoin.
+Une fois le site en ligne sur Netlify **et** une commande test réussie
+(paiement, email de confirmation, commande visible dans `/admin/commandes`) :
 
-```bash
-sudo cp deploy/torrow-web.service /etc/systemd/system/torrow-web.service
-sudo nano /etc/systemd/system/torrow-web.service   # vérifier les chemins
-sudo systemctl daemon-reload
-sudo systemctl enable --now torrow-web
-sudo systemctl status torrow-web
-```
+1. Sauvegarde `.env.local` du VPS sur ton ordinateur (il contient tes clés).
+2. Résilie le VPS dans l'espace client OVH.
 
-## 8. Reverse proxy + HTTPS
-
-```bash
-sudo cp deploy/nginx.conf /etc/nginx/sites-available/torrow-web
-sudo nano /etc/nginx/sites-available/torrow-web   # remplacer le domaine
-sudo ln -s /etc/nginx/sites-available/torrow-web /etc/nginx/sites-enabled/
-sudo nginx -t && sudo systemctl reload nginx
-sudo certbot --nginx --redirect -d tnt-jersey.fr -d www.tnt-jersey.fr
-```
-
-## 9. Paiements SumUp
-
-Rien à configurer côté dashboard : à chaque paiement, le site transmet à SumUp
-l'adresse `https://<ton-domaine>/api/webhooks/sumup`, que SumUp appelle quand
-le statut change. Il suffit que `SUMUP_API_KEY`, `SUMUP_MERCHANT_CODE` et
-`NEXT_PUBLIC_SITE_URL` soient renseignés sur le VPS (le site doit être joignable
-en HTTPS depuis Internet), puis de redémarrer le service :
-
-```bash
-sudo systemctl restart torrow-web
-```
+Les commandes et les comptes clients sont dans Neon, pas sur le VPS : rien
+n'est perdu en le résiliant.
 
 ## Mises à jour ultérieures
 
+Il suffit que la modification arrive sur la branche `main` de GitHub (par
+exemple en fusionnant une pull request) : Netlify redéploie tout seul en
+deux à trois minutes. L'historique est dans **Deploys**. En cas de problème,
+un clic sur un ancien déploiement puis **Publish deploy** remet la version
+précédente en ligne.
+
+## Base de données
+
+Après une modification de `lib/db/schema.ts`, applique-la à Neon depuis ton
+ordinateur, avec `DATABASE_URL` dans `web/.env.local` :
+
 ```bash
-cd /var/www/torrow-web && git pull
-cd web && npm ci && npm run build
-sudo systemctl restart torrow-web
+cd web
+npm ci
+npm run db:push
 ```
 
-`npm ci` ne re-télécharge rien si `package-lock.json` n'a pas changé
-depuis la dernière fois : tu peux l'omettre la plupart du temps et
-lancer juste `npm run build && sudo systemctl restart torrow-web`.
+## Limites de l'offre gratuite
 
-Ou, plus simple, en une seule commande depuis `web/` :
-
-```bash
-bash deploy/update.sh
-```
+L'offre gratuite inclut un quota mensuel de « crédits » (trafic,
+déploiements, exécutions de fonctions), largement suffisant pour une petite
+boutique. Si le quota est dépassé, Netlify **met le site en pause** jusqu'au
+mois suivant : surveille la consommation dans **Billing → Usage** les
+premiers mois.

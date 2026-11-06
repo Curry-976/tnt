@@ -1,10 +1,12 @@
 // In-memory sliding-window rate limiter, keyed by IP + action name.
 //
-// This only works because the app runs as a single long-lived Node process
-// on the VPS (not multiple serverless instances) — the counters live in
-// this module's memory and reset on redeploy, which is an acceptable
-// trade-off for blocking basic spam bots without needing a database table
-// or an external service.
+// On Netlify the app runs in serverless functions, so the counters live in
+// one function instance's memory: they reset when the instance is recycled
+// and aren't shared between instances running in parallel. That still slows
+// down a bot hammering the site from one IP (requests mostly land on a warm
+// instance), and the forms keep their other protections (honeypot, timing
+// check, Turnstile) — an acceptable trade-off versus adding a database table
+// or an external service just for this.
 const buckets = new Map<string, { count: number; windowStart: number }>();
 
 export function isRateLimited(key: string, { limit, windowMs }: { limit: number; windowMs: number }): boolean {
