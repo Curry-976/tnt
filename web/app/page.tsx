@@ -12,8 +12,8 @@ export default async function HomePage() {
     <>
       <div className="hero">
         <div className="hero-bg">
-          <video autoPlay muted loop playsInline poster="/assets/hero-06.jpg">
-            <source src="/assets/hero-video.mp4" type="video/mp4" />
+          <video autoPlay muted loop playsInline poster="/assets/hero-torrow-poster.jpg">
+            <source src="/assets/hero-torrow.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="hero-scrim" />
